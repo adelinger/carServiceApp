@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:weightSum="100.0"
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:textAppearance="?android:textAppearanceLarge" android:gravity="center" android:id="@id/textView1" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="Kreiraj račun " android:layout_weight="20.0" />
-    <Button android:textColor="#ffffffff" android:id="@id/registerButton" android:background="#ffc0392b" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:text="Registracija" android:layout_weight="15.0" />
-    <TextView android:textAppearance="?android:textAppearanceLarge" android:gravity="center" android:id="@id/textView2" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="Ili" android:layout_weight="20.0" />
-    <Button android:textColor="#ffffffff" android:id="@id/loginButton" android:background="#ffc0392b" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:text="Prijava" android:layout_weight="15.0" />
-</LinearLayout>

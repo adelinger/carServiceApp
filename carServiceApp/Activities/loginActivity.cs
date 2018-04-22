@@ -44,12 +44,12 @@ namespace carServiceApp.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.loginlayout);
+            SetContentView(Resource.Layout.login);
 
-            mButtuonSignUp = FindViewById<Button>(Resource.Id.registerButton);
-            buttonSignIn = FindViewById<Button>(Resource.Id.loginButton);
+           // mButtuonSignUp = FindViewById<Button>(Resource.Id);
+            //buttonSignIn = FindViewById<Button>(Resource.Id.loginButton);
             //  progressBar    = FindViewById<ProgressBar>(Resource.Id.progressBar1);
-            activityLogin = FindViewById<LinearLayout>(Resource.Layout.loginLayout);
+            activityLogin = FindViewById<LinearLayout>(Resource.Layout.login);
 
             InitFirebaseAuth();
 

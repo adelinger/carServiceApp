@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+    <TextView
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center"
+        android:id="@id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:text="Kreiraj račun "
+        android:layout_weight="20.0" />
+    <Button
+        android:textColor="#ffffffff"
+        android:id="@id/registerButton"
+        android:background="#ffc0392b"
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_marginLeft="20.0dip"
+        android:layout_marginRight="20.0dip"
+        android:text="Registracija"
+        android:layout_weight="15.0" />
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bpasmater" />
+</LinearLayout>
