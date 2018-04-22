@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "909560725502",
+    "firebase_url": "https://carserviceapp-5132f.firebaseio.com",
+    "project_id": "carserviceapp-5132f",
+    "storage_bucket": "carserviceapp-5132f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909560725502:android:4f4c5f3cd00da486",
+        "android_client_info": {
+          "package_name": "com.antundelinger.carserviceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909560725502-rc7q5qklgvvo4q46u1sl96v6q698o81k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.antundelinger.carserviceapp",
+            "certificate_hash": "b970218491fb0f7cef55fb8b5f655859d7b7daa4"
+          }
+        },
+        {
+          "client_id": "909560725502-64kn4v69kujjnri2tjeonalb87kh3372.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJro0RffLOLQ_xtKOXOoreLHzZoQ7M5y0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909560725502-64kn4v69kujjnri2tjeonalb87kh3372.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

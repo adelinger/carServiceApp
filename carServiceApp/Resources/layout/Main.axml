@@ -3,5 +3,45 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="#FFFFFF">
+    <MediaController
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mediaController1">
+        <ImageView
+            android:src="@drawable/ifvecto_473629"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView1"
+            android:layout_marginTop="30dip" />
+    </MediaController>
+    <Button
+        android:text="Dogovori termin"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF" />
+    <Button
+        android:text="Moji termini"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF" />
+    <Button
+        android:text="Moj auto"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

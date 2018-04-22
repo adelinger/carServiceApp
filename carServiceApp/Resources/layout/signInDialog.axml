@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prijavaEmail"
+        android:hint="Email" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/prijavaPassword"
+        android:hint="Password" />
+    <CheckBox
+        android:text="Zapamti me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBoxZapamtiMe" />
+    <Button
+        android:text="Prijavi se"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/prijavaPrijaviSe"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="40dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip" />
+    <Button
+        android:text="Zaboravili ste lozinku?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/forgotPassword"
+        android:background="#FFFFFF"
+        android:layout_gravity="center" />
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTVime"
+        android:hint="Ime" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTVprezime"
+        android:hint="Prezime" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTVphoneNumber"
+        android:hint="Broj telefona" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTVemail"
+        android:hint="Email" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTVpassword"
+        android:hint="Lozinka"
+        android:password="true" />
+    <Button
+        android:text="Registriraj se!"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonSignUp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="45dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip" />
+</LinearLayout>
