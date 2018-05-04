@@ -21,7 +21,7 @@
         android:text="Dogovori termin"
         android:layout_width="250dip"
         android:layout_height="wrap_content"
-        android:id="@+id/button1"
+        android:id="@+id/dogovoriTermin"
         android:layout_gravity="center"
         android:layout_marginTop="70dip"
         android:background="#c0392b"

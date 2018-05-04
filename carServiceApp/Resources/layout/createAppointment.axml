@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="Vrsta usluge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:gravity="center"
+        android:enabled="false"
+        android:textColor="#000000" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/dropdownType"
+        android:id="@+id/vrstaUsluge" />
+    <TextView
+        android:text="Vrsta posla"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:gravity="center"
+        android:enabled="false"
+        android:textColor="#000000" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/vrstaPosla" />
+    <TextView
+        android:text="Osobni podaci"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:gravity="center"
+        android:enabled="false"
+        android:layout_marginTop="50dip"
+        android:textColor="#000000" />
+    <EditText
+        android:id="@+id/CAinputIme"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Ime"
+        android:layout_marginTop="10dip" />
+    <EditText
+        android:id="@+id/CAinputPrezime"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Prezime" />
+    <EditText
+        android:id="@+id/CAinputBrojTelefona"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Broj telefona" />
+    <EditText
+        android:id="@+id/CAinputEmail"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Email" />
+    <EditText
+        android:id="@+id/CAinputUlicaIBroj"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Ulica i broj" />
+    <EditText
+        android:id="@+id/CAinputMjesto"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Mjesto" />
+    <Button
+        android:text="Dalje"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/CANextButton"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

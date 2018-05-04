@@ -36,6 +36,7 @@ namespace carServiceApp.My_Classes
         private AutoCompleteTextView lastName;
         private AutoCompleteTextView email;
         private AutoCompleteTextView password;
+        private AutoCompleteTextView password2;
         private AutoCompleteTextView phone;
         private Button register;
 
@@ -50,6 +51,7 @@ namespace carServiceApp.My_Classes
             email     = view.FindViewById<AutoCompleteTextView>(Resource.Id.ACTVemail);
             phone     = view.FindViewById<AutoCompleteTextView>(Resource.Id.ACTVphoneNumber);
             password  = view.FindViewById<AutoCompleteTextView>(Resource.Id.ACTVpassword);
+            password2 = view.FindViewById<AutoCompleteTextView>(Resource.Id.ACTVpassword2);
             register  = view.FindViewById<Button>(Resource.Id.buttonSignUp);
             register.Click += Register_Click;
 
@@ -58,6 +60,17 @@ namespace carServiceApp.My_Classes
 
         private void Register_Click(object sender, EventArgs e)
         {
+            if (email.Text == "" || password.Text == "" || firstName.Text == "" || lastName.Text == "" || phone.Text == "")
+            {
+                Toast.MakeText(View.Context, "Sva polja moraju biti ispunjena.", ToastLength.Long).Show();
+                return;
+            }
+            if (password.Text != password2.Text)
+            {
+                Toast.MakeText(View.Context, "Lozinke se ne podudaraju", ToastLength.Long).Show();
+                return;
+            }
+           
             onSignUpComplete.Invoke(this, new onSignUpEventArgs(firstName.Text, lastName.Text, email.Text, phone.Text, password.Text));
             this.Dismiss();
         }
@@ -66,7 +79,7 @@ namespace carServiceApp.My_Classes
         {
             Dialog.Window.RequestFeature(WindowFeatures.NoTitle);
             base.OnActivityCreated(savedInstanceState);
-            Dialog.Window.Attributes.WindowAnimations = Resource.Style.dialog_animation;
+           
         }
     }
 }

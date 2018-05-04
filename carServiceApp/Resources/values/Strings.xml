@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">carServiceApp</string>
+
+  <string-array name="dropdownType">
+    <item> Odaberite stavku </item>
+  </string-array>
+
 </resources>

@@ -29,6 +29,12 @@
         android:id="@+id/ACTVpassword"
         android:hint="Lozinka"
         android:password="true" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTVpassword2"
+        android:hint="Ponovno unesite lozinku"
+        android:password="true" />
     <Button
         android:text="Registriraj se!"
         android:layout_width="250dip"
