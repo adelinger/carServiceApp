@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
-using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using carServiceApp.My_Classes;
 using Firebase;
-using Firebase.Database;
 using Firebase.Auth;
-using Java.Lang;
-using static Android.Views.View;
 using Firebase.Xamarin.Database;
-using static Java.Util.Locale;
 using Firebase.Xamarin.Database.Query;
+using Newtonsoft.Json;
 
 namespace carServiceApp.Activities
 {
@@ -65,14 +55,27 @@ namespace carServiceApp.Activities
             
             InitFirebaseAuth();   
 
-            rememberIfIsChecked();
-
 
             mButtuonSignUp.Click += MButtuonSignUp_Click;
             buttonSignIn.Click += ButtonSignIn_Click;
 
-            FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
-            if (login_rememberMe)
+           FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
+            List<string> userDetails = new List<string>();
+            
+            if (user != null)
+            {
+                var firebase = new FirebaseClient(FirebaseURL);
+                FirebaseUser thisUser = FirebaseAuth.GetInstance(app).CurrentUser;
+                id = thisUser.Uid;
+                var items = await firebase.Child("users").Child(id).OnceAsync<Account>();
+
+                foreach (var item in items)
+                {
+
+                   // login_rememberMe = item.Object[5].to;
+                }
+            }
+            if (!login_rememberMe)
             {
                 if (user != null)
                 {
@@ -80,6 +83,8 @@ namespace carServiceApp.Activities
                     StartActivity(intent);
                 }
             }
+           
+
         }
 
         private void InitFirebaseAuth()
@@ -105,8 +110,7 @@ namespace carServiceApp.Activities
             login_inputPassword = e.password;
             login_rememberMe = e.zapamtiMe;
 
-            auth.SignInWithEmailAndPassword(login_inputMail, login_inputPassword).AddOnSuccessListener(this, this).AddOnFailureListener(this, this);
-            updateUser(login_rememberMe);
+            auth.SignInWithEmailAndPassword(login_inputMail, login_inputPassword).AddOnSuccessListener(this, this).AddOnFailureListener(this, this);          
             progressBar.Visibility = ViewStates.Visible;
         }
 
@@ -157,7 +161,7 @@ namespace carServiceApp.Activities
             user.uid = id;
             user.name = signup_inputName;
             user.lastName = signup_inputLastName;
-            user.Email = signup_inputEmail;
+            user.email = signup_inputEmail;
             user.phone = signup_inputPhoneNumber;
             user.rememberMe = false;
 
@@ -168,11 +172,13 @@ namespace carServiceApp.Activities
         }
         private async void updateUser (bool rememberMe)
         {
+            FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
+            id = user.Uid;
             var firebase = new FirebaseClient(FirebaseURL);
             await firebase.Child("users").Child(id).Child("rememberMe").PutAsync(rememberMe);
 
         }
-        private async void rememberIfIsChecked ()
+        private async void checkIfRememberMeIsChecked ()
         {
             var firebase = new FirebaseClient(FirebaseURL);
             FirebaseUser thisUser = FirebaseAuth.GetInstance(app).CurrentUser;
@@ -186,11 +192,14 @@ namespace carServiceApp.Activities
                user.rememberMe = item.Object.rememberMe;
                login_rememberMe = user.rememberMe;
             }
+            
         }
+
 
 
         public void OnSuccess(Java.Lang.Object result)
         {
+            updateUser(login_rememberMe);
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
         }

@@ -15,6 +15,7 @@ using Firebase.Database;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
 using Java.Util;
+using Newtonsoft.Json;
 
 namespace carServiceApp.Activities
 {
@@ -83,22 +84,23 @@ namespace carServiceApp.Activities
             id = users.Uid;
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
-            var items = await firebase.Child("users").Child(id).OnceAsync<Account>();
 
+            var items = await firebase.Child("users").Child(id).OnceAsync<Account>();
 
             foreach (var item in items)
             {
                 Account user = new Account();
+             
                 user.uid = item.Object.uid;
                 user.name = item.Object.name;
                 user.lastName = item.Object.lastName;
                 user.phone = item.Object.phone;
-                user.Email = item.Object.Email;
+                user.email = item.Object.email;
 
                 userInput_ime.Text = user.name;
                 userInput_prezime.Text = user.lastName;
                 userInput_broj.Text = user.phone;
-                userInput_email.Text = user.Email;
+                userInput_email.Text = user.email;
             }
 
         }
