@@ -64,6 +64,7 @@ namespace carServiceApp.Activities
             InitFirebaseAuth();
             updateServices();
 
+            con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
 
             mButtuonSignUp.Click += MButtuonSignUp_Click;
