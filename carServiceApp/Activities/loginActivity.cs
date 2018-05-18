@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
@@ -227,28 +228,20 @@ namespace carServiceApp.Activities
                 uid = item.uid;
             }
 
-            if (uid == id)
-            {
-                con.db.Execute("UPDATE User SET rememberMe = '" + boolValue + "' WHERE uid = '" + id + "' ");
-            }
-          
             var data = await firebase.Child("users").Child(id).OnceAsync<Account>();
             foreach (var item in data)
             {
-                user.name     = item.Object.name;
+                user.name = item.Object.name;
                 user.lastName = item.Object.lastName;
-                user.phone    = item.Object.phone;
-                user.email    = item.Object.email;
-                user.city     = item.Object.city;
-                user.adress   = item.Object.adress;
+                user.phone = item.Object.phone;
+                user.email = item.Object.email;
+                user.city = item.Object.city;
+                user.adress = item.Object.adress;
             }
 
-            if (uid == id)
-            con.db.Execute("UPDATE User SET name = '"+user.name+"', lastName = '"+user.lastName+"', phone = '"+user.phone+"', " +
-                "email = '"+user.email+"', city = '"+user.city+"', adress = '"+user.adress+"' WHERE uid = '"+id+"' ");
-            else
+            if (uid != id)
             {
-                User newUser     = new User();
+                User newUser = new User();
                 newUser.name     = user.name;
                 newUser.lastName = user.lastName;
                 newUser.phone    = user.phone;
@@ -258,6 +251,13 @@ namespace carServiceApp.Activities
                 newUser.uid      = id;
                 con.db.Insert(newUser);
             }
+            
+            con.db.Execute("UPDATE User SET rememberMe = '" + boolValue + "' WHERE uid = '" + id + "' ");
+                       
+            
+            con.db.Execute("UPDATE User SET name = '"+user.name+"', lastName = '"+user.lastName+"', phone = '"+user.phone+"', " +
+                "email = '"+user.email+"', city = '"+user.city+"', adress = '"+user.adress+"' WHERE uid = '"+id+"' ");
+            Thread.Sleep(3000);
         }
         private void checkIfRememberMeIsChecked ()
         {

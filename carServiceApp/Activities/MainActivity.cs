@@ -47,7 +47,7 @@ namespace carServiceApp
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
             getUserInfo();
-            createAppointment.updateUser();
+            
             
             this.Title = userName + " " + userLastName;
 
