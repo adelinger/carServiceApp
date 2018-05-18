@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
+using Android.Net;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using carServiceApp.My_Classes;
+using carServiceApp.My_Classes.Database;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Xamarin.Database;
@@ -33,11 +35,17 @@ namespace carServiceApp.Activities
         private string login_inputPassword;
         private static bool login_rememberMe;
 
+        public List<string> listOfServices = new List<string>();
+
         public static FirebaseApp app;
         private string id;
+        private string key;
         public const string FirebaseURL = "https://carserviceapp-5132f.firebaseio.com/";
         FirebaseAuth auth;
 
+        createAppointment createAppointment = new createAppointment();
+        connection con = new connection();
+        
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -53,38 +61,32 @@ namespace carServiceApp.Activities
 
             progressBar.Visibility = ViewStates.Invisible;
             
-            InitFirebaseAuth();   
-
+            InitFirebaseAuth();
+            updateServices();
+            con.db.CreateTable<carDetailsSQL>();
 
             mButtuonSignUp.Click += MButtuonSignUp_Click;
             buttonSignIn.Click += ButtonSignIn_Click;
 
-           FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
-            List<string> userDetails = new List<string>();
-            
+            FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
+
             if (user != null)
             {
-                var firebase = new FirebaseClient(FirebaseURL);
-                FirebaseUser thisUser = FirebaseAuth.GetInstance(app).CurrentUser;
-                id = thisUser.Uid;
-                var items = await firebase.Child("users").Child(id).OnceAsync<Account>();
-
-                foreach (var item in items)
-                {
-
-                   // login_rememberMe = item.Object[5].to;
-                }
+                checkIfRememberMeIsChecked();                
             }
-            if (!login_rememberMe)
+            if (login_rememberMe && user != null && IsOnline())
             {
-                if (user != null)
-                {
-                    Intent intent = new Intent(this, typeof(MainActivity));
-                    StartActivity(intent);
-                }
+                createAppointment.updateUser();
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
             }
            
+        }
 
+        public bool IsOnline()
+        {
+            var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
+            return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
         }
 
         private void InitFirebaseAuth()
@@ -130,7 +132,8 @@ namespace carServiceApp.Activities
             signup_inputEmail       = e.email;
             signup_inputPassword    = e.password;
 
-            auth.CreateUserWithEmailAndPassword(signup_inputEmail, signup_inputPassword).AddOnCompleteListener(this, this);
+           auth.CreateUserWithEmailAndPassword(signup_inputEmail, signup_inputPassword).AddOnCompleteListener(this, this);
+   
             progressBar.Visibility = ViewStates.Visible;
 
         }
@@ -143,6 +146,8 @@ namespace carServiceApp.Activities
 
                 FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
                 id = user.Uid;
+                 
+
                 CreateUser();
 
                 buttonSignIn.PerformClick();
@@ -157,45 +162,88 @@ namespace carServiceApp.Activities
 
         private async void CreateUser ()
         {
+            User OfflineUser = new User();
+            OfflineUser.uid      = id;
+            OfflineUser.name     = signup_inputName;
+            OfflineUser.lastName = signup_inputLastName;
+            OfflineUser.email    = signup_inputEmail;
+            OfflineUser.phone    = signup_inputPhoneNumber;
+
             Account user = new Account();
-            user.uid = id;
-            user.name = signup_inputName;
+            user.uid      = id;
+            user.name     = signup_inputName;
             user.lastName = signup_inputLastName;
-            user.email = signup_inputEmail;
-            user.phone = signup_inputPhoneNumber;
-            user.rememberMe = false;
+            user.email    = signup_inputEmail;
+            user.phone    = signup_inputPhoneNumber;
+            user.city     = "";
+            user.adress   = "";
 
-            var firebase = new FirebaseClient(FirebaseURL);
+            con.db.CreateTable<User>(); //creating table in offline database
+            con.db.Insert(OfflineUser);  //inserting into offline database
 
-            var item = firebase.Child("users").Child(id).PutAsync<Account>(user);
+            var firebase = new FirebaseClient(FirebaseURL); 
+
+            var item = firebase.Child("users").Child(id).PostAsync<Account>(user);  //inserting into online database
           
-        }
-        private async void updateUser (bool rememberMe)
-        {
-            FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
-            id = user.Uid;
-            var firebase = new FirebaseClient(FirebaseURL);
-            await firebase.Child("users").Child(id).Child("rememberMe").PutAsync(rememberMe);
+        }  
 
-        }
-        private async void checkIfRememberMeIsChecked ()
-        {
+        private async void updateServices ()
+        {                
             var firebase = new FirebaseClient(FirebaseURL);
-            FirebaseUser thisUser = FirebaseAuth.GetInstance(app).CurrentUser;
-            id = thisUser.Uid;
-            var items = await firebase.Child("users").OnceAsync<Account>();
+            var items = await firebase.Child("services").OnceAsync<services>();
+            var itemsU = await firebase.Child("usluge").Child("Automehaničarske usluge").OnceAsync<usluge>();
+
+            con.db.CreateTable<services>();
+            con.db.DropTable<uslugeSQL>();
+            con.db.CreateTable<uslugeSQL>();
 
             foreach (var item in items)
             {
-                Account user = new Account();
-               
-               user.rememberMe = item.Object.rememberMe;
-               login_rememberMe = user.rememberMe;
+                con.db.Execute("INSERT OR IGNORE INTO services (name) VALUES ( '" + item.Object.name + "') ");
+                
+            }
+            foreach (var item in itemsU)
+            {
+                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'automehaničarske usluge') ");
             }
             
         }
 
+        private async void updateUser (bool rememberMe)
+        {
+            int boolValue = 0;
+            if (rememberMe == true) boolValue  = 1;
+            User user = new User();
 
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            FirebaseUser CurrentUser = FirebaseAuth.GetInstance(app).CurrentUser;
+            id = CurrentUser.Uid;
+            con.db.Execute("UPDATE User SET rememberMe = '"+boolValue+"' WHERE uid = '"+id+"' ");
+
+            var data = await firebase.Child("users").Child(id).OnceAsync<Account>();
+            foreach (var item in data)
+            {
+                user.name     = item.Object.name;
+                user.lastName = item.Object.lastName;
+                user.phone    = item.Object.phone;
+                user.email    = item.Object.email;
+                user.city     = item.Object.city;
+                user.adress   = item.Object.adress;
+            }
+
+            con.db.Execute("UPDATE User SET name = '"+user.name+"', lastName = '"+user.lastName+"', phone = '"+user.phone+"', " +
+                "email = '"+user.email+"', city = '"+user.city+"', adress = '"+user.adress+"' WHERE uid = '"+id+"' ");
+        }
+        private void checkIfRememberMeIsChecked ()
+        {
+            FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
+            id = user.Uid;
+            List<User> getIfChecked = con.db.Query<User>("SELECT * FROM User WHERE uid = '"+id+"' ");
+            foreach (var item in getIfChecked)
+            {
+                login_rememberMe = item.rememberMe;
+            }
+        }
 
         public void OnSuccess(Java.Lang.Object result)
         {

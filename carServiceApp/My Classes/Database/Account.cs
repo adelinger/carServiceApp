@@ -22,24 +22,14 @@ namespace carServiceApp.My_Classes
    
    public class Account
     {
-        [JsonProperty ("uid"), JsonIgnore]
         public string uid      { get; set; }
-        [JsonProperty("name")]
         public string name     { get; set; }
-        [JsonProperty("lastName")]
         public string lastName { get; set; }
-        [JsonProperty("email")]
         public string email    { get; set; }
-        [JsonProperty("phone")]
         public string phone    { get; set; }
-        [JsonProperty("rememberMe")]
-        public bool rememberMe { get; set; }
-
-        public Account()
-        {
-
-        }
-
+        public string city     { get; set; }
+        public string adress   { get; set; }
     }
- 
+
+   
 }

@@ -49,21 +49,25 @@
         android:id="@+id/CDzapremninaMotora"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="Zapremnina motora cm3"
+        android:hint="Zapremnina motora (cm3)"
         android:layout_marginTop="10dip" />
     <EditText
         android:id="@+id/CDsnagaMotora"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="Snaga motora kW"
+        android:hint="Snaga motora (kW)"
         android:layout_marginTop="10dip" />
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarCD"
+        android:visibility="invisible" />
     <Button
-        android:text="Dalje"
+        android:text="Spremi"
         android:layout_width="250dip"
         android:layout_height="wrap_content"
-        android:id="@+id/nextToOrder"
+        android:id="@+id/saveCar"
         android:layout_gravity="center"
-        android:layout_marginTop="40dip"
         android:background="#c0392b"
         android:textColor="#FFFFFF" />
 </LinearLayout>

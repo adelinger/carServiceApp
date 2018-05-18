@@ -15,6 +15,7 @@ using Firebase.Xamarin.Database;
 using static carServiceApp.MainActivity;
 using System.Threading.Tasks;
 using Firebase;
+using Firebase.Xamarin.Database.Query;
 
 namespace carServiceApp
 {
@@ -23,13 +24,17 @@ namespace carServiceApp
     public class MainActivity : Activity
     {
         private Button dogovoriSastanak;
+        private Button mojAuto;
         public string userName;
 
         private static FirebaseApp app;
         private FirebaseAuth auth;
         private string id;
+        private string userLastName;
+
+        connection con = new connection();
      
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
            
@@ -37,12 +42,22 @@ namespace carServiceApp
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             dogovoriSastanak = FindViewById<Button>(Resource.Id.dogovoriTermin);
+            mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
+            getUserInfo();
+            this.Title = userName + " " + userLastName;
 
             dogovoriSastanak.Click += DogovoriSastanak_Click;
-
+            mojAuto.Click += MojAuto_Click;
            
+        }
+
+        private void MojAuto_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            chooseCar chooseCar = new chooseCar();
+            chooseCar.Show(transaction, "dialog fragment");
         }
 
         private void DogovoriSastanak_Click(object sender, System.EventArgs e)
@@ -51,12 +66,25 @@ namespace carServiceApp
             StartActivity(intent);
         }
 
+        public void getUserInfo ()
+        {
+            FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
+            id = users.Uid;
+            List<User> data = con.db.Query<User>("SELECT * FROM User WHERE uid = '" + id + "' ");
+            foreach (var item in data)
+            {
+                userName = item.name;
+                userLastName = item.lastName;
+            }
+        }
+
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.actionbar_main, menu);
             return base.OnCreateOptionsMenu(menu);
         }
+
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             int id = item.ItemId;

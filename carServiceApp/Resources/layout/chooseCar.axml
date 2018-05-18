@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="150dip"
+        android:id="@+id/carList"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip" />
+    <Button
+        android:text="Dodaj novi auto"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/addNewCar"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:drawableRight="@drawable/ificonios7plusoutline211802"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="30dip"
+        android:layout_marginBottom="20dip" />
+</LinearLayout>
