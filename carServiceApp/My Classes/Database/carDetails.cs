@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace carServiceApp.My_Classes.Database
 {
-    class carDetails
+    class CarDetails
     {
         public string uid              { get; set; }
         public string markaVozila      { get; set; }

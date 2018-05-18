@@ -7,7 +7,7 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="150dip"
+        android:layout_height="200dip"
         android:id="@+id/carList"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip" />

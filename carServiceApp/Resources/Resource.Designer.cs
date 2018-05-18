@@ -2508,26 +2508,29 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a00a6
 			public const int CAinputUlicaIBroj = 2131361958;
 			
-			// aapt resource value: 0x7f0a0094
-			public const int CDTipVozila = 2131361940;
-			
-			// aapt resource value: 0x7f0a0096
-			public const int CDgodiste = 2131361942;
-			
-			// aapt resource value: 0x7f0a0093
-			public const int CDmarkaVozila = 2131361939;
-			
 			// aapt resource value: 0x7f0a0095
-			public const int CDmodelVozila = 2131361941;
-			
-			// aapt resource value: 0x7f0a0099
-			public const int CDsnagaMotora = 2131361945;
+			public const int CDTipVozila = 2131361941;
 			
 			// aapt resource value: 0x7f0a0097
-			public const int CDvrstaGoriva = 2131361943;
+			public const int CDgodiste = 2131361943;
+			
+			// aapt resource value: 0x7f0a0093
+			public const int CDimeVozila = 2131361939;
+			
+			// aapt resource value: 0x7f0a0094
+			public const int CDmarkaVozila = 2131361940;
+			
+			// aapt resource value: 0x7f0a0096
+			public const int CDmodelVozila = 2131361942;
+			
+			// aapt resource value: 0x7f0a009a
+			public const int CDsnagaMotora = 2131361946;
 			
 			// aapt resource value: 0x7f0a0098
-			public const int CDzapremninaMotora = 2131361944;
+			public const int CDvrstaGoriva = 2131361944;
+			
+			// aapt resource value: 0x7f0a0099
+			public const int CDzapremninaMotora = 2131361945;
 			
 			// aapt resource value: 0x7f0a003b
 			public const int CTRL = 2131361851;
@@ -2900,9 +2903,6 @@ namespace carServiceApp
 			
 			// aapt resource value: 0x7f0a00bf
 			public const int progressBar1 = 2131361983;
-			
-			// aapt resource value: 0x7f0a009a
-			public const int progressBarCD = 2131361946;
 			
 			// aapt resource value: 0x7f0a0006
 			public const int progress_circular = 2131361798;

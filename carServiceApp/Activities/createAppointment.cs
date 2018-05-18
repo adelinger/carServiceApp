@@ -159,6 +159,7 @@ namespace carServiceApp.Activities
         public async void updateUser()
         {        
             User user = new User();
+            CarDetails car = new CarDetails();
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
@@ -176,7 +177,9 @@ namespace carServiceApp.Activities
 
             con.db.Execute("UPDATE User SET name = '" + user.name + "', lastName = '" + user.lastName + "', phone = '" + user.phone + "', " +
                 "email = '" + user.email + "', city = '" + user.city + "', adress = '" + user.adress + "' WHERE uid = '" + id + "' ");
+       
         }
+       
 
     }
 

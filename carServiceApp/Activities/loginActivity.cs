@@ -63,6 +63,7 @@ namespace carServiceApp.Activities
             
             InitFirebaseAuth();
             updateServices();
+
             con.db.CreateTable<carDetailsSQL>();
 
             mButtuonSignUp.Click += MButtuonSignUp_Click;
@@ -209,17 +210,28 @@ namespace carServiceApp.Activities
             
         }
 
-        private async void updateUser (bool rememberMe)
+        private async void updateUser(bool rememberMe)
         {
             int boolValue = 0;
-            if (rememberMe == true) boolValue  = 1;
+            string uid = "";
+            if (rememberMe == true) boolValue = 1;
             User user = new User();
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
             FirebaseUser CurrentUser = FirebaseAuth.GetInstance(app).CurrentUser;
             id = CurrentUser.Uid;
-            con.db.Execute("UPDATE User SET rememberMe = '"+boolValue+"' WHERE uid = '"+id+"' ");
 
+            List<User> getUser = con.db.Query<User>("SELECT * FROM User WHERE uid = '" + id + "' ");
+            foreach (var item in getUser)
+            {
+                uid = item.uid;
+            }
+
+            if (uid == id)
+            {
+                con.db.Execute("UPDATE User SET rememberMe = '" + boolValue + "' WHERE uid = '" + id + "' ");
+            }
+          
             var data = await firebase.Child("users").Child(id).OnceAsync<Account>();
             foreach (var item in data)
             {
@@ -231,8 +243,21 @@ namespace carServiceApp.Activities
                 user.adress   = item.Object.adress;
             }
 
+            if (uid == id)
             con.db.Execute("UPDATE User SET name = '"+user.name+"', lastName = '"+user.lastName+"', phone = '"+user.phone+"', " +
                 "email = '"+user.email+"', city = '"+user.city+"', adress = '"+user.adress+"' WHERE uid = '"+id+"' ");
+            else
+            {
+                User newUser     = new User();
+                newUser.name     = user.name;
+                newUser.lastName = user.lastName;
+                newUser.phone    = user.phone;
+                newUser.email    = user.email;
+                newUser.city     = user.city;
+                newUser.adress   = user.adress;
+                newUser.uid      = id;
+                con.db.Insert(newUser);
+            }
         }
         private void checkIfRememberMeIsChecked ()
         {

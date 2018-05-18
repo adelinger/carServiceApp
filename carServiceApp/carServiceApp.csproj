@@ -178,7 +178,7 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\mojAuto.cs" />
     <Compile Include="My Classes\chooseCar.cs" />
-    <Compile Include="My Classes\Database\carDetails.cs" />
+    <Compile Include="My Classes\Database\CarDetails.cs" />
     <Compile Include="My Classes\Database\carDetailsSQL.cs" />
     <Compile Include="My Classes\Database\connection.cs" />
     <Compile Include="My Classes\Database\uslugeSQL.cs" />

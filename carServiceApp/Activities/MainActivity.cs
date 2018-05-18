@@ -33,6 +33,7 @@ namespace carServiceApp
         private string userLastName;
 
         connection con = new connection();
+        createAppointment createAppointment = new createAppointment();
      
         protected override async void OnCreate(Bundle savedInstanceState)
         {
@@ -46,6 +47,8 @@ namespace carServiceApp
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
             getUserInfo();
+            createAppointment.updateUser();
+            
             this.Title = userName + " " + userLastName;
 
             dogovoriSastanak.Click += DogovoriSastanak_Click;

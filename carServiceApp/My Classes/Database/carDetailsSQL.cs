@@ -17,6 +17,8 @@ namespace carServiceApp.My_Classes.Database
     {
         [PrimaryKey, AutoIncrement]
         public int    id               { get; set; }
+        [Unique]
+        public string carName          { get; set; }
         public string markaVozila      { get; set; }
         public string tipVozila        { get; set; }
         public string modelVozila      { get; set; }
