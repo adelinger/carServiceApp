@@ -62,8 +62,6 @@ namespace carServiceApp.Activities
         private void SaveCar_Click(object sender, EventArgs e)
         {
             addCarInfo();
-            chooseCar chooseCar = new chooseCar();
-            chooseCar.getCars();
             OnBackPressed();
         }
 
