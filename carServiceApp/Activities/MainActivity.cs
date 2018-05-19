@@ -46,10 +46,17 @@ namespace carServiceApp
             mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
-            getUserInfo();
+            getUserInfo();            
             
-            
-            this.Title = userName + " " + userLastName;
+            if (userName != null)
+            {
+                this.Title = userName + " " + userLastName;
+            }
+            else
+            {
+               await getUserInfoOnline();
+                this.Title = userName;
+            }
 
             dogovoriSastanak.Click += DogovoriSastanak_Click;
             mojAuto.Click += MojAuto_Click;
@@ -78,6 +85,15 @@ namespace carServiceApp
             {
                 userName = item.name;
                 userLastName = item.lastName;
+            }
+        }
+       public async Task getUserInfoOnline()
+        {
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            var data = await firebase.Child("users").Child(id).OnceAsync<Account>();
+            foreach (var item in data)
+            {
+                userName = item.Object.name + " " + item.Object.lastName;
             }
         }
 

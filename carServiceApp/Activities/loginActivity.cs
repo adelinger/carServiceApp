@@ -37,6 +37,7 @@ namespace carServiceApp.Activities
         private static bool login_rememberMe;
 
         public List<string> listOfServices = new List<string>();
+        public string name;
 
         public static FirebaseApp app;
         private string id;
@@ -46,7 +47,8 @@ namespace carServiceApp.Activities
 
         createAppointment createAppointment = new createAppointment();
         connection con = new connection();
-        
+      
+
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -65,6 +67,7 @@ namespace carServiceApp.Activities
             InitFirebaseAuth();
             updateServices();
 
+            con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
 
             mButtuonSignUp.Click += MButtuonSignUp_Click;
@@ -136,7 +139,7 @@ namespace carServiceApp.Activities
 
            auth.CreateUserWithEmailAndPassword(signup_inputEmail, signup_inputPassword).AddOnCompleteListener(this, this);
    
-            progressBar.Visibility = ViewStates.Visible;
+           progressBar.Visibility = ViewStates.Visible;
 
         }
 
@@ -226,7 +229,7 @@ namespace carServiceApp.Activities
             foreach (var item in getUser)
             {
                 uid = item.uid;
-            }
+            } 
 
             var data = await firebase.Child("users").Child(id).OnceAsync<Account>();
             foreach (var item in data)
@@ -239,7 +242,7 @@ namespace carServiceApp.Activities
                 user.adress = item.Object.adress;
             }
 
-            if (uid != id)
+            if (uid == "")
             {
                 User newUser = new User();
                 newUser.name     = user.name;
@@ -257,8 +260,10 @@ namespace carServiceApp.Activities
             
             con.db.Execute("UPDATE User SET name = '"+user.name+"', lastName = '"+user.lastName+"', phone = '"+user.phone+"', " +
                 "email = '"+user.email+"', city = '"+user.city+"', adress = '"+user.adress+"' WHERE uid = '"+id+"' ");
-            Thread.Sleep(3000);
+
+            
         }
+
         private void checkIfRememberMeIsChecked ()
         {
             FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
@@ -280,6 +285,7 @@ namespace carServiceApp.Activities
         public void OnFailure(Java.Lang.Exception e)
         {
             Toast.MakeText(this, "Netočan email/password!", ToastLength.Short).Show();
+            buttonSignIn.PerformClick();
             progressBar.Visibility = ViewStates.Invisible;
         }
 
