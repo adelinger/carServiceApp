@@ -100,7 +100,7 @@ namespace carServiceApp.Activities
             {
                 con.db.Insert(CarDetails);
                 var firebase = new FirebaseClient(FirebaseURL);
-                var item = firebase.Child("car").Child(id).PostAsync(CarDetailsFB);
+                var item = firebase.Child("car").Child(carName.Text).PostAsync(CarDetailsFB);
             }
             catch (System.Exception)
             {
