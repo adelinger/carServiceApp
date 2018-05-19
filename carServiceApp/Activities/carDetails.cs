@@ -39,7 +39,7 @@ namespace carServiceApp.Activities
 
         createAppointment createAppointment = new createAppointment();
         connection con = new connection();
-        protected override async void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.carDetails);
@@ -59,17 +59,15 @@ namespace carServiceApp.Activities
 
         }
 
-        private async void SaveCar_Click(object sender, EventArgs e)
+        private void SaveCar_Click(object sender, EventArgs e)
         {
-            await addCarInfo();
-            OnBackPressed();
-
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            addCarInfo();
             chooseCar chooseCar = new chooseCar();
-            chooseCar.Show(transaction, "dialog fragment");
+            chooseCar.getCars();
+            OnBackPressed();
         }
 
-        private async Task addCarInfo()
+        private void addCarInfo()
         {
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
@@ -100,11 +98,11 @@ namespace carServiceApp.Activities
             {
                 con.db.Insert(CarDetails);
                 var firebase = new FirebaseClient(FirebaseURL);
-                var item = firebase.Child("car").Child(carName.Text).PostAsync(CarDetailsFB);
+                var item = firebase.Child("car").Child(id).Child(carName.Text).PutAsync(CarDetailsFB);
             }
             catch (System.Exception)
             {
-                Toast.MakeText(this, "Neuspješno", ToastLength.Long).Show();
+                Toast.MakeText(this, "Neuspješno.", ToastLength.Long).Show();
             }
 
             Toast.MakeText(this, "Uspješno ste dodali automobil", ToastLength.Long).Show();

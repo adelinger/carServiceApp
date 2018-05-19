@@ -19,10 +19,10 @@ namespace carServiceApp.My_Classes
 {
     class chooseCar :DialogFragment
     {
-        private View view;
-        private ListView carList;
+        public View view;
+        public ListView carList;
         private Button addNewCar;
-        private List<string> carsFromDB = new List<string>();
+        public List<string> carsFromDB = new List<string>();
 
         const string firebaseURL = loginActivity.FirebaseURL;
 
@@ -61,19 +61,26 @@ namespace carServiceApp.My_Classes
             {
                 string selected = carList.GetItemAtPosition(e.Position).ToString();
                 var firebase = new FirebaseClient(firebaseURL);
-                
+                var data = firebase.Child("car").Child(id).Child(selected).DeleteAsync();
+
+                con.db.Execute("DELETE from carDetailsSQL WHERE carName = '" + selected + "' ");
+                Toast.MakeText(view.Context , selected, ToastLength.Long).Show();
+                getCars();
                
             });
             dialog.SetNegativeButton("Odustani", (senderAlert, args) =>
             {
                 dialog.Dispose();
             });
+            Dialog alertDialog = dialog.Create();
+            alertDialog.Show();
         }
 
         private void AddNewCar_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(view.Context,typeof(carDetails));
+            Intent intent = new Intent(view.Context, typeof(carDetails));
             StartActivity(intent);
+            view.Context.Dispose();
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -87,10 +94,10 @@ namespace carServiceApp.My_Classes
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
 
-            List<carDetailsSQL> getCarsData = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL");
+            List<carDetailsSQL> getCarsData = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL WHERE uid = '"+id+"' ");
             foreach (var item in getCarsData)   
             {
-                carsFromDB.Add(item.markaVozila + ", " + item.modelVozila + ", " + item.godina);
+                carsFromDB.Add(item.carName);
             }
             ArrayAdapter adapter = new ArrayAdapter(view.Context, Android.Resource.Layout.SimpleListItem1, carsFromDB);
             carList.Adapter = adapter;
