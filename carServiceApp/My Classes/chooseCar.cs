@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Gms.Tasks;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -48,8 +49,14 @@ namespace carServiceApp.My_Classes
 
             addNewCar.Click += AddNewCar_Click;
             carList.ItemLongClick += CarList_ItemLongClick;
+            carList.ItemClick += CarList_ItemClick;
 
             return view;
+        }
+
+        private void CarList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            
         }
 
         private void CarList_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -61,10 +68,18 @@ namespace carServiceApp.My_Classes
             {
                 string selected = carList.GetItemAtPosition(e.Position).ToString();
                 var firebase = new FirebaseClient(firebaseURL);
-                var data = firebase.Child("car").Child(id).Child(selected).DeleteAsync();
+                try
+                {
+                    var data = firebase.Child("car").Child(id).Child(selected).DeleteAsync();
+                    con.db.Execute("DELETE from carDetailsSQL WHERE carName = '" + selected + "' ");
+                }
+                catch (Exception)
+                {
+                    Toast.MakeText(view.Context, "Something went wrong", ToastLength.Long).Show();
+                }
 
-                con.db.Execute("DELETE from carDetailsSQL WHERE carName = '" + selected + "' ");
-                Toast.MakeText(view.Context , selected, ToastLength.Long).Show();
+                Toast.MakeText(view.Context, "Automobil '"+selected+"' je uspješno obrisan.", ToastLength.Long).Show();
+                carsFromDB.Clear();
                 getCars();
                
             });
@@ -81,6 +96,13 @@ namespace carServiceApp.My_Classes
             Intent intent = new Intent(view.Context, typeof(carDetails));
             StartActivity(intent);
             view.Context.Dispose();
+        }
+
+        public override void OnResume()
+        {
+            carsFromDB.Clear();
+            getCars();
+            base.OnResume();
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -103,6 +125,6 @@ namespace carServiceApp.My_Classes
             carList.Adapter = adapter;
         }
 
-
+       
     }
 }

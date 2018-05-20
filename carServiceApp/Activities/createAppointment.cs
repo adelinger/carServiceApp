@@ -17,6 +17,7 @@ using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
 using Java.Util;
 using Newtonsoft.Json;
+using static Android.Widget.AdapterView;
 
 namespace carServiceApp.Activities
 {
@@ -67,17 +68,43 @@ namespace carServiceApp.Activities
 
             vrstaUslugeList.Add("Odaberite stavku");
             vrstaPoslaList.Add ("Odaberite stavku");
-            await LoadData();
+            LoadData();
             
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaUslugeList);
             vrstaUsluge.Adapter = adapter;
-            ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaPoslaList);
-            vrstaPosla.Adapter = adapter2;
 
             next.Click += Next_Click;
+            vrstaUsluge.ItemSelected += VrstaUsluge_ItemSelected;
            
         }
-      
+
+        private void VrstaUsluge_ItemSelected(object sender, ItemSelectedEventArgs e)
+        {
+            string selected = vrstaUsluge.GetItemAtPosition(e.Position).ToString();
+          
+            if (selected != "Odaberite stavku")
+            {
+                vrstaPoslaList.Clear();
+                vrstaPoslaList.Add("Odaberite stavku");
+                List<uslugeSQL> getData = con.db.Query<uslugeSQL>("SELECT * FROM uslugeSQL WHERE type = '" + selected + "' ");
+                foreach (var item in getData)
+                {
+                    vrstaPoslaList.Add(item.name);
+                }
+
+                ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaPoslaList);
+                vrstaPosla.Adapter = adapter2;
+            }
+            if (selected == "Odaberite stavku")
+            {
+                vrstaPoslaList.RemoveRange(0, vrstaPoslaList.Count);
+                vrstaPoslaList.Add("Odaberite stavku");
+
+                ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaPoslaList);
+                vrstaPosla.Adapter = adapter2;
+            }
+            
+        }
 
         private async void Next_Click(object sender, EventArgs e)
         {
@@ -86,16 +113,17 @@ namespace carServiceApp.Activities
                 Toast.MakeText(this, "Sva polja moraju biti ispunjena!", ToastLength.Short).Show();
                 return;
             }
-            if (vrstaPosla.SelectedItem.ToString() == "Odaberite stavku")
-            {
-                Toast.MakeText(this, "Vrsta posla mora biti odabrana", ToastLength.Short).Show();
-                return;
-            }
             if (vrstaUsluge.SelectedItem.ToString() == "Odaberite stavku")
             {
                 Toast.MakeText(this, "Vrsta usluge mora biti odabrana", ToastLength.Short).Show();
                 return;
             }
+            if (vrstaPosla.SelectedItem.ToString() == "Odaberite stavku")
+            {
+                Toast.MakeText(this, "Vrsta posla mora biti odabrana", ToastLength.Short).Show();
+                return;
+            }
+           
 
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
@@ -118,11 +146,11 @@ namespace carServiceApp.Activities
 
             var items = firebase.Child("users").Child(id).Child(key).PutAsync<Account>(user);
 
-            Intent intent = new Intent(this, typeof(carDetails));
+            Intent intent = new Intent(this, typeof(addCarToOrder));
             StartActivity(intent);
         }
 
-        private async Task LoadData()
+        private void LoadData()
         {
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
@@ -147,13 +175,6 @@ namespace carServiceApp.Activities
                 userInput_mjesto.Text  = item.city;
                 userInpu_ulicaibr.Text = item.adress;
             }
-
-            List<uslugeSQL> getData = con.db.Query<uslugeSQL>("SELECT * FROM uslugeSQL");
-            foreach (var item in getData)
-            {
-                vrstaPoslaList.Add(item.name);
-            }
-
         }
 
         public async void updateUser()

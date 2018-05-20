@@ -193,23 +193,42 @@ namespace carServiceApp.Activities
         }  
 
         private async void updateServices ()
-        {                
+        {
             var firebase = new FirebaseClient(FirebaseURL);
             var items = await firebase.Child("services").OnceAsync<services>();
-            var itemsU = await firebase.Child("usluge").Child("Automehaničarske usluge").OnceAsync<usluge>();
+
+            var itemsAMU  = await firebase.Child("usluge").Child("Automehaničarske usluge").OnceAsync<usluge>();
+            var itemsALU  = await firebase.Child("usluge").Child("Autolakirerske usluge").  OnceAsync<usluge>();
+            var itemsALIU = await firebase.Child("usluge").Child("Autolimarske usluge").    OnceAsync<usluge>();
+            var itemsVUl  = await firebase.Child("usluge").Child("Vulkanizerske usluge").   OnceAsync<usluge>();
+            var itemsOU   = await firebase.Child("usluge").Child("Ostale usluge").          OnceAsync<usluge>();
 
             con.db.CreateTable<services>();
-            con.db.DropTable<uslugeSQL>();
             con.db.CreateTable<uslugeSQL>();
 
             foreach (var item in items)
             {
-                con.db.Execute("INSERT OR IGNORE INTO services (name) VALUES ( '" + item.Object.name + "') ");
-                
+                con.db.Execute("INSERT OR IGNORE INTO services (name) VALUES ( '" + item.Object.name + "') ");            
             }
-            foreach (var item in itemsU)
+            foreach (var item in itemsAMU)
             {
-                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'automehaničarske usluge') ");
+                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'Automehaničarske usluge') ");
+            }
+            foreach (var item in itemsALU)
+            {
+                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'Autolakirerske usluge') ");
+            }
+            foreach (var item in itemsALIU)
+            {
+                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'Autolimarske usluge') ");
+            }
+            foreach (var item in itemsVUl)
+            {
+                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'Vulkanizerske usluge') ");
+            }
+            foreach (var item in itemsOU)
+            {
+                con.db.Execute("INSERT OR IGNORE INTO uslugeSQL (name, type) VALUES ( '" + item.Object.name + "', 'Ostale usluge') ");
             }
             
         }

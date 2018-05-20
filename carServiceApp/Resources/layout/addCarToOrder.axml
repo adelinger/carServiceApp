@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="Dodajte automobil"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:gravity="center"
+        android:layout_marginTop="10dip"
+        android:textColor="#ff000000" />
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:entries="@array/dropdownType"
+        android:id="@+id/spinnerUserCars"
+        android:layout_marginTop="10dip" />
+    <Button
+        android:text="Dodaj novi automobil"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTOaddNewCar"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:drawableBottom="@drawable/ificonios7plusoutline211802" />
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/opisiteKvarEditText"
+        android:hint="Ukratko opišite kvar na vozilu"
+        android:layout_marginTop="100dip" />
+    <Button
+        android:text="Dalje"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/ACTOnext"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:gravity="center" />
+</LinearLayout>

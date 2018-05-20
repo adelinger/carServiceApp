@@ -61,8 +61,19 @@ namespace carServiceApp.Activities
 
         private void SaveCar_Click(object sender, EventArgs e)
         {
+            checkIfAllInserted();
             addCarInfo();
             OnBackPressed();
+        }
+
+        private void checkIfAllInserted()
+        {
+            if (markaVozila.Text == "" || tipVozila.Text == "" || godinaProizvodnje.Text =="" || modelVozila.Text == "" 
+                                       || tipMotora.Text =="" || snagaMotora.Text == "" || zapremninaMotora.Text == "" ||carName.Text == "")
+            {
+                Toast.MakeText(this, "Sva polja moraju biti popunjena!", ToastLength.Short).Show();
+                return;
+            }
         }
 
         private void addCarInfo()
@@ -94,13 +105,24 @@ namespace carServiceApp.Activities
 
             try
             {
+                //insert user
+
                 con.db.Insert(CarDetails);
                 var firebase = new FirebaseClient(FirebaseURL);
                 var item = firebase.Child("car").Child(id).Child(carName.Text).PutAsync(CarDetailsFB);
             }
             catch (System.Exception)
             {
-                Toast.MakeText(this, "Neuspješno.", ToastLength.Long).Show();
+                //update user
+
+                var firebase = new FirebaseClient(FirebaseURL);
+                var item = firebase.Child("car").Child(id).Child(carName.Text).PutAsync<CarDetails>(CarDetailsFB);
+
+                con.db.Execute("UPDATE carDetailsSQL SET markaVozila = '" + CarDetails.markaVozila + "', tipVozila = '" + CarDetails.tipVozila + "', godina = '" + CarDetails.godina + "'," +
+                    " modelVozila = '" + CarDetails.modelVozila + "', tipMotora = '" + CarDetails.tipMotora + "', snagaMotora = '" + CarDetails.snagaMotora + "'," +
+                    " zapremninaMotora = '" + CarDetails.zapremninaMotora + "', carName = '" + CarDetails.carName + "' WHERE uid = '" + id + "' ");
+
+                Toast.MakeText(this, "Spremljeno", ToastLength.Long).Show();
             }
 
             Toast.MakeText(this, "Uspješno ste dodali automobil", ToastLength.Long).Show();
