@@ -1,0 +1,133 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using carServiceApp.My_Classes;
+using Firebase.Auth;
+using Firebase.Xamarin.Database;
+
+namespace carServiceApp.Activities
+{
+    [Activity(Label = "confirmOrder")]
+    public class confirmOrder : Activity
+    {
+
+        private Button   confirmOrderButton;
+        private Button addDate;
+        private TextView userInfo;
+        private TextView chosenServices;
+        private TextView chosenCar;
+        private TextView opisKvara;
+        private TextView addedDate;
+
+        private string getOpisKvara;
+        private string vrstaPosla;
+        private string vrstaUsluge;
+        private string carChosen;
+        private string zahtjevZaVucnomSluzbom;
+        private string zahtjevZaNarucivanjem;
+        private bool   potrebnaVucnaSluzba;
+        private bool   potrebnoNarucivanje;
+
+        private string id;
+        private string userData;
+
+        connection con = new connection();
+
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            SetContentView(Resource.Layout.confirmOrder);
+
+            confirmOrderButton = FindViewById<Button>(Resource.Id.COconfirmOrderButton);
+            userInfo           = FindViewById<TextView>(Resource.Id.COuserInfo);
+            chosenServices     = FindViewById<TextView>(Resource.Id.COchosenServices);
+            chosenCar          = FindViewById<TextView>(Resource.Id.COchosenCar);
+            opisKvara          = FindViewById<TextView>(Resource.Id.COopisKvara);
+            addDate            = FindViewById<Button>(Resource.Id.COpickaDate);
+            addedDate          = FindViewById<TextView>(Resource.Id.bestPossibleDate);
+
+            vrstaPosla          = Intent.GetStringExtra("vrstaPosla");
+            vrstaUsluge         = Intent.GetStringExtra("vrstaUsluge");
+            carChosen           = Intent.GetStringExtra("carChosen");
+            getOpisKvara        = Intent.GetStringExtra("opisKvara");
+            potrebnaVucnaSluzba = Intent.GetBooleanExtra("potrebnaVucnaSluzba", false);
+            potrebnoNarucivanje = Intent.GetBooleanExtra("potrebnoNarucivanje", false);
+
+            if (potrebnaVucnaSluzba)  zahtjevZaVucnomSluzbom = "Da";
+            if (!potrebnaVucnaSluzba) zahtjevZaVucnomSluzbom = "Ne";
+            if (potrebnoNarucivanje)  zahtjevZaNarucivanjem  = "Da";
+            if (!potrebnoNarucivanje) zahtjevZaNarucivanjem  = "Ne";
+
+            var auth = FirebaseAuth.GetInstance(loginActivity.app);
+            id = auth.CurrentUser.Uid;
+
+            getUserInfo();
+
+            userInfo.Text       = userData;
+            chosenServices.Text = vrstaUsluge + ", " + vrstaPosla + ", " + "Zahtjev za vučnom službom: " + "" + zahtjevZaVucnomSluzbom + ", " + "Zahtjev za naručivanjem dijelova: " + zahtjevZaNarucivanjem;
+            chosenCar.Text      = carChosen;
+            opisKvara.Text      = getOpisKvara;
+
+            userInfo.Click       += UserInfo_Click;
+            chosenCar.Click      += ChosenCar_Click;
+            opisKvara.Click      += OpisKvara_Click;
+            chosenServices.Click += ChosenServices_Click;
+        }
+
+        private void ChosenServices_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(createAppointment)).SetFlags(ActivityFlags.ReorderToFront);
+            buildDialog(intent);
+        }
+
+        private void OpisKvara_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+            buildDialog(intent);
+        }
+
+        private void ChosenCar_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+            buildDialog(intent);
+        }
+
+        private void UserInfo_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(createAppointment)).SetFlags(ActivityFlags.ReorderToFront);
+            buildDialog(intent);
+        }
+
+        private void buildDialog(Intent intent)
+        {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.SetMessage("Želite li izmijeniti ovaj unos?");
+            dialog.SetPositiveButton("Izmijeni", (senderAlert, args) => {           
+                StartActivity(intent);
+            });
+            dialog.SetNegativeButton("Odustani", (senderAlert, args) => {
+                dialog.Dispose();
+            });
+            Dialog alertDialog = dialog.Create();
+            alertDialog.Show();
+        }
+
+        private void getUserInfo()
+        {
+            List<User> getUserData = con.db.Query<User>("SELECT * FROM User WHERE uid = '" + id + "' ");
+            foreach (var item in getUserData)
+            {
+                userData = item.name + item.lastName + ", " + item.adress + " " + item.city + ", " + item.phone + ", " + item.email;
+            }
+        }
+    }
+}

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Informacije o korisniku"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:gravity="center" />
+    <TextView
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/COuserInfo"
+        android:enabled="true"
+        android:editable="false"
+        android:layout_marginTop="15dip" />
+    <TextView
+        android:text="Odabrana usluga"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:foregroundGravity="center"
+        android:layout_gravity="center"
+        android:gravity="center" />
+    <TextView
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/COchosenServices"
+        android:enabled="true"
+        android:editable="false"
+        android:layout_marginTop="15dip" />
+    <TextView
+        android:text="Odabrani automobil"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:gravity="center" />
+    <TextView
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/COchosenCar"
+        android:enabled="true"
+        android:editable="false"
+        android:layout_marginTop="15dip" />
+    <TextView
+        android:text="Opis kvara"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:gravity="center" />
+    <TextView
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/COopisKvara"
+        android:enabled="true"
+        android:editable="false"
+        android:maxLength="200" />
+    <TextView
+        android:text="Datum koji bi vam najbolje odgovarao"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:id="@+id/textView21"
+        android:gravity="center" />
+    <TextView
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:id="@+id/bestPossibleDate"
+        android:gravity="center" />
+    <Button
+        android:text="Dodaj datum"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/COpickaDate"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:drawableRight="@drawable/ificonios7plusoutline211802" />
+    <Button
+        android:text="Potvrdi narudžbu"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/COconfirmOrderButton"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:gravity="center" />
+</LinearLayout>

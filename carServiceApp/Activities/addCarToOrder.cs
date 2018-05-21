@@ -20,11 +20,20 @@ namespace carServiceApp.Activities
     [Activity(Label = "addCarToOrder")]
     public class addCarToOrder : Activity
     {
-        private Spinner spinner;
-        private Button addNewCar;
-        private Button next;
-        private EditText opisiteProblem;
+        private Spinner     spinner;
+        private Button      addNewCar;
+        private Button      next;
+        private EditText    opisiteProblem;
+        private RadioButton yesButton;
+        private RadioButton noButton;
+        private RadioButton imamDijelove;
+        private RadioButton naruciDijelove;
 
+        private bool potrebnaVucnaSluzba = false;
+        private bool potrebnoNarucivanje = false;
+
+        private string vrstaUsluge;
+        private string vrstaPosla;
         private string id;
         private List<string> carList = new List<string>();
 
@@ -40,11 +49,26 @@ namespace carServiceApp.Activities
             next           = FindViewById<Button>(Resource.Id.ACTOnext);
             opisiteProblem = FindViewById<EditText>(Resource.Id.opisiteKvarEditText);
             spinner        = FindViewById<Spinner>(Resource.Id.spinnerUserCars);
+            yesButton      = FindViewById<RadioButton>(Resource.Id.yesButton);
+            noButton       = FindViewById<RadioButton>(Resource.Id.noButton);
+            imamDijelove   = FindViewById<RadioButton>(Resource.Id.imamDijeloveButton);
+            naruciDijelove = FindViewById<RadioButton>(Resource.Id.zelimNarucitiButton);
+
+            vrstaPosla  = Intent.GetStringExtra("vrstaPosla");
+            vrstaUsluge = Intent.GetStringExtra("vrstaUsluge");
 
             loadSpinner();
 
             next.Click      += Next_Click;
             addNewCar.Click += AddNewCar_Click;
+        }
+
+        private void checkIfChecked()
+        {
+            if (yesButton.Checked)      potrebnaVucnaSluzba = true;
+            if (noButton.Checked)       potrebnaVucnaSluzba = false;
+            if (imamDijelove.Checked)   potrebnoNarucivanje = false;
+            if (naruciDijelove.Checked) potrebnoNarucivanje = true;
         }
 
         private void Next_Click(object sender, EventArgs e)
@@ -59,6 +83,17 @@ namespace carServiceApp.Activities
                 Toast.MakeText(this, "Morate prvo ukratko opisati kvar da biste mogli nastaviti", ToastLength.Long).Show();
                 return;
             }
+
+            checkIfChecked();
+
+            Intent intent = new Intent(this, typeof(confirmOrder));
+            intent.PutExtra("vrstaPosla", vrstaPosla);
+            intent.PutExtra("vrstaUsluge", vrstaUsluge);
+            intent.PutExtra("carChosen", spinner.SelectedItem.ToString());
+            intent.PutExtra("potrebnaVucnaSluzba", potrebnaVucnaSluzba);
+            intent.PutExtra("opisKvara", opisiteProblem.Text);
+            intent.PutExtra("potrebnoNarucivanje", potrebnoNarucivanje);
+            StartActivity(intent);
         }
 
         protected override void OnResume()

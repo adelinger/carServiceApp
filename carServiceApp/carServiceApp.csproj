@@ -174,6 +174,7 @@
   <ItemGroup>
     <Compile Include="Activities\addCarToOrder.cs" />
     <Compile Include="Activities\carDetails.cs" />
+    <Compile Include="Activities\confirmOrder.cs" />
     <Compile Include="Activities\createAppointment.cs" />
     <Compile Include="Activities\loginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
@@ -282,6 +283,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\addCarToOrder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\confirmOrder.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

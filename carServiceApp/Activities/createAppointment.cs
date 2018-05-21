@@ -156,16 +156,18 @@ namespace carServiceApp.Activities
             newOrder.vrstaPosla = vrstaPosla.SelectedItem.ToString();
             newOrder.vrstaUsluge = vrstaUsluge.SelectedItem.ToString();
 
-            con.db.Insert(newOrder); //insert into offline database
-            List<order> getID = con.db.Query<order>("SELECT * FROM order WHERE uid = '" + id + "' ");
-            foreach (var item in getID)
-            {
-                orderID = item.id.ToString(); ;
-            }
+            //con.db.Insert(newOrder); //insert into offline database
+            //List<order> getID = con.db.Query<order>("SELECT * FROM order WHERE uid = '" + id + "' ");
+            //foreach (var item in getID)
+            //{
+            //    orderID = item.id.ToString(); ;
+            //}
 
-            var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<order>(newOrder);
+            //var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<order>(newOrder);
 
             Intent intent = new Intent(this, typeof(addCarToOrder));
+            intent.PutExtra("vrstaUsluge", vrstaUsluge.SelectedItem.ToString());
+            intent.PutExtra("vrstaPosla", vrstaPosla.SelectedItem.ToString());
             StartActivity(intent);
         }
 
