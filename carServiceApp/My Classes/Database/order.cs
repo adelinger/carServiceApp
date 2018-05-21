@@ -23,6 +23,8 @@ namespace carServiceApp.My_Classes.Database
         public string vrstaPosla  { get; set; }
         public string opisKvara   { get; set; }
         public DateTime datum     { get; set; }
-        public bool confirmed     { get; set; }
+        public bool vucnaSluzba   { get; set; }
+        public bool dijelovi      { get; set; }
+
     }
 }

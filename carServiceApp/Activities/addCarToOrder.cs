@@ -31,6 +31,7 @@ namespace carServiceApp.Activities
 
         private bool potrebnaVucnaSluzba = false;
         private bool potrebnoNarucivanje = false;
+        private bool updateRequested;
 
         private string vrstaUsluge;
         private string vrstaPosla;
@@ -54,8 +55,8 @@ namespace carServiceApp.Activities
             imamDijelove   = FindViewById<RadioButton>(Resource.Id.imamDijeloveButton);
             naruciDijelove = FindViewById<RadioButton>(Resource.Id.zelimNarucitiButton);
 
-            vrstaPosla  = Intent.GetStringExtra("vrstaPosla");
-            vrstaUsluge = Intent.GetStringExtra("vrstaUsluge");
+            vrstaPosla      = Intent.GetStringExtra("vrstaPosla");
+            vrstaUsluge     = Intent.GetStringExtra("vrstaUsluge");
 
             loadSpinner();
 
@@ -85,20 +86,36 @@ namespace carServiceApp.Activities
             }
 
             checkIfChecked();
+            
+            if (updateRequested)
+            {
+                Intent intent = new Intent(this, typeof(confirmOrder)).SetFlags(ActivityFlags.ReorderToFront);
+                intent.PutExtra("vrstaPosla", vrstaPosla);
+                intent.PutExtra("vrstaUsluge", vrstaUsluge);
+                intent.PutExtra("carChosen", spinner.SelectedItem.ToString());
+                intent.PutExtra("potrebnaVucnaSluzba", potrebnaVucnaSluzba);
+                intent.PutExtra("opisKvara", opisiteProblem.Text);
+                intent.PutExtra("potrebnoNarucivanje", potrebnoNarucivanje);
+                StartActivity(intent);
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(confirmOrder));
+                intent.PutExtra("vrstaPosla", vrstaPosla);
+                intent.PutExtra("vrstaUsluge", vrstaUsluge);
+                intent.PutExtra("carChosen", spinner.SelectedItem.ToString());
+                intent.PutExtra("potrebnaVucnaSluzba", potrebnaVucnaSluzba);
+                intent.PutExtra("opisKvara", opisiteProblem.Text);
+                intent.PutExtra("potrebnoNarucivanje", potrebnoNarucivanje);
+                StartActivity(intent);
+            }
 
-            Intent intent = new Intent(this, typeof(confirmOrder));
-            intent.PutExtra("vrstaPosla", vrstaPosla);
-            intent.PutExtra("vrstaUsluge", vrstaUsluge);
-            intent.PutExtra("carChosen", spinner.SelectedItem.ToString());
-            intent.PutExtra("potrebnaVucnaSluzba", potrebnaVucnaSluzba);
-            intent.PutExtra("opisKvara", opisiteProblem.Text);
-            intent.PutExtra("potrebnoNarucivanje", potrebnoNarucivanje);
-            StartActivity(intent);
         }
 
         protected override void OnResume()
         {
             loadSpinner();
+            updateRequested = true;
             base.OnResume();
         }
 

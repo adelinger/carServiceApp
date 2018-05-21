@@ -38,6 +38,7 @@ namespace carServiceApp.Activities
         List<string> vrstaPoslaList = new List<string> ();
 
         private string user;
+        private bool updateRequested;
         private string id;
         private string key;
         private string orderID;
@@ -64,8 +65,7 @@ namespace carServiceApp.Activities
             next              = FindViewById<Button  >(Resource.Id.CANextButton);  
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
-            user = auth.CurrentUser.Uid;
-            
+            user = auth.CurrentUser.Uid;       
 
             vrstaUslugeList.Add("Odaberite stavku");
             vrstaPoslaList.Add ("Odaberite stavku");
@@ -77,6 +77,11 @@ namespace carServiceApp.Activities
             next.Click += Next_Click;
             vrstaUsluge.ItemSelected += VrstaUsluge_ItemSelected;
            
+        }
+
+        private void checkIfUpdateIsRequested()
+        {
+            updateRequested = Intent.GetBooleanExtra("updateRequested", false);
         }
 
         private void VrstaUsluge_ItemSelected(object sender, ItemSelectedEventArgs e)
@@ -105,6 +110,12 @@ namespace carServiceApp.Activities
                 vrstaPosla.Adapter = adapter2;
             }
             
+        }
+
+        protected override void OnResume()
+        {
+            updateRequested = true;
+            base.OnResume();
         }
 
         private async void Next_Click(object sender, EventArgs e)
@@ -147,28 +158,19 @@ namespace carServiceApp.Activities
 
             var items = firebase.Child("users").Child(id).Child(key).PutAsync<Account>(user);
 
-            order newOrder = new order();
-            newOrder.carName = "";
-            newOrder.confirmed = false;
-            newOrder.datum = DateTime.UtcNow;
-            newOrder.opisKvara = "";
-            newOrder.uid = id;
-            newOrder.vrstaPosla = vrstaPosla.SelectedItem.ToString();
-            newOrder.vrstaUsluge = vrstaUsluge.SelectedItem.ToString();
 
-            //con.db.Insert(newOrder); //insert into offline database
-            //List<order> getID = con.db.Query<order>("SELECT * FROM order WHERE uid = '" + id + "' ");
-            //foreach (var item in getID)
-            //{
-            //    orderID = item.id.ToString(); ;
-            //}
-
-            //var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<order>(newOrder);
-
-            Intent intent = new Intent(this, typeof(addCarToOrder));
-            intent.PutExtra("vrstaUsluge", vrstaUsluge.SelectedItem.ToString());
-            intent.PutExtra("vrstaPosla", vrstaPosla.SelectedItem.ToString());
-            StartActivity(intent);
+            if (updateRequested)
+            {
+                Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+                StartActivity(intent);
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(addCarToOrder));
+                intent.PutExtra("vrstaUsluge", vrstaUsluge.SelectedItem.ToString());
+                intent.PutExtra("vrstaPosla", vrstaPosla.SelectedItem.ToString());
+                StartActivity(intent);
+            }
         }
 
         private void LoadData()

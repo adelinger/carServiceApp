@@ -10,8 +10,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using carServiceApp.My_Classes;
+using carServiceApp.My_Classes.Database;
 using Firebase.Auth;
 using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Query;
 
 namespace carServiceApp.Activities
 {
@@ -38,6 +40,7 @@ namespace carServiceApp.Activities
 
         private string id;
         private string userData;
+        private string orderID;
 
         connection con = new connection();
 
@@ -81,6 +84,53 @@ namespace carServiceApp.Activities
             chosenCar.Click      += ChosenCar_Click;
             opisKvara.Click      += OpisKvara_Click;
             chosenServices.Click += ChosenServices_Click;
+
+            confirmOrderButton.Click += ConfirmOrderButton_Click;
+        }
+
+        private void ConfirmOrderButton_Click(object sender, EventArgs e)
+        {
+            var auth = FirebaseAuth.GetInstance(loginActivity.app);
+            id = auth.CurrentUser.Uid;
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+
+            order order     = new order();
+            order.carName     = carChosen;
+            order.vucnaSluzba = potrebnaVucnaSluzba;
+            order.dijelovi    = potrebnoNarucivanje;
+            order.datum       = DateTime.UtcNow;
+            order.opisKvara   = opisKvara.Text;
+            order.uid         = id;
+            order.vrstaPosla  = vrstaPosla;
+            order.vrstaUsluge = vrstaUsluge;
+
+            con.db.Insert(order);
+            try
+            {
+                List<order> getID = con.db.Query<order>("SELECT * FROM order WHERE uid = '" + id + "' ");
+                foreach (var item in getID)
+                {
+                    orderID = item.id.ToString(); ;
+                }
+
+                var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<order>(order);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            Toast.MakeText(this, "Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji sastanci' u glavnom izborniku", ToastLength.Long).Show();
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.SetMessage("Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji sastanci' u glavnom izborniku");
+            dialog.SetPositiveButton("U redu", (senderAlert, args) => {
+                dialog.Dispose();
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            });
+            Dialog alertDialog = dialog.Create();
+            alertDialog.Show();
+
         }
 
         private void ChosenServices_Click(object sender, EventArgs e)
