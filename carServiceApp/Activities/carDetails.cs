@@ -23,7 +23,7 @@ namespace carServiceApp.Activities
     public class carDetails : Activity
     {
         private string id;
-        private string key;
+        private string getCarName;
         private FirebaseAuth auth;
         private const string FirebaseURL = loginActivity.FirebaseURL;
 
@@ -53,6 +53,15 @@ namespace carServiceApp.Activities
             zapremninaMotora  = FindViewById<EditText>(Resource.Id.CDzapremninaMotora);
             carName           = FindViewById<EditText>(Resource.Id.CDimeVozila);
             saveCar           = FindViewById<Button>(Resource.Id.saveCar);
+
+            FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
+            id = users.Uid;
+
+            getCarName = Intent.GetStringExtra("carName");
+            if(getCarName != "")
+            {
+                getCarData(getCarName);
+            }
             
             createAppointment.updateUser();
             saveCar.Click += SaveCar_Click;
@@ -61,25 +70,44 @@ namespace carServiceApp.Activities
 
         private void SaveCar_Click(object sender, EventArgs e)
         {
-            checkIfAllInserted();
+            if(checkIfAllInserted() == false) { return; }
             addCarInfo();
             OnBackPressed();
         }
 
-        private void checkIfAllInserted()
+        private bool checkIfAllInserted()
         {
             if (markaVozila.Text == "" || tipVozila.Text == "" || godinaProizvodnje.Text =="" || modelVozila.Text == "" 
                                        || tipMotora.Text =="" || snagaMotora.Text == "" || zapremninaMotora.Text == "" ||carName.Text == "")
             {
                 Toast.MakeText(this, "Sva polja moraju biti popunjena!", ToastLength.Short).Show();
-                return;
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void getCarData (string name)
+        {
+            List<carDetailsSQL> getData = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL WHERE carName = '" + name + "' ");
+            foreach (var item in getData)
+            {
+                markaVozila.Text       = item.markaVozila;
+                tipVozila.Text         = item.tipVozila;
+                godinaProizvodnje.Text = item.godina;
+                modelVozila.Text       = item.modelVozila;
+                tipMotora.Text         = item.tipMotora;
+                snagaMotora.Text       = item.snagaMotora;
+                zapremninaMotora.Text  = item.zapremninaMotora;
+                carName.Text           = item.carName;
+                carName.Enabled        = false;
             }
         }
 
         private void addCarInfo()
         {
-            FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
-            id = users.Uid;
 
             carDetailsSQL CarDetails = new carDetailsSQL();
             CarDetails  CarDetailsFB = new CarDetails();
@@ -120,7 +148,7 @@ namespace carServiceApp.Activities
 
                 con.db.Execute("UPDATE carDetailsSQL SET markaVozila = '" + CarDetails.markaVozila + "', tipVozila = '" + CarDetails.tipVozila + "', godina = '" + CarDetails.godina + "'," +
                     " modelVozila = '" + CarDetails.modelVozila + "', tipMotora = '" + CarDetails.tipMotora + "', snagaMotora = '" + CarDetails.snagaMotora + "'," +
-                    " zapremninaMotora = '" + CarDetails.zapremninaMotora + "', carName = '" + CarDetails.carName + "' WHERE uid = '" + id + "' ");
+                    " zapremninaMotora = '" + CarDetails.zapremninaMotora + "' WHERE uid = '" + id + "' ");
 
                 Toast.MakeText(this, "Spremljeno", ToastLength.Long).Show();
             }

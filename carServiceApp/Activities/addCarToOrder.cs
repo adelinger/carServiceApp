@@ -22,6 +22,8 @@ namespace carServiceApp.Activities
     {
         private Spinner spinner;
         private Button addNewCar;
+        private Button next;
+        private EditText opisiteProblem;
 
         private string id;
         private List<string> carList = new List<string>();
@@ -31,13 +33,38 @@ namespace carServiceApp.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.addCarToOrder);
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
-            spinner = FindViewById<Spinner>(Resource.Id.spinnerUserCars);
+            addNewCar      = FindViewById<Button>(Resource.Id.ACTOaddNewCar);
+            next           = FindViewById<Button>(Resource.Id.ACTOnext);
+            opisiteProblem = FindViewById<EditText>(Resource.Id.opisiteKvarEditText);
+            spinner        = FindViewById<Spinner>(Resource.Id.spinnerUserCars);
 
             loadSpinner();
+
+            next.Click      += Next_Click;
             addNewCar.Click += AddNewCar_Click;
+        }
+
+        private void Next_Click(object sender, EventArgs e)
+        {
+            if (spinner.SelectedItem.ToString() == "Odaberite stavku")
+            {
+                Toast.MakeText(this, "Morate odabrati vozilo da biste mogli nastaviti", ToastLength.Long).Show();
+                return;
+            }
+            if(opisiteProblem.Text == "")
+            {
+                Toast.MakeText(this, "Morate prvo ukratko opisati kvar da biste mogli nastaviti", ToastLength.Long).Show();
+                return;
+            }
+        }
+
+        protected override void OnResume()
+        {
+            loadSpinner();
+            base.OnResume();
         }
 
         private void AddNewCar_Click(object sender, EventArgs e)

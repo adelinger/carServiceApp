@@ -69,6 +69,7 @@ namespace carServiceApp.Activities
 
             con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
+            con.db.CreateTable<order>();
 
             mButtuonSignUp.Click += MButtuonSignUp_Click;
             buttonSignIn.Click += ButtonSignIn_Click;

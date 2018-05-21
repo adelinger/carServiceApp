@@ -56,7 +56,10 @@ namespace carServiceApp.My_Classes
 
         private void CarList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            
+            string selectedCar = carList.GetItemAtPosition(e.Position).ToString();
+            Intent intent = new Intent(view.Context, typeof(carDetails));
+            intent.PutExtra("carName", selectedCar);
+            StartActivity(intent);
         }
 
         private void CarList_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)

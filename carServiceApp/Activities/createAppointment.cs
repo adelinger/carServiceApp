@@ -40,6 +40,7 @@ namespace carServiceApp.Activities
         private string user;
         private string id;
         private string key;
+        private string orderID;
         private FirebaseAuth auth;
         private const string FirebaseURL = loginActivity.FirebaseURL;
 
@@ -145,6 +146,24 @@ namespace carServiceApp.Activities
             }
 
             var items = firebase.Child("users").Child(id).Child(key).PutAsync<Account>(user);
+
+            order newOrder = new order();
+            newOrder.carName = "";
+            newOrder.confirmed = false;
+            newOrder.datum = DateTime.UtcNow;
+            newOrder.opisKvara = "";
+            newOrder.uid = id;
+            newOrder.vrstaPosla = vrstaPosla.SelectedItem.ToString();
+            newOrder.vrstaUsluge = vrstaUsluge.SelectedItem.ToString();
+
+            con.db.Insert(newOrder); //insert into offline database
+            List<order> getID = con.db.Query<order>("SELECT * FROM order WHERE uid = '" + id + "' ");
+            foreach (var item in getID)
+            {
+                orderID = item.id.ToString(); ;
+            }
+
+            var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<order>(newOrder);
 
             Intent intent = new Intent(this, typeof(addCarToOrder));
             StartActivity(intent);
