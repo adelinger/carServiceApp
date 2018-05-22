@@ -13,6 +13,7 @@ using SQLite;
 
 namespace carServiceApp.My_Classes.Database
 {
+    [Table("order")]
     class order
     {
         [PrimaryKey, AutoIncrement]

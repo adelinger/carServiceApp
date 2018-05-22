@@ -18,11 +18,11 @@ using Firebase.Xamarin.Database.Query;
 namespace carServiceApp.Activities
 {
     [Activity(Label = "confirmOrder")]
-    public class confirmOrder : Activity
+    public class confirmOrder : Activity, IDialogInterfaceOnDismissListener
     {
 
         private Button   confirmOrderButton;
-        private Button addDate;
+        private Button   addDate;
         private TextView userInfo;
         private TextView chosenServices;
         private TextView chosenCar;
@@ -94,26 +94,22 @@ namespace carServiceApp.Activities
             id = auth.CurrentUser.Uid;
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
-            order order     = new order();
+            order order       = new order();
+            order.uid         = id;
             order.carName     = carChosen;
+            order.vrstaUsluge = vrstaUsluge;
+            order.vrstaPosla  = vrstaPosla;
+            order.opisKvara   = opisKvara.Text;
+            order.datum       = DateTime.UtcNow;
             order.vucnaSluzba = potrebnaVucnaSluzba;
             order.dijelovi    = potrebnoNarucivanje;
-            order.datum       = DateTime.UtcNow;
-            order.opisKvara   = opisKvara.Text;
-            order.uid         = id;
-            order.vrstaPosla  = vrstaPosla;
-            order.vrstaUsluge = vrstaUsluge;
 
             con.db.Insert(order);
+
             try
             {
-                List<order> getID = con.db.Query<order>("SELECT * FROM order WHERE uid = '" + id + "' ");
-                foreach (var item in getID)
-                {
-                    orderID = item.id.ToString(); ;
-                }
 
-                var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<order>(order);
+                var addOrder = firebase.Child("order").Child(order.id.ToString()).Child(id).PostAsync<order>(order);
             }
             catch (Exception)
             {
@@ -122,15 +118,18 @@ namespace carServiceApp.Activities
             Toast.MakeText(this, "Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji sastanci' u glavnom izborniku", ToastLength.Long).Show();
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.SetOnDismissListener(this);
             dialog.SetMessage("Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji sastanci' u glavnom izborniku");
             dialog.SetPositiveButton("U redu", (senderAlert, args) => {
                 dialog.Dispose();
+                this.Finish();
+                addCarToOrder.finish.Finish();
                 Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             });
             Dialog alertDialog = dialog.Create();
             alertDialog.Show();
-
+           
         }
 
         private void ChosenServices_Click(object sender, EventArgs e)
@@ -169,7 +168,9 @@ namespace carServiceApp.Activities
             });
             Dialog alertDialog = dialog.Create();
             alertDialog.Show();
+           
         }
+
 
         private void getUserInfo()
         {
@@ -178,6 +179,15 @@ namespace carServiceApp.Activities
             {
                 userData = item.name + item.lastName + ", " + item.adress + " " + item.city + ", " + item.phone + ", " + item.email;
             }
+        }
+
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            dialog.Dispose();
+            this.Finish();
+            addCarToOrder.finish.Finish();
+            Intent intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
         }
     }
 }

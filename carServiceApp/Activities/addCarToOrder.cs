@@ -39,6 +39,7 @@ namespace carServiceApp.Activities
         private List<string> carList = new List<string>();
 
         connection con = new connection();
+        public static Activity finish;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -54,6 +55,8 @@ namespace carServiceApp.Activities
             noButton       = FindViewById<RadioButton>(Resource.Id.noButton);
             imamDijelove   = FindViewById<RadioButton>(Resource.Id.imamDijeloveButton);
             naruciDijelove = FindViewById<RadioButton>(Resource.Id.zelimNarucitiButton);
+
+            finish = this;
 
             vrstaPosla      = Intent.GetStringExtra("vrstaPosla");
             vrstaUsluge     = Intent.GetStringExtra("vrstaUsluge");
