@@ -108,7 +108,6 @@ namespace carServiceApp.Activities
 
             try
             {
-
                 var addOrder = firebase.Child("order").Child(id).Child(order.id.ToString()).PostAsync<order>(order);
             }
             catch (Exception)
@@ -130,17 +129,6 @@ namespace carServiceApp.Activities
             Dialog alertDialog = dialog.Create();
             alertDialog.Show();
            
-        }
-
-        protected override void OnResume()
-        {
-            vrstaPosla = Intent.GetStringExtra("vrstaPosla");
-            vrstaUsluge = Intent.GetStringExtra("vrstaUsluge");
-            carChosen = Intent.GetStringExtra("carChosen");
-            getOpisKvara = Intent.GetStringExtra("opisKvara");
-            potrebnaVucnaSluzba = Intent.GetBooleanExtra("potrebnaVucnaSluzba", false);
-            potrebnoNarucivanje = Intent.GetBooleanExtra("potrebnoNarucivanje", false);
-            base.OnResume();
         }
 
         private void ChosenServices_Click(object sender, EventArgs e)
