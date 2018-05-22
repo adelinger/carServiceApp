@@ -162,6 +162,8 @@ namespace carServiceApp.Activities
             if (updateRequested)
             {
                 Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+                intent.PutExtra("vrstaUsluge", vrstaUsluge.SelectedItem.ToString());
+                intent.PutExtra("vrstaPosla", vrstaPosla.SelectedItem.ToString());
                 StartActivity(intent);
             }
             else
