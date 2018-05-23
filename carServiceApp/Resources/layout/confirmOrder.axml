@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
     <TextView
         android:text="Informacije o korisniku"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_weight="0.05" />
     <TextView
         android:inputType="textMultiLine"
         android:layout_width="match_parent"
@@ -17,7 +19,10 @@
         android:id="@+id/COuserInfo"
         android:enabled="true"
         android:editable="false"
-        android:layout_marginTop="15dip" />
+        android:layout_weight="0.1"
+        android:layout_marginTop="15dip"
+        android:gravity="center"
+        android:layout_gravity="center" />
     <TextView
         android:text="Odabrana usluga"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -26,6 +31,7 @@
         android:id="@+id/textView2"
         android:foregroundGravity="center"
         android:layout_gravity="center"
+        android:layout_weight="0.05"
         android:gravity="center" />
     <TextView
         android:inputType="textMultiLine"
@@ -34,13 +40,16 @@
         android:id="@+id/COchosenServices"
         android:enabled="true"
         android:editable="false"
-        android:layout_marginTop="15dip" />
+        android:layout_weight="0.1"
+        android:layout_marginTop="15dip"
+        android:gravity="center" />
     <TextView
         android:text="Odabrani automobil"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
+        android:layout_weight="0.1"
         android:gravity="center" />
     <TextView
         android:inputType="textMultiLine"
@@ -49,13 +58,16 @@
         android:id="@+id/COchosenCar"
         android:enabled="true"
         android:editable="false"
-        android:layout_marginTop="15dip" />
+        android:layout_weight="0.05"
+        android:layout_marginTop="15dip"
+        android:gravity="center" />
     <TextView
         android:text="Opis kvara"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
+        android:layout_weight="0.05"
         android:gravity="center" />
     <TextView
         android:inputType="textMultiLine"
@@ -64,22 +76,17 @@
         android:id="@+id/COopisKvara"
         android:enabled="true"
         android:editable="false"
-        android:maxLength="200" />
+        android:layout_weight="0.1"
+        android:maxLength="200"
+        android:gravity="center" />
     <TextView
         android:text="Datum koji bi vam najbolje odgovarao"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
+        android:layout_weight="0.05"
         android:id="@+id/textView21"
-        android:gravity="center" />
-    <TextView
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dip"
-        android:id="@+id/bestPossibleDate"
         android:gravity="center" />
     <Button
         android:text="Dodaj datum"
@@ -91,15 +98,31 @@
         android:background="#c0392b"
         android:textColor="#FFFFFF"
         android:gravity="center"
-        android:drawableRight="@drawable/ificonios7plusoutline211802" />
+        android:drawableRight="@drawable/ificonios7plusoutline211802"
+        android:layout_weight="0.05" />
+    <TextView
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:id="@+id/bestPossibleDate"
+        android:layout_weight="0.1"
+        android:gravity="center" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/space1"
+        android:layout_weight="0.1" />
     <Button
         android:text="Potvrdi narudžbu"
         android:layout_width="250dip"
         android:layout_height="wrap_content"
         android:id="@+id/COconfirmOrderButton"
         android:layout_gravity="center"
-        android:layout_marginTop="120dip"
         android:background="#c0392b"
         android:textColor="#FFFFFF"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_weight="0.1"
+        android:layout_marginBottom="15dip" />
 </LinearLayout>

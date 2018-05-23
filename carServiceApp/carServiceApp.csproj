@@ -179,6 +179,7 @@
     <Compile Include="Activities\loginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\mojAuto.cs" />
+    <Compile Include="My Classes\calendar.cs" />
     <Compile Include="My Classes\chooseCar.cs" />
     <Compile Include="My Classes\Database\CarDetails.cs" />
     <Compile Include="My Classes\Database\carDetailsSQL.cs" />
@@ -289,6 +290,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\confirmOrder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\calendar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

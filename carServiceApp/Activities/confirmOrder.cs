@@ -86,6 +86,14 @@ namespace carServiceApp.Activities
             chosenServices.Click += ChosenServices_Click;
 
             confirmOrderButton.Click += ConfirmOrderButton_Click;
+            addDate.Click += AddDate_Click;
+        }
+
+        private void AddDate_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            calendar calendar = new calendar();
+            calendar.Show(transaction, "fragment fragment");
         }
 
         private void ConfirmOrderButton_Click(object sender, EventArgs e)
