@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <CalendarView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/calendarView1" />
+        android:layout_width="750px"
+        android:layout_height="600px"
+        android:id="@+id/calendarView1"
+        android:alwaysDrawnWithCache="false"
+        android:focusedByDefault="true" />
     <Button
         android:text="Dodaj"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/calendarConfirm"
         android:layout_gravity="center"
@@ -17,7 +19,8 @@
         android:background="#c0392b"
         android:textColor="#FFFFFF"
         android:gravity="center"
-        android:drawableRight="@drawable/ificonios7plusoutline211802" />
+        android:drawableRight="@drawable/ificonios7plusoutline211802"
+        android:layout_marginBottom="10dip" />
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
