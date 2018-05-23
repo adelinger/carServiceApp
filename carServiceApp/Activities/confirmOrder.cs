@@ -92,8 +92,14 @@ namespace carServiceApp.Activities
         private void AddDate_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            calendar calendar = new calendar();
+            calendarView calendar = new calendarView();
             calendar.Show(transaction, "fragment fragment");
+            calendar.onDatePickedEvent += Calendar_onDatePickedEvent;
+        }
+
+        private void Calendar_onDatePickedEvent(object sender, onDatePickedEventArgs e)
+        {
+            addedDate.Text = e.datePicked;
         }
 
         private void ConfirmOrderButton_Click(object sender, EventArgs e)
@@ -104,14 +110,15 @@ namespace carServiceApp.Activities
 
 
             orders orders = new orders();
-            orders.uid = id;
-            orders.carName = carChosen;
-            orders.vrstaUsluge = vrstaUsluge;
-            orders.vrstaPosla = vrstaPosla;
-            orders.opisKvara = opisKvara.Text;
-            orders.datum = DateTime.UtcNow;
-            orders.vucnaSluzba = potrebnaVucnaSluzba;
-            orders.dijelovi = potrebnoNarucivanje;
+            orders.uid           = id;
+            orders.carName       = carChosen;
+            orders.vrstaUsluge   = vrstaUsluge;
+            orders.vrstaPosla    = vrstaPosla;
+            orders.opisKvara     = opisKvara.Text;
+            orders.datum         = DateTime.Now.ToString();
+            orders.vucnaSluzba   = potrebnaVucnaSluzba;
+            orders.dijelovi      = potrebnoNarucivanje;
+            orders.pozeljniDatum = addedDate.Text;
 
             con.db.Insert(orders);
 

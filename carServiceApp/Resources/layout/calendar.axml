@@ -10,8 +10,8 @@
         android:alwaysDrawnWithCache="false"
         android:focusedByDefault="true" />
     <Button
-        android:text="Dodaj"
-        android:layout_width="wrap_content"
+        android:text="Odaberi"
+        android:layout_width="180dip"
         android:layout_height="wrap_content"
         android:id="@+id/calendarConfirm"
         android:layout_gravity="center"
