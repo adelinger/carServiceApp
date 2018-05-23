@@ -184,6 +184,7 @@
     <Compile Include="My Classes\Database\carDetailsSQL.cs" />
     <Compile Include="My Classes\Database\connection.cs" />
     <Compile Include="My Classes\Database\order.cs" />
+    <Compile Include="My Classes\Database\orders.cs" />
     <Compile Include="My Classes\Database\uslugeSQL.cs" />
     <Compile Include="My Classes\forgotPassword.cs" />
     <Compile Include="My Classes\Database\services.cs" />

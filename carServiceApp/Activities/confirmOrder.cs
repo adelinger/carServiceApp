@@ -94,21 +94,28 @@ namespace carServiceApp.Activities
             id = auth.CurrentUser.Uid;
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
-            order order       = new order();
-            order.uid         = id;
-            order.carName     = carChosen;
-            order.vrstaUsluge = vrstaUsluge;
-            order.vrstaPosla  = vrstaPosla;
-            order.opisKvara   = opisKvara.Text;
-            order.datum       = DateTime.UtcNow;
-            order.vucnaSluzba = potrebnaVucnaSluzba;
-            order.dijelovi    = potrebnoNarucivanje;
 
-            con.db.Insert(order);
+            orders orders = new orders();
+            orders.uid = id;
+            orders.carName = carChosen;
+            orders.vrstaUsluge = vrstaUsluge;
+            orders.vrstaPosla = vrstaPosla;
+            orders.opisKvara = opisKvara.Text;
+            orders.datum = DateTime.UtcNow;
+            orders.vucnaSluzba = potrebnaVucnaSluzba;
+            orders.dijelovi = potrebnoNarucivanje;
+
+            con.db.Insert(orders);
+
+            List<orders>getOrders = con.db.Query<orders>("SELECT * FROM orders WHERE uid= '"+id+"' ");
+            foreach (var item in getOrders)
+            {
+                orderID = item.id.ToString();
+            }
 
             try
             {
-                var addOrder = firebase.Child("order").Child(id).Child(order.id.ToString()).PostAsync<order>(order);
+                var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<orders>(orders);
             }
             catch (Exception)
             {

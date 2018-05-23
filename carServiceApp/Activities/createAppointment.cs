@@ -41,7 +41,6 @@ namespace carServiceApp.Activities
         private bool updateRequested;
         private string id;
         private string key;
-        private string orderID;
         private FirebaseAuth auth;
         private const string FirebaseURL = loginActivity.FirebaseURL;
 
@@ -70,7 +69,8 @@ namespace carServiceApp.Activities
             vrstaUslugeList.Add("Odaberite stavku");
             vrstaPoslaList.Add ("Odaberite stavku");
             LoadData();
-            
+ 
+
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaUslugeList);
             vrstaUsluge.Adapter = adapter;
 
@@ -175,13 +175,12 @@ namespace carServiceApp.Activities
             }
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
-
 
             List<services> getServices = con.db.Query<services>("SELECT * FROM services");
 
@@ -200,6 +199,7 @@ namespace carServiceApp.Activities
                 userInput_mjesto.Text  = item.city;
                 userInpu_ulicaibr.Text = item.adress;
             }
+          
         }
 
         public async void updateUser()

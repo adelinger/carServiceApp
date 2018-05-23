@@ -37,6 +37,8 @@ namespace carServiceApp.Activities
         private EditText carName;
         private Button saveCar;
 
+        private bool allGood = true;
+
         createAppointment createAppointment = new createAppointment();
         connection con = new connection();
         protected override void OnCreate(Bundle savedInstanceState)
@@ -65,14 +67,19 @@ namespace carServiceApp.Activities
             
             createAppointment.updateUser();
             saveCar.Click += SaveCar_Click;
+            carName.FocusChange += CarName_FocusChange;
+        }
 
+        private void CarName_FocusChange(object sender, View.FocusChangeEventArgs e)
+        {
+            carName.SetTextColor(Android.Graphics.Color.Black);
         }
 
         private void SaveCar_Click(object sender, EventArgs e)
         {
             if(checkIfAllInserted() == false) { return; }
             addCarInfo();
-            OnBackPressed();
+            if (allGood) { OnBackPressed(); }
         }
 
         private bool checkIfAllInserted()
@@ -138,22 +145,30 @@ namespace carServiceApp.Activities
                 con.db.Insert(CarDetails);
                 var firebase = new FirebaseClient(FirebaseURL);
                 var item = firebase.Child("car").Child(id).Child(carName.Text).PutAsync(CarDetailsFB);
+                Toast.MakeText(this, "Uspješno ste dodali automobil", ToastLength.Long).Show();
             }
             catch (System.Exception)
             {
-                //update user
+                if (!string.IsNullOrEmpty(getCarName))
+                {
+                    var firebase = new FirebaseClient(FirebaseURL);
+                    var item = firebase.Child("car").Child(id).Child(carName.Text).PutAsync<CarDetails>(CarDetailsFB);
 
-                var firebase = new FirebaseClient(FirebaseURL);
-                var item = firebase.Child("car").Child(id).Child(carName.Text).PutAsync<CarDetails>(CarDetailsFB);
+                    con.db.Execute("UPDATE carDetailsSQL SET markaVozila = '" + CarDetails.markaVozila + "', tipVozila = '" + CarDetails.tipVozila + "', godina = '" + CarDetails.godina + "'," +
+                        " modelVozila = '" + CarDetails.modelVozila + "', tipMotora = '" + CarDetails.tipMotora + "', snagaMotora = '" + CarDetails.snagaMotora + "'," +
+                        " zapremninaMotora = '" + CarDetails.zapremninaMotora + "' WHERE uid = '" + id + "' ");
+                    Toast.MakeText(this, "Spremljeno", ToastLength.Long).Show();
+                }
+                    
+                    if(string.IsNullOrEmpty(getCarName))
+                {
+                    Toast.MakeText(this, "Već ste dodali automobil s ovim skraćenim nazivom", ToastLength.Long).Show();
+                    carName.SetTextColor(Android.Graphics.Color.Red);
+                    allGood = false;
+                }       
 
-                con.db.Execute("UPDATE carDetailsSQL SET markaVozila = '" + CarDetails.markaVozila + "', tipVozila = '" + CarDetails.tipVozila + "', godina = '" + CarDetails.godina + "'," +
-                    " modelVozila = '" + CarDetails.modelVozila + "', tipMotora = '" + CarDetails.tipMotora + "', snagaMotora = '" + CarDetails.snagaMotora + "'," +
-                    " zapremninaMotora = '" + CarDetails.zapremninaMotora + "' WHERE uid = '" + id + "' ");
-
-                Toast.MakeText(this, "Spremljeno", ToastLength.Long).Show();
             }
-
-            Toast.MakeText(this, "Uspješno ste dodali automobil", ToastLength.Long).Show();
+           
         }
 
        
