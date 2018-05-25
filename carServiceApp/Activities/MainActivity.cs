@@ -25,6 +25,7 @@ namespace carServiceApp
     {
         private Button dogovoriSastanak;
         private Button mojAuto;
+        private Button mojiSastanci;
         public string userName;
 
         private static FirebaseApp app;
@@ -44,6 +45,7 @@ namespace carServiceApp
 
             dogovoriSastanak = FindViewById<Button>(Resource.Id.dogovoriTermin);
             mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
+            mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
             getUserInfo();            
@@ -60,7 +62,16 @@ namespace carServiceApp
 
             dogovoriSastanak.Click += DogovoriSastanak_Click;
             mojAuto.Click += MojAuto_Click;
+            mojiSastanci.Click += MojiSastanci_Click;
            
+        }
+
+        private void MojiSastanci_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            chooseAppointment showAppointment = new chooseAppointment();
+            showAppointment.Show(transaction, "fragment manager");
+
         }
 
         private void MojAuto_Click(object sender, EventArgs e)

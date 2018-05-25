@@ -130,7 +130,7 @@ namespace carServiceApp.Activities
 
             try
             {
-                var addOrder = firebase.Child("order").Child(id).Child(orderID).PostAsync<orders>(orders);
+                var addOrder = firebase.Child("order").Child(id).Child(orderID).PutAsync<orders>(orders);
             }
             catch (Exception)
             {

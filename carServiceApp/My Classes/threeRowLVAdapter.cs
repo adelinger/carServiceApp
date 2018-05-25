@@ -37,10 +37,10 @@ namespace carServiceApp.My_Classes
             View view = convertView;
             if (view == null)
             {
-                view = LayoutInflater.From(context).Inflate(Resource.Layout.customLV, null, false);
+             //   view = LayoutInflater.From(context).Inflate(Resource.Layout.customLV, null, false);
             }
 
-            TextView row1 = view.FindViewById<TextView>(Resource.Id.row1);
+           // TextView row1 = view.FindViewById<TextView>(Resource.Id.row1);
             return view;
         }
     }

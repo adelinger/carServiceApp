@@ -119,11 +119,12 @@ namespace carServiceApp.My_Classes
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
 
-            List<carDetailsSQL> getCarsData = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL WHERE uid = '"+id+"' ");
-            foreach (var item in getCarsData)   
+            List<carDetailsSQL> getCarsData = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL WHERE uid = '" + id + "' ");
+            foreach (var item in getCarsData)
             {
                 carsFromDB.Add(item.carName);
             }
+
             ArrayAdapter adapter = new ArrayAdapter(view.Context, Android.Resource.Layout.SimpleListItem1, carsFromDB);
             carList.Adapter = adapter;
         }
