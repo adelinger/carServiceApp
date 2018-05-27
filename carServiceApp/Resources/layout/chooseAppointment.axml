@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="200dp">
+    <TextView
+        android:text="Šifra"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderNumTV"
+        android:layout_centerHorizontal="false" />
+    <TextView
+        android:text="Auto"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/orderNumTV"
+        android:id="@+id/carNameTV"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="20dp" />
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="150dip"
+        android:layout_below="@id/orderNumTV"
         android:id="@+id/appointmentList" />
-</LinearLayout>
+    <TextView
+        android:text="Datum"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/carNameTV"
+        android:id="@+id/dateTV"
+        android:paddingLeft="60dip" />
+</RelativeLayout>

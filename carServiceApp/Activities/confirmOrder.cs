@@ -115,7 +115,7 @@ namespace carServiceApp.Activities
             orders.vrstaUsluge   = vrstaUsluge;
             orders.vrstaPosla    = vrstaPosla;
             orders.opisKvara     = opisKvara.Text;
-            orders.datum         = DateTime.Now.ToString();
+            orders.datum         = DateTime.Now.ToLocalTime().ToString();
             orders.vucnaSluzba   = potrebnaVucnaSluzba;
             orders.dijelovi      = potrebnoNarucivanje;
             orders.pozeljniDatum = addedDate.Text;

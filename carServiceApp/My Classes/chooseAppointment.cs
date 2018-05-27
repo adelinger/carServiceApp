@@ -52,9 +52,10 @@ namespace carServiceApp.My_Classes
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
             var data = await firebase.Child("order").Child(id).OnceAsync<orders>();
 
+            
             foreach (var item in data)
             {
-                ordersList.Add(new orders { id = item.Object.id, carName = item.Object.carName, datum = item.Object.datum });
+                ordersList.Add(new orders { id = item.Object.id, carName = item.Object.carName, datum = item.Object.datum.Substring(0,10)});
             }
 
             listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);
