@@ -43,8 +43,8 @@ namespace carServiceApp.My_Classes.Sliding_tab
         private float mSelectionOffset;
 
         //Tab colorizer
-        private SlidingTabScrollView.TabColorizer mCustomTabColorizer;
-        private SimpleTabColorizer mDefaultTabColorizer;
+        private SlidingTabScrollView.tabColorizer mCustomTabColorizer;
+        private simpleTabColorizer mDefaultTabColorizer;
 
         public slidingTabStrip(Context context) : this(context, null)
         {
@@ -78,6 +78,10 @@ namespace carServiceApp.My_Classes.Sliding_tab
 
         public SlidingTabScrollView.tabColorizer customTabColorizer
         {
+            get
+            {
+                return null;
+            }
             set
             {
                 mCustomTabColorizer = value;
@@ -125,8 +129,54 @@ namespace carServiceApp.My_Classes.Sliding_tab
         protected override void OnDraw(Canvas canvas)
         {
             int height = Height;
-            int childCount = ChildCount;
+            int tabCount = ChildCount;
             int dividerHeightPx = (int)(Math.Min(Math.Max(0f, mDividerHeight), 1f) * height);
+            SlidingTabScrollView.tabColorizer tabColorizer = customTabColorizer != null ? mCustomTabColorizer : mDefaultTabColorizer;
+
+            if (tabCount > 0)
+            {
+                View selectedTitle = GetChildAt(mSelectedPosition);
+                int left = selectedTitle.Left;
+                int right = selectedTitle.Right;
+                int color = tabColorizer.getIndicatorColors(mSelectedPosition);
+
+                if (mSelectionOffset > 0f && mSelectedPosition < (tabCount-1))
+                {
+                    int nextColor = tabColorizer.getIndicatorColors(mSelectedPosition + 1);
+                    if (color != nextColor)
+                    {
+                        color = blendColor(nextColor, color, mSelectionOffset);
+
+                    }
+
+                    View nextTitle = GetChildAt(mSelectedPosition + 1);
+                    left = (int)(mSelectionOffset * nextTitle.Left + (1.0f - mSelectionOffset) * left);
+                    right = (int)(mSelectionOffset * nextTitle.Right +  (1.0f - mSelectionOffset) * right);
+                }
+
+                mSelectedIndicatorPaint.Color = getColorFromInteger(color);
+                canvas.DrawRect(left, height - mSelectedIndicatorThickness, right, height, mSelectedIndicatorPaint);
+
+                int separatorTop = (height - dividerHeightPx) / 2;
+                for (int i = 0; i < ChildCount; i++)
+                {
+                    View child = GetChildAt(i);
+                    mDividerPaint.Color = getColorFromInteger(tabColorizer.getDividerColors(i));
+                    canvas.DrawLine(child.Right, separatorTop, child.Right, separatorTop + dividerHeightPx, mDividerPaint);
+                }
+
+                canvas.DrawRect(0, height - mBottomBorderThickness, Width, height, mBottomBorderPaint);
+            }
+        }
+
+        private int blendColor(int color1, int color2, float ratio)
+        {
+            float inverseRatio = 1f - ratio;
+            float r = (Color.GetRedComponent(color1) * ratio) + (Color.GetRedComponent(color2) * inverseRatio);
+            float g = (Color.GetGreenComponent(color1) * ratio) + (Color.GetRedComponent(color2) * inverseRatio);
+            float b = (Color.GetBlueComponent(color1) * ratio) + (Color.GetRedComponent(color2) * inverseRatio);
+
+            return Color.Rgb((int)r, (int)g, (int)b);
         }
 
         private class simpleTabColorizer : SlidingTabScrollView.tabColorizer
