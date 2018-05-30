@@ -34,7 +34,7 @@ namespace carServiceApp.My_Classes.Sliding_tab
         public override void OnViewCreated(View view, Bundle savedInstanceState)
         {
             slidingTabScrollView = view.FindViewById<SlidingTabScrollView>(Resource.Id.sliding_tabs);
-            viewPager = view.FindViewById<ViewPager>(Resource.Id.viewPager);
+            viewPager            = view.FindViewById<ViewPager>(Resource.Id.viewPager);
             viewPager.Adapter = new samplePagerAdapter();
             slidingTabScrollView.viewPager= viewPager;
         }
@@ -64,8 +64,10 @@ namespace carServiceApp.My_Classes.Sliding_tab
                 if (position == 0)
                 {
                     View view = LayoutInflater.From(container.Context).Inflate(Resource.Layout.carDetails, container, false);
-
                     container.AddView(view);
+
+
+
                     return view;
                 }
                 return null;

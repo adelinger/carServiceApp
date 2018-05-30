@@ -53,8 +53,6 @@ namespace carServiceApp.My_Classes
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            
-            
             onDatePickedEvent.Invoke(this, new onDatePickedEventArgs(datePicked));
             this.Dismiss();
         }

@@ -18,7 +18,7 @@ using Firebase.Xamarin.Database.Query;
 
 namespace carServiceApp.My_Classes
 {
-    class chooseCar :DialogFragment
+    class chooseCar :DialogFragment, IDialogInterfaceOnDismissListener
     {
         public View view;
         public ListView carList;
@@ -28,6 +28,7 @@ namespace carServiceApp.My_Classes
         const string firebaseURL = loginActivity.FirebaseURL;
 
         private string id;
+        private bool isColosed;
 
         connection con = new connection();
 
@@ -96,9 +97,20 @@ namespace carServiceApp.My_Classes
 
         private void AddNewCar_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(view.Context, typeof(carDetails));
-            StartActivity(intent);
-            view.Context.Dispose();
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            addCar addCar = new addCar();
+            addCar.Show(transaction, "addCar");
+            addCar.onDialogClosedEvent += AddCar_onDialogClosedEvent;
+        }
+
+        private void AddCar_onDialogClosedEvent(object sender, onDialogClosed e)
+        {
+            isColosed = e.closed;
+
+            if(isColosed == true)
+            {
+                getCars();
+            }
         }
 
         public override void OnResume()
@@ -107,6 +119,7 @@ namespace carServiceApp.My_Classes
             getCars();
             base.OnResume();
         }
+        
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
@@ -116,6 +129,7 @@ namespace carServiceApp.My_Classes
 
         public async void getCars ()
         {
+            carsFromDB.Clear();
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
 
@@ -129,6 +143,7 @@ namespace carServiceApp.My_Classes
             carList.Adapter = adapter;
         }
 
-       
+
+
     }
 }

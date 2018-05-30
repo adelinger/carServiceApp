@@ -185,6 +185,7 @@
     <Compile Include="My Classes\calendar.cs" />
     <Compile Include="My Classes\chooseAppointment.cs" />
     <Compile Include="My Classes\chooseCar.cs" />
+    <Compile Include="My Classes\Database\addCar.cs" />
     <Compile Include="My Classes\Database\CarDetails.cs" />
     <Compile Include="My Classes\Database\carDetailsSQL.cs" />
     <Compile Include="My Classes\Database\connection.cs" />

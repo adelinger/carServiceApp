@@ -60,10 +60,8 @@ namespace carServiceApp.Activities
             id = users.Uid;
 
             getCarName = Intent.GetStringExtra("carName");
-            if(getCarName != "")
-            {
-                getCarData(getCarName);
-            }
+            getCarData(getCarName);
+           
             
             createAppointment.updateUser();
             saveCar.Click += SaveCar_Click;
