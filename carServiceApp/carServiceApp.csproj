@@ -197,7 +197,6 @@
     <Compile Include="My Classes\signInDialog.cs" />
     <Compile Include="My Classes\signUpDialog.cs" />
     <Compile Include="My Classes\Database\Account.cs" />
-    <Compile Include="My Classes\Sliding tab\samplePagerAdapter.cs" />
     <Compile Include="My Classes\Sliding tab\slidingTabFragment.cs" />
     <Compile Include="My Classes\Sliding tab\SlidingTabScrollView.cs" />
     <Compile Include="My Classes\Sliding tab\slidingTabStrip.cs" />
