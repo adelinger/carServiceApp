@@ -2709,9 +2709,6 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a004e
 			public const int center_vertical = 2131361870;
 			
-			// aapt resource value: 0x7f0a00ff
-			public const int checkBox1 = 2131362047;
-			
 			// aapt resource value: 0x7f0a00f4
 			public const int checkBoxZapamtiMe = 2131362036;
 			
@@ -3131,6 +3128,9 @@ namespace carServiceApp
 			
 			// aapt resource value: 0x7f0a0019
 			public const int tag_transition_group = 2131361817;
+			
+			// aapt resource value: 0x7f0a00ff
+			public const int termsCheckBox = 2131362047;
 			
 			// aapt resource value: 0x7f0a00fe
 			public const int termsText = 2131362046;

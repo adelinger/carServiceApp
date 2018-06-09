@@ -39,6 +39,7 @@ namespace carServiceApp.My_Classes
         private AutoCompleteTextView password2;
         private AutoCompleteTextView phone;
         private Button register;
+        private bool termsAccepted;
 
         public event EventHandler<onSignUpEventArgs> onSignUpComplete;
 
@@ -53,6 +54,13 @@ namespace carServiceApp.My_Classes
             password  = view.FindViewById<AutoCompleteTextView>(Resource.Id.ACTVpassword);
             password2 = view.FindViewById<AutoCompleteTextView>(Resource.Id.ACTVpassword2);
             register  = view.FindViewById<Button>(Resource.Id.buttonSignUp);
+
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            termsAgreementFragment agreementFragment = new termsAgreementFragment();
+            agreementFragment.Show(transaction, "agreementFragment");
+
+            agreementFragment.OnTermsAgreementChosen += AgreementFragment_OnTermsAgreementChosen;
+
             register.Click += Register_Click;
 
             return view;
@@ -71,8 +79,26 @@ namespace carServiceApp.My_Classes
                 return;
             }
            
+
+            if (!termsAccepted)
+            {
+                //FragmentTransaction transaction = FragmentManager.BeginTransaction();
+                //termsAgreementFragment agreementFragment = new termsAgreementFragment();
+                //agreementFragment.Show(transaction, "agreementFragment");
+                //return;
+                this.Dismiss();
+
+            }
+
             onSignUpComplete.Invoke(this, new onSignUpEventArgs(firstName.Text, lastName.Text, email.Text, phone.Text, password.Text));
             this.Dismiss();
+        }
+
+        private void AgreementFragment_OnTermsAgreementChosen(object sender, onTermsAgreementChosenArgs e)
+        {
+            termsAccepted = e.termsAccepted;
+
+            if (!termsAccepted) { this.Dismiss(); }
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)

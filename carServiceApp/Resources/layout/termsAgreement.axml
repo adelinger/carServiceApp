@@ -7,17 +7,18 @@
     android:minHeight="25px">
     <TextView
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="500px"
+        android:textSize="40px"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
         android:id="@+id/termsText"
         android:gravity="center"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginTop="10dip" />
     <CheckBox
         android:text="Slažem se"
-        android:layout_width="300px"
+        android:layout_width="400px"
         android:layout_height="wrap_content"
-        android:id="@+id/checkBox1"
+        android:id="@+id/termsCheckBox"
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_marginTop="15dip" />
@@ -29,5 +30,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="70dip"
         android:background="#c0392b"
+        android:layout_marginBottom="15dip"
         android:textColor="#FFFFFF" />
 </LinearLayout>
