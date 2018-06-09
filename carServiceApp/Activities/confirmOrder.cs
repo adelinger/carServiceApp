@@ -17,7 +17,7 @@ using Firebase.Xamarin.Database.Query;
 
 namespace carServiceApp.Activities
 {
-    [Activity(Label = "confirmOrder")]
+    [Activity(Label = "Potvrdite sastanak")]
     public class confirmOrder : Activity, IDialogInterfaceOnDismissListener
     {
 
@@ -49,6 +49,7 @@ namespace carServiceApp.Activities
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.confirmOrder);
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             confirmOrderButton = FindViewById<Button>(Resource.Id.COconfirmOrderButton);
             userInfo           = FindViewById<TextView>(Resource.Id.COuserInfo);

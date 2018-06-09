@@ -21,7 +21,7 @@ using static Android.Widget.AdapterView;
 
 namespace carServiceApp.Activities
 {
-    [Activity(Label = "createAppointment")]
+    [Activity(Label = "Dodaj svoje podatke")]
     public class createAppointment : Activity
     {
         private Spinner  vrstaUsluge;

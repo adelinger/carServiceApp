@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="500px"
+        android:id="@+id/termsText"
+        android:gravity="center"
+        android:layout_gravity="center" />
+    <CheckBox
+        android:text="Slažem se"
+        android:layout_width="300px"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox1"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dip" />
+    <Button
+        android:text="Nastavi"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirmTerms"
+        android:layout_gravity="center"
+        android:layout_marginTop="70dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

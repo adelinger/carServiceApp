@@ -17,7 +17,7 @@ using Firebase.Xamarin.Database.Query;
 
 namespace carServiceApp.Activities
 {
-    [Activity(Label = "addCarToOrder")]
+    [Activity(Label = "Dodajte vozilo")]
     public class addCarToOrder : Activity
     {
         private Spinner     spinner;

@@ -197,9 +197,7 @@
     <Compile Include="My Classes\signInDialog.cs" />
     <Compile Include="My Classes\signUpDialog.cs" />
     <Compile Include="My Classes\Database\Account.cs" />
-    <Compile Include="My Classes\Sliding tab\slidingTabFragment.cs" />
-    <Compile Include="My Classes\Sliding tab\SlidingTabScrollView.cs" />
-    <Compile Include="My Classes\Sliding tab\slidingTabStrip.cs" />
+    <Compile Include="My Classes\termsAgreementFragment.cs" />
     <Compile Include="My Classes\threeRowLVAdapter.cs" />
     <Compile Include="My Classes\Database\User.cs" />
     <Compile Include="My Classes\Database\usluge.cs" />
@@ -248,6 +246,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="My Classes\Sliding tab\" />
     <Folder Include="Resources\mipmap-hdpi\" />
     <Folder Include="Resources\mipmap-mdpi\" />
     <Folder Include="Resources\mipmap-xhdpi\" />
@@ -314,7 +313,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment.axml">
+    <AndroidResource Include="Resources\layout\termsAgreement.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
