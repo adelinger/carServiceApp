@@ -83,6 +83,7 @@ namespace carServiceApp.Activities
             if (login_rememberMe && user != null && IsOnline())
             {
                 createAppointment.updateUser();
+                updateCars();
                 Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             }
@@ -93,6 +94,38 @@ namespace carServiceApp.Activities
         {
             var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
             return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
+        }
+
+        public async void updateCars()
+        {
+            List<carDetailsSQL> cars = new List<carDetailsSQL>();
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+
+            var data = await firebase.Child("car").Child(id).OnceAsync<CarDetails>();
+            foreach (var item in data)
+            {
+                cars.Add(new carDetailsSQL
+                {
+                    carName = item.Key,
+                    godina = item.Object.godina,
+                    markaVozila = item.Object.markaVozila,
+                    modelVozila = item.Object.markaVozila,
+                    snagaMotora = item.Object.snagaMotora,
+                    tipMotora = item.Object.snagaMotora,
+                    tipVozila = item.Object.tipVozila,
+                    uid = item.Object.uid,
+                    zapremninaMotora = item.Object.zapremninaMotora
+                });
+            }
+            try
+            {
+                con.db.InsertAll(cars, false);
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
 
         private void InitFirebaseAuth()
@@ -283,6 +316,8 @@ namespace carServiceApp.Activities
 
             
         }
+
+       
 
         private void checkIfRememberMeIsChecked ()
         {

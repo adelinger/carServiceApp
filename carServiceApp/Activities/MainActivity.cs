@@ -16,6 +16,7 @@ using static carServiceApp.MainActivity;
 using System.Threading.Tasks;
 using Firebase;
 using Firebase.Xamarin.Database.Query;
+using carServiceApp.My_Classes.Database;
 
 namespace carServiceApp
 {
@@ -35,7 +36,9 @@ namespace carServiceApp
 
         connection con = new connection();
         createAppointment createAppointment = new createAppointment();
-     
+
+        public string FirebaseURL { get; private set; }
+
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -48,8 +51,8 @@ namespace carServiceApp
             mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
-            getUserInfo();            
-            
+            getUserInfo();
+
             if (userName != null)
             {
                 this.Title = userName + " " + userLastName;
@@ -65,6 +68,7 @@ namespace carServiceApp
             mojiSastanci.Click += MojiSastanci_Click;
            
         }
+
 
         private void MojiSastanci_Click(object sender, EventArgs e)
         {
