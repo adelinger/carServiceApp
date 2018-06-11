@@ -119,7 +119,8 @@ namespace carServiceApp.Activities
             }
             try
             {
-                con.db.InsertAll(cars, false);
+                //con.db.InsertAll(cars, false);
+                con.db.InsertOrReplace(cars);
             }
             catch (Exception)
             {
