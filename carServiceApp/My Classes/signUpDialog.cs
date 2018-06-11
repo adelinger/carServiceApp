@@ -40,6 +40,7 @@ namespace carServiceApp.My_Classes
         private AutoCompleteTextView phone;
         private Button register;
         private bool termsAccepted;
+        private bool close = false;
 
         public event EventHandler<onSignUpEventArgs> onSignUpComplete;
 
@@ -92,13 +93,15 @@ namespace carServiceApp.My_Classes
 
             onSignUpComplete.Invoke(this, new onSignUpEventArgs(firstName.Text, lastName.Text, email.Text, phone.Text, password.Text));
             this.Dismiss();
-        }
+        }   
 
         private void AgreementFragment_OnTermsAgreementChosen(object sender, onTermsAgreementChosenArgs e)
         {
             termsAccepted = e.termsAccepted;
+            close = e.closeDIalog;
 
             if (!termsAccepted) { this.Dismiss(); }
+            if(close) { this.Dismiss(); }
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)

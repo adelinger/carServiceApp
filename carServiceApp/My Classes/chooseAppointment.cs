@@ -15,6 +15,7 @@ using carServiceApp.My_Classes.Database;
 using Firebase.Auth;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
+using Newtonsoft.Json;
 
 namespace carServiceApp.My_Classes
 {
@@ -26,6 +27,7 @@ namespace carServiceApp.My_Classes
 
         private List<orders> ordersList;
         private List<string> list = new List<string>();
+       
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -34,8 +36,15 @@ namespace carServiceApp.My_Classes
             ordersList = new List<orders>();
 
             getAppointments();
+            ordersLV.ItemClick += OrdersLV_ItemClick;
 
             return view;
+        }
+
+        private void OrdersLV_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Intent intent = new Intent(view.Context, typeof(myAppointments));
+            StartActivity(intent);
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -51,13 +60,12 @@ namespace carServiceApp.My_Classes
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
             var data = await firebase.Child("order").Child(id).OnceAsync<orders>();
-
+           
             
             foreach (var item in data)
             {
-                ordersList.Add(new orders { id = item.Object.id, carName = item.Object.carName, datum = item.Object.datum.Substring(0,10)});
+                ordersList.Add(new orders { uid = JsonConvert.DeserializeObject(item.Key).ToString(), carName = item.Object.carName, datum = item.Object.datum.Substring(0, 10) });
             }
-
             listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);
             ordersLV.Adapter = adapter;
         }

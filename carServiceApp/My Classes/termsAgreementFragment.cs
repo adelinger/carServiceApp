@@ -36,7 +36,7 @@ namespace carServiceApp.My_Classes
                 "Oznakom kvačice 'slažem se' pristajete na spremanje vaših podataka u bazu podataka autoservisa.";
 
             termsButton.Click += TermsButton_Click;
-            termsCheckBox.CheckedChange += TermsCheckBox_CheckedChange;
+            termsCheckBox.CheckedChange += TermsCheckBox_CheckedChange;         
 
             return view;
         }
@@ -48,8 +48,17 @@ namespace carServiceApp.My_Classes
 
         private void TermsButton_Click(object sender, EventArgs e)
         {
-            OnTermsAgreementChosen.Invoke(this, new onTermsAgreementChosenArgs(checkBoxChecked));
-            this.Dismiss();
+            if (checkBoxChecked)
+            {
+                OnTermsAgreementChosen.Invoke(this, new onTermsAgreementChosenArgs(checkBoxChecked));
+                this.Dismiss();
+            }
+            else
+            {
+                OnTermsAgreementChosen.Invoke(this, new onTermsAgreementChosenArgs(checkBoxChecked, true));
+                this.Dismiss();
+            }
+           
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -59,12 +68,28 @@ namespace carServiceApp.My_Classes
             base.OnActivityCreated(savedInstanceState);
         }
 
+        public override void OnDismiss(IDialogInterface dialog)
+        {
+            if (!checkBoxChecked)
+            {
+                OnTermsAgreementChosen.Invoke(this, new onTermsAgreementChosenArgs(checkBoxChecked, true));
+            }
+            base.OnDismiss(dialog);
+        }
+
+
     }
 
     public class onTermsAgreementChosenArgs
     {
         public bool termsAccepted { get; set; }
+        public bool closeDIalog   { get; set; }
 
+        public onTermsAgreementChosenArgs(bool userAnswer, bool close)
+        {
+            termsAccepted = userAnswer;
+            closeDIalog = close;
+        }
         public onTermsAgreementChosenArgs(bool userAnswer)
         {
             termsAccepted = userAnswer;

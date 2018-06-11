@@ -14,6 +14,7 @@ using carServiceApp.My_Classes.Database;
 using Firebase.Auth;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
+using Newtonsoft.Json;
 
 namespace carServiceApp.Activities
 {
@@ -103,7 +104,7 @@ namespace carServiceApp.Activities
             addedDate.Text = e.datePicked;
         }
 
-        private void ConfirmOrderButton_Click(object sender, EventArgs e)
+        private  async void ConfirmOrderButton_Click(object sender, EventArgs e)
         {
             var auth = FirebaseAuth.GetInstance(loginActivity.app);
             id = auth.CurrentUser.Uid;
@@ -121,23 +122,30 @@ namespace carServiceApp.Activities
             orders.dijelovi      = potrebnoNarucivanje;
             orders.pozeljniDatum = addedDate.Text;
 
-            con.db.Insert(orders);
+           
 
-            List<orders>getOrders = con.db.Query<orders>("SELECT * FROM orders WHERE uid= '"+id+"' ");
-            foreach (var item in getOrders)
+            int numOfOrders = 1;
+            orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
+            
+            List<orders> allOrders = new List<orders>();                
+            var getONumberOfOrders = await firebase.Child("order").Child(id).OnceAsync<orders>();
+            foreach (var item in getONumberOfOrders)
             {
-                orderID = item.id.ToString();
+                allOrders.Add(new orders { carName = item.Object.carName });
+                numOfOrders = allOrders.Count +1;               
+                orderID = numOfOrders.ToString();
+                orderID = JsonConvert.SerializeObject(orderID);
             }
 
             try
             {
-                var addOrder = firebase.Child("order").Child(id).Child(orderID).PutAsync<orders>(orders);
+                var addOrder = firebase.Child("order").Child(id).Child(orderID.ToString()).PutAsync<orders>(orders);
             }
             catch (Exception)
             {
                 throw;
             }
-            Toast.MakeText(this, "Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji sastanci' u glavnom izborniku", ToastLength.Long).Show();
+           
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.SetOnDismissListener(this);

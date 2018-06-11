@@ -30,6 +30,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="70dip"
         android:background="#c0392b"
-        android:layout_marginBottom="15dip"
+        android:layout_marginBottom="10dip"
         android:textColor="#FFFFFF" />
 </LinearLayout>

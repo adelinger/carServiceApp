@@ -182,6 +182,7 @@
     <Compile Include="Activities\loginActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\mojAuto.cs" />
+    <Compile Include="Activities\myAppointments.cs" />
     <Compile Include="My Classes\calendar.cs" />
     <Compile Include="My Classes\chooseAppointment.cs" />
     <Compile Include="My Classes\chooseCar.cs" />
@@ -314,6 +315,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\termsAgreement.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\myAppointments.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

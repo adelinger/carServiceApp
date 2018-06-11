@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TextView
+        android:text="Status:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusTextView" />
+    <TextView
+        android:text="U obradi"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:textColor="#c0392b"
+        android:layout_toRightOf="@id/statusTextView"
+        android:id="@+id/statusTV" />
+    <TextView
+        android:text="Automobil: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/statusTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/carTextView" />
+    <TextView
+        android:text="Vozilo"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/carTextView"
+        android:layout_below="@id/statusTV"
+        android:id="@+id/carTV" />
+    <TextView
+        android:text="Vrsta usluge: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/carTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/vrstaUslugeTextView" />
+    <TextView
+        android:text="Usluga"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/carTextView"
+        android:layout_below="@id/carTV"
+        android:id="@+id/VrstauslugeTV" />
+    <TextView
+        android:text="Vrsta posla: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vrstaUslugeTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/vrstaPoslaTextView" />
+    <TextView
+        android:text="Posao"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/vrstaPoslaTextView"
+        android:layout_below="@id/vrstaUslugeTextView"
+        android:id="@+id/vrstaPoslaTV" />
+    <TextView
+        android:text="Broj narudžbe: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vrstaPoslaTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/brojNarudzbeTextView" />
+    <TextView
+        android:text="broj"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/brojNarudzbeTextView"
+        android:layout_below="@id/vrstaPoslaTextView"
+        android:id="@+id/brojNarudzbeTV" />
+    <TextView
+        android:text="Datum servisa: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/brojNarudzbeTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/datumServisaTextView" />
+    <TextView
+        android:text="1/1/2018"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/datumServisaTextView"
+        android:layout_below="@id/brojNarudzbeTextView"
+        android:id="@+id/datumServisaTV" />
+    <TextView
+        android:text="Vrijeme servisa: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datumServisaTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/vrijemeServisaTextView" />
+    <TextView
+        android:text="08:00"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/vrijemeServisaTextView"
+        android:layout_below="@id/datumServisaTextView"
+        android:id="@+id/vrijemeServisaTV" />
+</RelativeLayout>
