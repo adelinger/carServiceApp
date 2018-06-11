@@ -104,28 +104,13 @@ namespace carServiceApp.Activities
             var data = await firebase.Child("car").Child(id).OnceAsync<CarDetails>();
             foreach (var item in data)
             {
-                cars.Add(new carDetailsSQL
-                {
-                    carName = item.Key,
-                    godina = item.Object.godina,
-                    markaVozila = item.Object.markaVozila,
-                    modelVozila = item.Object.markaVozila,
-                    snagaMotora = item.Object.snagaMotora,
-                    tipMotora = item.Object.snagaMotora,
-                    tipVozila = item.Object.tipVozila,
-                    uid = item.Object.uid,
-                    zapremninaMotora = item.Object.zapremninaMotora
-                });
-            }
-            try
-            {
-                //con.db.InsertAll(cars, false);
-                con.db.InsertOrReplace(cars);
-            }
-            catch (Exception)
-            {
+               
+                con.db.Execute("INSERT OR IGNORE INTO carDetailsSQL (carName, godina, markaVozila, modelVozila, snagaMotora, tipMotora, tipVozila, uid, zapremninaMotora) VALUES ('" + item.Key + "', " +
+                    " '" + item.Object.godina + "', '" + item.Object.markaVozila + "', '" + item.Object.modelVozila + "', '" + item.Object.snagaMotora + "', '" + item.Object.tipMotora + "', '" + item.Object.tipVozila + "', " +
+                    "'" + item.Object.uid + "', '" + item.Object.zapremninaMotora + "') ");
 
             }
+
 
         }
 
