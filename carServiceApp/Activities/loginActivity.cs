@@ -68,6 +68,7 @@ namespace carServiceApp.Activities
             updateServices();
 
             con.db.CreateTable<User>();
+            con.db.DeleteAll<carDetailsSQL>();
             con.db.CreateTable<carDetailsSQL>();
             con.db.CreateTable<orders>();
 
@@ -101,6 +102,7 @@ namespace carServiceApp.Activities
             List<carDetailsSQL> cars = new List<carDetailsSQL>();
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
+
             var data = await firebase.Child("car").Child(id).OnceAsync<CarDetails>();
             foreach (var item in data)
             {
@@ -110,7 +112,6 @@ namespace carServiceApp.Activities
                     "'" + item.Object.uid + "', '" + item.Object.zapremninaMotora + "') ");
 
             }
-
 
         }
 
