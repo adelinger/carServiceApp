@@ -121,4 +121,39 @@
         android:layout_toRightOf="@id/vrijemeServisaTextView"
         android:layout_below="@id/datumServisaTextView"
         android:id="@+id/vrijemeServisaTV" />
+    <TextView
+        android:text="Cijena: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vrijemeServisaTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/cijenaTextView" />
+    <TextView
+        android:text="Nepoznato"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:textColor="#c0392b"
+        android:layout_marginTop="10dip"
+        android:layout_toRightOf="@id/cijenaTextView"
+        android:layout_below="@id/vrijemeServisaTextView"
+        android:id="@+id/cijenaTV" />
+    <TextView
+        android:text="Napomena servisera: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cijenaTextView"
+        android:layout_marginTop="10dip"
+        android:id="@+id/napomenaServiseraTextView" />
+    <TextView
+        android:text="Medium Text"
+        android:textSize="40px"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/napomenaServiseraTV"
+        android:gravity="center"
+        android:layout_below="@id/napomenaServiseraTextView"
+        android:layout_marginTop="10dip" />
 </RelativeLayout>

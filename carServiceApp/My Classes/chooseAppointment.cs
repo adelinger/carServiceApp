@@ -60,7 +60,7 @@ namespace carServiceApp.My_Classes
         {
             var user = FirebaseAuth.Instance.CurrentUser;
             id = user.Uid;
-
+            ordersList.Clear();
           
             List<orders> data = con.db.Query<orders>("SELECT * FROM orders WHERE uid = '" + id + "' ");
             

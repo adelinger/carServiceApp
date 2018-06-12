@@ -15,16 +15,20 @@ namespace carServiceApp.My_Classes.Database
 {
     class orders
     {        
-        public string uid           { get; set; }
+        public string uid               { get; set; }
         [Unique]
-        public string id            { get; set; }
-        public string carName       { get; set; }
-        public string vrstaUsluge   { get; set; }
-        public string vrstaPosla    { get; set; }
-        public string opisKvara     { get; set; }
-        public string datum         { get; set; }
-        public string pozeljniDatum { get; set; }
-        public bool vucnaSluzba     { get; set; }
-        public bool dijelovi        { get; set; }
+        public string id                { get; set; }
+        public string carName           { get; set; }
+        public string vrstaUsluge       { get; set; }
+        public string vrstaPosla        { get; set; }
+        public string opisKvara         { get; set; }
+        public string datum             { get; set; }
+        public string pozeljniDatum     { get; set; }
+        public bool vucnaSluzba         { get; set; }
+        public bool dijelovi            { get; set; }
+        public string status            { get; set; }
+        public string vrijemeServisa    { get; set; }
+        public string cijena            { get; set; }
+        public string napomenaServisera { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using carServiceApp.My_Classes;
 using carServiceApp.My_Classes.Database;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
 using Newtonsoft.Json;
@@ -56,7 +57,6 @@ namespace carServiceApp.Activities
 
             SetContentView(Resource.Layout.logInLayout);
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            
 
             mButtuonSignUp = FindViewById<Button>(Resource.Id.registerButton);
             buttonSignIn   = FindViewById<Button>(Resource.Id.Loginbutton);
@@ -64,32 +64,35 @@ namespace carServiceApp.Activities
             activityLogin  = FindViewById<LinearLayout>(Resource.Layout.logInLayout);
 
             progressBar.Visibility = ViewStates.Invisible;
-            
-            InitFirebaseAuth();
-            updateServices();
 
+            InitFirebaseAuth();
+
+            con.db.DropTable<orders>();
             con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
             con.db.CreateTable<orders>();
 
+            if (IsOnline())
+            {
+                updateServices();
+                FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
+
+                if (user != null)
+                {
+                    checkIfRememberMeIsChecked();
+                }
+                if (login_rememberMe && user != null && IsOnline())
+                {
+                    
+                    Intent intent = new Intent(this, typeof(MainActivity));
+                    StartActivity(intent);
+                    this.FinishAffinity();
+                }
+            }
+            
             mButtuonSignUp.Click += MButtuonSignUp_Click;
             buttonSignIn.Click += ButtonSignIn_Click;
 
-            FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
-
-            if (user != null)
-            {
-                checkIfRememberMeIsChecked();                
-            }
-            if (login_rememberMe && user != null && IsOnline())
-            {
-                createAppointment.updateUser();
-                chooseAppointment.updateAppointments();
-                chooseCar.updateCars();
-                Intent intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
-            }
-           
         }
 
         public bool IsOnline()
@@ -98,14 +101,14 @@ namespace carServiceApp.Activities
             return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
         }
 
-       
-
         private void InitFirebaseAuth()
         {
             var options = new FirebaseOptions.Builder().SetApplicationId("1:909560725502:android:4f4c5f3cd00da486").SetApiKey("AIzaSyDJro0RffLOLQ_xtKOXOoreLHzZoQ7M5y0").Build();
             if (app == null)
                 app = FirebaseApp.InitializeApp(this, options);
             auth = FirebaseAuth.GetInstance(app);
+            //FirebaseDatabase.GetInstance(FirebaseURL).SetPersistenceEnabled(true);
+           
         }
 
         private void ButtonSignIn_Click(object sender, EventArgs e)
@@ -304,6 +307,10 @@ namespace carServiceApp.Activities
 
         public void OnSuccess(Java.Lang.Object result)
         {
+            updateServices();
+            chooseCar.updateCars();
+            createAppointment.updateUser();
+            chooseAppointment.updateAppointments();
             updateUser(login_rememberMe);
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
@@ -311,7 +318,7 @@ namespace carServiceApp.Activities
 
         public void OnFailure(Java.Lang.Exception e)
         {
-            Toast.MakeText(this, "Netočan email/password!", ToastLength.Short).Show();
+            Toast.MakeText(this, "Neuspjela prijava.Netočan email/password ili ste izgubili vezu s internetom!", ToastLength.Long).Show();
             buttonSignIn.PerformClick();
             progressBar.Visibility = ViewStates.Invisible;
         }

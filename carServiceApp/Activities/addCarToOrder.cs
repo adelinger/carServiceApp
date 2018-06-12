@@ -124,8 +124,9 @@ namespace carServiceApp.Activities
 
         private void AddNewCar_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(carDetails));
-            StartActivity(intent);
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            addCar addCar = new addCar();
+            addCar.Show(transaction, "addCar");
         }
 
         private void loadSpinner()

@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -104,8 +105,30 @@ namespace carServiceApp.Activities
             addedDate.Text = e.datePicked;
         }
 
+        public bool IsOnline()
+        {
+            var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
+            return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
+        }
+
         private  async void ConfirmOrderButton_Click(object sender, EventArgs e)
         {
+           if (!IsOnline())
+            {
+                AlertDialog.Builder dialogs = new AlertDialog.Builder(this);
+                dialogs.SetOnDismissListener(this);
+                dialogs.SetMessage("Veza na internet je neophodna za kreirnaje narudžbe. Pokušajte kasnije.");
+                dialogs.SetPositiveButton("U redu", (senderAlert, args) => {
+                    dialogs.Dispose();
+                    Intent intent = new Intent(this, typeof(loginActivity));
+                    StartActivity(intent);
+                   
+                });
+                Dialog alertDialogs = dialogs.Create();
+                alertDialogs.Show();
+                return;
+            }
+
             var auth = FirebaseAuth.GetInstance(loginActivity.app);
             id = auth.CurrentUser.Uid;
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
@@ -121,9 +144,6 @@ namespace carServiceApp.Activities
             orders.vucnaSluzba   = potrebnaVucnaSluzba;
             orders.dijelovi      = potrebnoNarucivanje;
             orders.pozeljniDatum = addedDate.Text;
-   
-
-           
 
             int numOfOrders = 1;
             orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
