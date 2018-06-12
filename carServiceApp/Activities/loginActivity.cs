@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Android.App;
 using Android.Content;
@@ -68,7 +69,6 @@ namespace carServiceApp.Activities
             updateServices();
 
             con.db.CreateTable<User>();
-            con.db.DeleteAll<carDetailsSQL>();
             con.db.CreateTable<carDetailsSQL>();
             con.db.CreateTable<orders>();
 
@@ -101,6 +101,8 @@ namespace carServiceApp.Activities
         {
             List<carDetailsSQL> cars = new List<carDetailsSQL>();
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            List<string> sqlCars = new List<string>();
+            List<string> firebaseCars = new List<string>();
 
 
             var data = await firebase.Child("car").Child(id).OnceAsync<CarDetails>();
@@ -110,7 +112,19 @@ namespace carServiceApp.Activities
                 con.db.Execute("INSERT OR IGNORE INTO carDetailsSQL (carName, godina, markaVozila, modelVozila, snagaMotora, tipMotora, tipVozila, uid, zapremninaMotora) VALUES ('" + item.Key + "', " +
                     " '" + item.Object.godina + "', '" + item.Object.markaVozila + "', '" + item.Object.modelVozila + "', '" + item.Object.snagaMotora + "', '" + item.Object.tipMotora + "', '" + item.Object.tipVozila + "', " +
                     "'" + item.Object.uid + "', '" + item.Object.zapremninaMotora + "') ");
+                firebaseCars.Add(item.Key);
+            }
 
+            List<carDetailsSQL> getSQLCars = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL");
+            foreach (var item in getSQLCars)
+            {
+                sqlCars.Add(item.carName);
+            }
+
+            var difference = sqlCars.Except(firebaseCars);
+            foreach (var item in difference)
+            {
+                con.db.Execute("DELETE FROM carDetailsSQL WHERE carName = '" + item + "' ");
             }
 
         }
