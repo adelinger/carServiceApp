@@ -37,6 +37,7 @@ namespace carServiceApp.My_Classes
             ordersList = new List<orders>();
 
             updateAppointments();
+            ordersList.Clear();
             getAppointments();
             ordersLV.ItemClick += OrdersLV_ItemClick;
 
@@ -73,7 +74,6 @@ namespace carServiceApp.My_Classes
 
         public static async void updateAppointments ()
         {       
-
             var user = FirebaseAuth.Instance.CurrentUser;
             string id = user.Uid;
 
@@ -83,11 +83,10 @@ namespace carServiceApp.My_Classes
             var data = await firebase.Child("order").Child(id).OnceAsync<orders>();
             foreach (var item in data)
             {
-                con.db.Execute("INSERT OR IGNORE INTO orders (carName, datum, dijelovi, id, opisKvara, pozeljni datum, uid, vrstaPosla, vrstaUsluge, vucnaSluzba) VALUES ('" + item.Object.carName + "'," +
-                    " '" + item.Object.datum + "', '" + item.Object.dijelovi + "', '" + item.Object.id + "', '" + item.Object.opisKvara + "', '" + item.Object.uid + "', '" + item.Object.vrstaPosla + ", '" + item.Object.vrstaUsluge + "'," +
-                    " '" + item.Object.vucnaSluzba + "' ') ");
+                con.db.Execute("INSERT OR IGNORE INTO orders (carName, datum, dijelovi, id, opisKvara, pozeljniDatum, uid, vrstaPosla, vrstaUsluge, vucnaSluzba) VALUES ('" + item.Object.carName + "'," +
+                    " '" + item.Object.datum + "', '" + item.Object.dijelovi + "', '" + item.Object.id + "', '" + item.Object.opisKvara + "','"+item.Object.pozeljniDatum+"' , '" + item.Object.uid + "', " +
+                    "'" + item.Object.vrstaPosla +"' ,'"+item.Object.vrstaUsluge+"' ,'"+ item.Object.vucnaSluzba + "') ");
             }
-
         }
     }
 }
