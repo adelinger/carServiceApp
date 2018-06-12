@@ -27,7 +27,7 @@ namespace carServiceApp.My_Classes
 
         const string firebaseURL = loginActivity.FirebaseURL;
 
-        private string id;
+        private static string id;
         private bool isColosed;
 
         connection con = new connection();
@@ -38,6 +38,7 @@ namespace carServiceApp.My_Classes
             carList= view.FindViewById<ListView>(Resource.Id.carList);
             addNewCar = view.FindViewById<Button>(Resource.Id.addNewCar);
 
+            updateCars();
             getCars();
 
             List<string> emptyList = new List<string>();
@@ -141,6 +142,44 @@ namespace carServiceApp.My_Classes
 
             ArrayAdapter adapter = new ArrayAdapter(view.Context, Android.Resource.Layout.SimpleListItem1, carsFromDB);
             carList.Adapter = adapter;
+
+            
+        }
+        public static async void updateCars()
+        {
+            List<carDetailsSQL> cars = new List<carDetailsSQL>();
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+
+            FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
+            id = users.Uid;
+
+            List<string> sqlCars = new List<string>();
+            List<string> firebaseCars = new List<string>();
+
+            connection con = new connection();
+
+            var data = await firebase.Child("car").Child(id).OnceAsync<CarDetails>();
+            foreach (var item in data)
+            {
+
+                con.db.Execute("INSERT OR IGNORE INTO carDetailsSQL (carName, godina, markaVozila, modelVozila, snagaMotora, tipMotora, tipVozila, uid, zapremninaMotora) VALUES ('" + item.Key + "', " +
+                    " '" + item.Object.godina + "', '" + item.Object.markaVozila + "', '" + item.Object.modelVozila + "', '" + item.Object.snagaMotora + "', '" + item.Object.tipMotora + "', '" + item.Object.tipVozila + "', " +
+                    "'" + item.Object.uid + "', '" + item.Object.zapremninaMotora + "') ");
+                firebaseCars.Add(item.Key);
+            }
+
+            List<carDetailsSQL> getSQLCars = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL");
+            foreach (var item in getSQLCars)
+            {
+                sqlCars.Add(item.carName);
+            }
+
+            var difference = sqlCars.Except(firebaseCars);
+            foreach (var item in difference)
+            {
+                con.db.Execute("DELETE FROM carDetailsSQL WHERE carName = '" + item + "' ");
+            }
+
         }
 
 

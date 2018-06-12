@@ -14,9 +14,10 @@ using SQLite;
 namespace carServiceApp.My_Classes.Database
 {
     class orders
-    {
-        
+    {        
         public string uid           { get; set; }
+        [Unique]
+        public string id            { get; set; }
         public string carName       { get; set; }
         public string vrstaUsluge   { get; set; }
         public string vrstaPosla    { get; set; }

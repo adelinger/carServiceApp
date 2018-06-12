@@ -121,6 +121,7 @@ namespace carServiceApp.Activities
             orders.vucnaSluzba   = potrebnaVucnaSluzba;
             orders.dijelovi      = potrebnoNarucivanje;
             orders.pozeljniDatum = addedDate.Text;
+   
 
            
 
@@ -137,9 +138,12 @@ namespace carServiceApp.Activities
                 orderID = JsonConvert.SerializeObject(orderID);
             }
 
+            orders.id = numOfOrders.ToString();
+
             try
             {
                 var addOrder = firebase.Child("order").Child(id).Child(orderID.ToString()).PutAsync<orders>(orders);
+                con.db.Insert(orders);
             }
             catch (Exception)
             {

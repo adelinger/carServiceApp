@@ -27,7 +27,8 @@ namespace carServiceApp.My_Classes
 
         private List<orders> ordersList;
         private List<string> list = new List<string>();
-       
+
+        connection con = new connection();
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -35,6 +36,7 @@ namespace carServiceApp.My_Classes
             ordersLV = view.FindViewById<ListView>(Resource.Id.appointmentList);
             ordersList = new List<orders>();
 
+            updateAppointments();
             getAppointments();
             ordersLV.ItemClick += OrdersLV_ItemClick;
 
@@ -53,21 +55,39 @@ namespace carServiceApp.My_Classes
             base.OnActivityCreated(savedInstanceState);
         }
 
-        public async void getAppointments()
+        public void getAppointments()
         {
             var user = FirebaseAuth.Instance.CurrentUser;
             id = user.Uid;
 
-            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
-            var data = await firebase.Child("order").Child(id).OnceAsync<orders>();
-           
+          
+            List<orders> data = con.db.Query<orders>("SELECT * FROM orders WHERE uid = '" + id + "' ");
             
             foreach (var item in data)
             {
-                ordersList.Add(new orders { uid = JsonConvert.DeserializeObject(item.Key).ToString(), carName = item.Object.carName, datum = item.Object.datum.Substring(0, 10) });
+                ordersList.Add(new orders { uid = item.id, carName = item.carName, datum = item.datum.Substring(0, 10) });
             }
             listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);
             ordersLV.Adapter = adapter;
+        }
+
+        public static async void updateAppointments ()
+        {       
+
+            var user = FirebaseAuth.Instance.CurrentUser;
+            string id = user.Uid;
+
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            connection con = new connection();
+
+            var data = await firebase.Child("order").Child(id).OnceAsync<orders>();
+            foreach (var item in data)
+            {
+                con.db.Execute("INSERT OR IGNORE INTO orders (carName, datum, dijelovi, id, opisKvara, pozeljni datum, uid, vrstaPosla, vrstaUsluge, vucnaSluzba) VALUES ('" + item.Object.carName + "'," +
+                    " '" + item.Object.datum + "', '" + item.Object.dijelovi + "', '" + item.Object.id + "', '" + item.Object.opisKvara + "', '" + item.Object.uid + "', '" + item.Object.vrstaPosla + ", '" + item.Object.vrstaUsluge + "'," +
+                    " '" + item.Object.vucnaSluzba + "' ') ");
+            }
+
         }
     }
 }

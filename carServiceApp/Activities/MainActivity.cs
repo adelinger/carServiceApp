@@ -51,6 +51,7 @@ namespace carServiceApp
             mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
 
             auth = FirebaseAuth.GetInstance(loginActivity.app);
+            chooseCar.updateCars();
             getUserInfo();
 
             if (userName != null)
@@ -136,7 +137,11 @@ namespace carServiceApp
             this.FinishAffinity();
         }
 
-
+        protected override void OnResume()
+        {
+            chooseCar.updateCars();
+            base.OnResume();
+        }
     }
 
   

@@ -68,6 +68,7 @@ namespace carServiceApp.Activities
             InitFirebaseAuth();
             updateServices();
 
+            con.db.DropTable<orders>();
             con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
             con.db.CreateTable<orders>();
@@ -84,7 +85,7 @@ namespace carServiceApp.Activities
             if (login_rememberMe && user != null && IsOnline())
             {
                 createAppointment.updateUser();
-                updateCars();
+                chooseCar.updateCars();
                 Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
             }
@@ -97,37 +98,7 @@ namespace carServiceApp.Activities
             return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
         }
 
-        public async void updateCars()
-        {
-            List<carDetailsSQL> cars = new List<carDetailsSQL>();
-            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
-            List<string> sqlCars = new List<string>();
-            List<string> firebaseCars = new List<string>();
-
-
-            var data = await firebase.Child("car").Child(id).OnceAsync<CarDetails>();
-            foreach (var item in data)
-            {
-               
-                con.db.Execute("INSERT OR IGNORE INTO carDetailsSQL (carName, godina, markaVozila, modelVozila, snagaMotora, tipMotora, tipVozila, uid, zapremninaMotora) VALUES ('" + item.Key + "', " +
-                    " '" + item.Object.godina + "', '" + item.Object.markaVozila + "', '" + item.Object.modelVozila + "', '" + item.Object.snagaMotora + "', '" + item.Object.tipMotora + "', '" + item.Object.tipVozila + "', " +
-                    "'" + item.Object.uid + "', '" + item.Object.zapremninaMotora + "') ");
-                firebaseCars.Add(item.Key);
-            }
-
-            List<carDetailsSQL> getSQLCars = con.db.Query<carDetailsSQL>("SELECT * FROM carDetailsSQL");
-            foreach (var item in getSQLCars)
-            {
-                sqlCars.Add(item.carName);
-            }
-
-            var difference = sqlCars.Except(firebaseCars);
-            foreach (var item in difference)
-            {
-                con.db.Execute("DELETE FROM carDetailsSQL WHERE carName = '" + item + "' ");
-            }
-
-        }
+       
 
         private void InitFirebaseAuth()
         {
