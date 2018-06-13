@@ -64,10 +64,9 @@ namespace carServiceApp.Activities
             activityLogin  = FindViewById<LinearLayout>(Resource.Layout.logInLayout);
 
             progressBar.Visibility = ViewStates.Invisible;
-
+            
             InitFirebaseAuth();
-
-            con.db.DropTable<orders>();
+            
             con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
             con.db.CreateTable<orders>();
@@ -83,7 +82,6 @@ namespace carServiceApp.Activities
                 }
                 if (login_rememberMe && user != null && IsOnline())
                 {
-                    
                     Intent intent = new Intent(this, typeof(MainActivity));
                     StartActivity(intent);
                     this.FinishAffinity();
@@ -107,7 +105,7 @@ namespace carServiceApp.Activities
             if (app == null)
                 app = FirebaseApp.InitializeApp(this, options);
             auth = FirebaseAuth.GetInstance(app);
-            //FirebaseDatabase.GetInstance(FirebaseURL).SetPersistenceEnabled(true);
+
            
         }
 

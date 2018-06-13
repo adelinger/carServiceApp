@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -62,8 +63,8 @@ namespace carServiceApp.Activities
             getCarName = Intent.GetStringExtra("carName");
             getCarData(getCarName);
            
-            
-            createAppointment.updateUser();
+            if (IsOnline()) createAppointment.updateUser();
+
             saveCar.Click += SaveCar_Click;
             carName.FocusChange += CarName_FocusChange;
         }
@@ -78,6 +79,12 @@ namespace carServiceApp.Activities
             if(checkIfAllInserted() == false) { return; }
             addCarInfo();
             if (allGood) { OnBackPressed(); }
+        }
+
+        public bool IsOnline()
+        {
+            var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
+            return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
         }
 
         private bool checkIfAllInserted()

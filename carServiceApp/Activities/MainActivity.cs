@@ -17,12 +17,13 @@ using System.Threading.Tasks;
 using Firebase;
 using Firebase.Xamarin.Database.Query;
 using carServiceApp.My_Classes.Database;
+using Android.Net;
 
 namespace carServiceApp
 {
 
     [Activity(Label = "Moj servis", Icon = "@drawable/ifsedan285810")]
-    public class MainActivity : Activity
+    public class MainActivity : Activity, IDialogInterfaceOnDismissListener
     {
         private Button dogovoriSastanak;
         private Button mojAuto;
@@ -50,6 +51,12 @@ namespace carServiceApp
             mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
             mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
 
+            if (!IsOnline())
+            {
+                checkIfOnline(this, this, this);
+                return;
+            }
+            
             auth = FirebaseAuth.GetInstance(loginActivity.app);
             chooseCar.updateCars();
             getUserInfo();
@@ -75,7 +82,10 @@ namespace carServiceApp
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             chooseAppointment showAppointment = new chooseAppointment();
-            showAppointment.Show(transaction, "fragment manager");
+            string tag = "Online";
+            if (IsOnline()) tag =  "Online";
+            if (!IsOnline()) tag = "Offline";
+            showAppointment.Show(transaction, tag);
 
         }
 
@@ -83,7 +93,10 @@ namespace carServiceApp
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             chooseCar chooseCar = new chooseCar();
-            chooseCar.Show(transaction, "dialog fragment");
+            string tag = "Online";
+            if (IsOnline()) tag = "Online";
+            if (!IsOnline()) tag = "Offline";
+            chooseCar.Show(transaction, tag);
         }
 
         private void DogovoriSastanak_Click(object sender, System.EventArgs e)
@@ -91,6 +104,27 @@ namespace carServiceApp
             Intent intent = new Intent(this, typeof(createAppointment));      
             StartActivity(intent);
         }
+
+        public bool IsOnline()
+        {
+            var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
+            return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
+        }
+
+        public static void checkIfOnline(Context context, Activity activity, IDialogInterfaceOnDismissListener listener)
+        {
+            AlertDialog.Builder dialogs = new AlertDialog.Builder(context);
+            dialogs.SetOnDismissListener(listener);
+            dialogs.SetMessage("Veza na internet je neophodna za nastavak. Pokušajte kasnije.");
+            dialogs.SetPositiveButton("U redu", (senderAlert, args) => {
+                activity.Finish();
+                dialogs.Dispose();
+            });
+            Dialog alertDialogs = dialogs.Create();
+            alertDialogs.Show();
+            return;
+        }
+
 
         public void getUserInfo ()
         {
@@ -139,8 +173,16 @@ namespace carServiceApp
 
         protected override void OnResume()
         {
-            chooseCar.updateCars();
+            if (IsOnline()) chooseCar.updateCars();
             base.OnResume();
+        }
+
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            dialog.Dispose();
+            this.Finish();
+            Intent intent = new Intent(this, typeof(loginActivity));
+            StartActivity(intent);
         }
     }
 

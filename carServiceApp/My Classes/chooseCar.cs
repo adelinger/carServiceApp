@@ -28,6 +28,7 @@ namespace carServiceApp.My_Classes
         const string firebaseURL = loginActivity.FirebaseURL;
 
         private static string id;
+        private string connectionStatus;
         private bool isColosed;
 
         connection con = new connection();
@@ -38,7 +39,12 @@ namespace carServiceApp.My_Classes
             carList= view.FindViewById<ListView>(Resource.Id.carList);
             addNewCar = view.FindViewById<Button>(Resource.Id.addNewCar);
 
-            updateCars();
+            connectionStatus = Tag;
+            if (connectionStatus == "Online")
+            {
+                updateCars();
+            }
+            
             getCars();
 
             List<string> emptyList = new List<string>();

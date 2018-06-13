@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -22,7 +23,7 @@ using static Android.Widget.AdapterView;
 namespace carServiceApp.Activities
 {
     [Activity(Label = "Dodaj svoje podatke")]
-    public class createAppointment : Activity
+    public class createAppointment : Activity, IDialogInterfaceOnDismissListener
     {
         private Spinner  vrstaUsluge;
         private Spinner  vrstaPosla;
@@ -84,6 +85,12 @@ namespace carServiceApp.Activities
             updateRequested = Intent.GetBooleanExtra("updateRequested", false);
         }
 
+        public bool IsOnline()
+        {
+            var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
+            return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
+        }
+
         private void VrstaUsluge_ItemSelected(object sender, ItemSelectedEventArgs e)
         {
             string selected = vrstaUsluge.GetItemAtPosition(e.Position).ToString();
@@ -136,6 +143,11 @@ namespace carServiceApp.Activities
                 return;
             }
            
+            if (!IsOnline())
+            {
+                MainActivity.checkIfOnline(this, this, this);
+                return;
+            }
 
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
@@ -180,8 +192,6 @@ namespace carServiceApp.Activities
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
 
-            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
-
             List<services> getServices = con.db.Query<services>("SELECT * FROM services");
 
             foreach (var item in getServices)
@@ -225,8 +235,13 @@ namespace carServiceApp.Activities
                 "email = '" + user.email + "', city = '" + user.city + "', adress = '" + user.adress + "' WHERE uid = '" + id + "' ");
        
         }
-       
 
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            dialog.Dispose();           
+            Intent intent = new Intent(this, typeof(loginActivity));
+            StartActivity(intent);
+        }
     }
 
   

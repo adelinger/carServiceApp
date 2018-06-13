@@ -20,6 +20,7 @@ namespace carServiceApp.My_Classes.Database
     {
         private string id;
         private string getCarName;
+        private string connectionStatus;
         private FirebaseAuth auth;
         private const string FirebaseURL = loginActivity.FirebaseURL;
 
@@ -56,9 +57,14 @@ namespace carServiceApp.My_Classes.Database
 
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
-            createAppointment.updateUser();
-
-            saveCar.Click += SaveCar_Click;
+            connectionStatus = Tag;
+            
+            if (connectionStatus == "Online")
+            {
+                createAppointment.updateUser();
+            }
+            
+            saveCar.Click       += SaveCar_Click;
             carName.FocusChange += CarName_FocusChange;
             return view;
         }

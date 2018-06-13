@@ -24,6 +24,7 @@ namespace carServiceApp.My_Classes
         private View view;
         private string id;
         private ListView ordersLV;
+        private string connectionStatus;
 
         private List<orders> ordersList;
         private List<string> list = new List<string>();
@@ -36,11 +37,18 @@ namespace carServiceApp.My_Classes
             ordersLV = view.FindViewById<ListView>(Resource.Id.appointmentList);
             ordersList = new List<orders>();
 
-            updateAppointments();
-            ordersList.Clear();
-            getAppointments();
-            ordersLV.ItemClick += OrdersLV_ItemClick;
+            connectionStatus = Tag;
 
+            if (connectionStatus == "Online")
+            {
+                updateAppointments();
+            }
+
+                ordersList.Clear();
+                getAppointments();
+
+
+            ordersLV.ItemClick += OrdersLV_ItemClick;
             return view;
         }
 

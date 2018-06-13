@@ -111,21 +111,12 @@ namespace carServiceApp.Activities
             return cm.ActiveNetworkInfo == null ? false : cm.ActiveNetworkInfo.IsConnected;
         }
 
+        
         private  async void ConfirmOrderButton_Click(object sender, EventArgs e)
         {
            if (!IsOnline())
             {
-                AlertDialog.Builder dialogs = new AlertDialog.Builder(this);
-                dialogs.SetOnDismissListener(this);
-                dialogs.SetMessage("Veza na internet je neophodna za kreirnaje narudžbe. Pokušajte kasnije.");
-                dialogs.SetPositiveButton("U redu", (senderAlert, args) => {
-                    dialogs.Dispose();
-                    Intent intent = new Intent(this, typeof(loginActivity));
-                    StartActivity(intent);
-                   
-                });
-                Dialog alertDialogs = dialogs.Create();
-                alertDialogs.Show();
+                MainActivity.checkIfOnline(this, this, this);
                 return;
             }
 
@@ -237,11 +228,21 @@ namespace carServiceApp.Activities
 
         public void OnDismiss(IDialogInterface dialog)
         {
-            dialog.Dispose();
-            this.Finish();
-            addCarToOrder.finish.Finish();
-            Intent intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
+            if (IsOnline())
+            {
+                dialog.Dispose();
+                this.Finish();
+                addCarToOrder.finish.Finish();
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            }
+            else
+            {
+                dialog.Dispose();
+                this.Finish();
+                Intent intent = new Intent(this, typeof(loginActivity));
+                StartActivity(intent);
+            }
         }
     }
 }
