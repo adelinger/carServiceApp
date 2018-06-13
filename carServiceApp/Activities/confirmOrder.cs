@@ -126,15 +126,18 @@ namespace carServiceApp.Activities
 
 
             orders orders = new orders();
-            orders.uid           = id;
-            orders.carName       = carChosen;
-            orders.vrstaUsluge   = vrstaUsluge;
-            orders.vrstaPosla    = vrstaPosla;
-            orders.opisKvara     = opisKvara.Text;
-            orders.datum         = DateTime.Now.ToLocalTime().ToString();
-            orders.vucnaSluzba   = potrebnaVucnaSluzba;
-            orders.dijelovi      = potrebnoNarucivanje;
-            orders.pozeljniDatum = addedDate.Text;
+            orders.uid               = id;
+            orders.carName           = carChosen;
+            orders.vrstaUsluge       = vrstaUsluge;
+            orders.vrstaPosla        = vrstaPosla;
+            orders.opisKvara         = opisKvara.Text;
+            orders.datum             = DateTime.Now.ToLocalTime().ToString();
+            orders.vucnaSluzba       = potrebnaVucnaSluzba;
+            orders.dijelovi          = potrebnoNarucivanje;
+            orders.pozeljniDatum     = addedDate.Text;
+            orders.vrijemeServisa    = "";
+            orders.cijena            = "";
+            orders.napomenaServisera = "";
 
             int numOfOrders = 1;
             orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
