@@ -159,7 +159,6 @@ namespace carServiceApp.Activities
                 FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
                 id = user.Uid;
                  
-
                 CreateUser();
 
                 buttonSignIn.PerformClick();

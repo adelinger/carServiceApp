@@ -23,6 +23,7 @@ namespace carServiceApp.My_Classes
     {
         private View view;
         private string id;
+        private string stringOrderID;
         private ListView ordersLV;
         private string connectionStatus;
 
@@ -44,9 +45,8 @@ namespace carServiceApp.My_Classes
                 updateAppointments();
             }
 
-                ordersList.Clear();
-                getAppointments();
-
+             ordersList.Clear();
+             getAppointments();
 
             ordersLV.ItemClick += OrdersLV_ItemClick;
             return view;
@@ -55,6 +55,7 @@ namespace carServiceApp.My_Classes
         private void OrdersLV_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Intent intent = new Intent(view.Context, typeof(myAppointments));
+            intent.PutExtra("orderID", stringOrderID);
             StartActivity(intent);
         }
 
@@ -74,6 +75,7 @@ namespace carServiceApp.My_Classes
             
             foreach (var item in data)
             {
+                stringOrderID = item.id;
                 ordersList.Add(new orders { uid = item.id, carName = item.carName, datum = item.datum.Substring(0, 10) });
             }
             listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);

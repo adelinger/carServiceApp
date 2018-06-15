@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/statusTextView" />
     <TextView
-        android:text="U obradi"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:textColor="#c0392b"
         android:layout_toRightOf="@id/statusTextView"
-        android:id="@+id/statusTV" />
+        android:id="@+id/statusTV"
+        android:text="U obradi" />
     <TextView
         android:text="Automobil: "
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -28,11 +28,10 @@
         android:layout_marginTop="10dip"
         android:id="@+id/carTextView" />
     <TextView
-        android:text="Vozilo"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/carTextView"
         android:layout_below="@id/statusTV"
         android:id="@+id/carTV" />
@@ -42,14 +41,13 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/carTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:id="@+id/vrstaUslugeTextView" />
     <TextView
-        android:text="Usluga"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/carTextView"
         android:layout_below="@id/carTV"
         android:id="@+id/VrstauslugeTV" />
@@ -59,14 +57,13 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/vrstaUslugeTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="20dip"
         android:id="@+id/vrstaPoslaTextView" />
     <TextView
-        android:text="Posao"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="20dip"
         android:layout_toRightOf="@id/vrstaPoslaTextView"
         android:layout_below="@id/vrstaUslugeTextView"
         android:id="@+id/vrstaPoslaTV" />
@@ -76,14 +73,13 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/vrstaPoslaTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:id="@+id/brojNarudzbeTextView" />
     <TextView
-        android:text="broj"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/brojNarudzbeTextView"
         android:layout_below="@id/vrstaPoslaTextView"
         android:id="@+id/brojNarudzbeTV" />
@@ -93,14 +89,13 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/brojNarudzbeTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:id="@+id/datumServisaTextView" />
     <TextView
-        android:text="1/1/2018"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/datumServisaTextView"
         android:layout_below="@id/brojNarudzbeTextView"
         android:id="@+id/datumServisaTV" />
@@ -110,14 +105,13 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/datumServisaTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:id="@+id/vrijemeServisaTextView" />
     <TextView
-        android:text="08:00"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/vrijemeServisaTextView"
         android:layout_below="@id/datumServisaTextView"
         android:id="@+id/vrijemeServisaTV" />
@@ -127,7 +121,7 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/vrijemeServisaTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:id="@+id/cijenaTextView" />
     <TextView
         android:text="Nepoznato"
@@ -135,7 +129,7 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:textColor="#c0392b"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/cijenaTextView"
         android:layout_below="@id/vrijemeServisaTextView"
         android:id="@+id/cijenaTV" />
@@ -145,15 +139,23 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_below="@id/cijenaTextView"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:id="@+id/napomenaServiseraTextView" />
     <TextView
         android:text="Medium Text"
         android:textSize="40px"
         android:layout_width="300dip"
-        android:layout_height="wrap_content"
+        android:layout_height="300px"
         android:id="@+id/napomenaServiseraTV"
         android:gravity="center"
         android:layout_below="@id/napomenaServiseraTextView"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="15dip"
+        android:layout_centerHorizontal="true" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/napomenaServiseraTV"
+        android:id="@+id/progressBarMA"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dip" />
 </RelativeLayout>
