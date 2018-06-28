@@ -306,7 +306,6 @@ namespace carServiceApp.Activities
             updateServices();
             chooseCar.updateCars();
             createAppointment.updateUser();
-            chooseAppointment.updateAppointments();
             updateUser(login_rememberMe);
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);

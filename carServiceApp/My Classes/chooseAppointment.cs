@@ -41,12 +41,10 @@ namespace carServiceApp.My_Classes
             ordersList    = new List<orders>();
             refreshButton = view.FindViewById<ImageButton>(Resource.Id.refreshAppointments);
 
-            connectionStatus = Tag;
-
-            updateIfOnline();
-
             ordersList.Clear();
             getAppointments();
+
+            connectionStatus = Tag;
 
             ordersLV.ItemClick += OrdersLV_ItemClick;
             refreshButton.Click += RefreshButton_Click;
@@ -55,8 +53,6 @@ namespace carServiceApp.My_Classes
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
-            updateIfOnline();
-            ordersList.Clear();
             getAppointments();
         }
 
@@ -73,35 +69,14 @@ namespace carServiceApp.My_Classes
             base.OnActivityCreated(savedInstanceState);
         }
 
-        public void updateIfOnline ()
-        {
-            if (connectionStatus == "Online")
-            {
-                updateAppointments();
-            }
-        }
+       
 
-        public void getAppointments()
+        public async void getAppointments()
         {
             var user = FirebaseAuth.Instance.CurrentUser;
-            id = user.Uid;
             ordersList.Clear();
-          
-            List<orders> data = con.db.Query<orders>("SELECT * FROM orders WHERE uid = '" + id + "' ");
-            
-            foreach (var item in data)
-            {
-                stringOrderID = item.id;
-                ordersList.Add(new orders { uid = item.id, carName = item.carName, datum = item.datum.Substring(0, 10) });
-            }
-            listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);
-            ordersLV.Adapter = adapter;
-        }
 
-        public static async void updateAppointments ()
-        {
             string orderID;
-            var user = FirebaseAuth.Instance.CurrentUser;
             string id = user.Uid;
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
@@ -123,12 +98,15 @@ namespace carServiceApp.My_Classes
                 var getOtherData = await firebase.Child("order").Child(id).Child(item.Key).OnceAsync<orders>();
                 foreach (var Otheritem in getOtherData)
                 {
-                    con.db.Execute("INSERT OR IGNORE INTO orders (carName, datum, dijelovi, id, opisKvara, pozeljniDatum, uid, vrstaPosla, vrstaUsluge, vucnaSluzba) VALUES ('" + Otheritem.Object.carName + "'," +
-                    " '" + Otheritem.Object.datum + "', '" + Otheritem.Object.dijelovi + "', '" + Otheritem.Object.id + "', '" + Otheritem.Object.opisKvara + "','" + Otheritem.Object.pozeljniDatum + "' , '" + Otheritem.Object.uid + "', " +
-                    "'" + Otheritem.Object.vrstaPosla + "' ,'" + Otheritem.Object.vrstaUsluge + "' ,'" + Otheritem.Object.vucnaSluzba + "') ");
+                    stringOrderID = Otheritem.Object.id;
+                    ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
                 }
             }
 
+            listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);
+            ordersLV.Adapter = adapter;
         }
+
+       
     }
 }
