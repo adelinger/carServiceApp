@@ -82,11 +82,7 @@ namespace carServiceApp.My_Classes
            
 
             if (!termsAccepted)
-            {
-                //FragmentTransaction transaction = FragmentManager.BeginTransaction();
-                //termsAgreementFragment agreementFragment = new termsAgreementFragment();
-                //agreementFragment.Show(transaction, "agreementFragment");
-                //return;
+            {          
                 this.Dismiss();
 
             }
@@ -100,8 +96,8 @@ namespace carServiceApp.My_Classes
             termsAccepted = e.termsAccepted;
             close = e.closeDIalog;
 
-            if (!termsAccepted) { this.Dismiss(); }
-            if(close) { this.Dismiss(); }
+            if (!e.termsAccepted) { this.Dismiss(); }
+            if(e.closeDIalog) { this.Dismiss(); }
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)

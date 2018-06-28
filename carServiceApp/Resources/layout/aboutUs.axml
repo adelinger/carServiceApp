@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/AUname"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Auto Toni"
+        android:editable="false" />
+    <EditText
+        android:id="@+id/AUadress"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Braće Radić 40" />
+    <EditText
+        android:id="@+id/AUcity"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Komletinci" />
+    <EditText
+        android:id="@+id/AUphone"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Tel. 032/391/011" />
+    <EditText
+        android:id="@+id/AUmobilePhone"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Mob. 098/824/224" />
+    <EditText
+        android:id="@+id/AUowner"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Vlasnik: Mato Delinger" />
+    <EditText
+        android:id="@+id/web"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Web:https://autotoni.hr/ " />
+    <EditText
+        android:id="@+id/mail"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:editable="false"
+        android:text="Email: contact@autotoni.hr"
+        android:layout_marginBottom="15dip" />
+</LinearLayout>

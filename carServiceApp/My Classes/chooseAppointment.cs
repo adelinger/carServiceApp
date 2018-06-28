@@ -25,6 +25,8 @@ namespace carServiceApp.My_Classes
         private string id;
         private string stringOrderID;
         private ListView ordersLV;
+        private ImageButton refreshButton;
+        private ProgressBar progressBar;
         private string connectionStatus;
 
         private List<orders> ordersList;
@@ -34,22 +36,28 @@ namespace carServiceApp.My_Classes
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            view = inflater.Inflate(Resource.Layout.chooseAppointment, container, false);
-            ordersLV = view.FindViewById<ListView>(Resource.Id.appointmentList);
-            ordersList = new List<orders>();
+            view          = inflater.Inflate(Resource.Layout.chooseAppointment, container, false);
+            ordersLV      = view.FindViewById<ListView>(Resource.Id.appointmentList);
+            ordersList    = new List<orders>();
+            refreshButton = view.FindViewById<ImageButton>(Resource.Id.refreshAppointments);
 
             connectionStatus = Tag;
 
-            if (connectionStatus == "Online")
-            {
-                updateAppointments();
-            }
+            updateIfOnline();
 
-             ordersList.Clear();
-             getAppointments();
+            ordersList.Clear();
+            getAppointments();
 
             ordersLV.ItemClick += OrdersLV_ItemClick;
+            refreshButton.Click += RefreshButton_Click;
             return view;
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            updateIfOnline();
+            ordersList.Clear();
+            getAppointments();
         }
 
         private void OrdersLV_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -63,6 +71,14 @@ namespace carServiceApp.My_Classes
         {
             Dialog.Window.RequestFeature(WindowFeatures.NoTitle);
             base.OnActivityCreated(savedInstanceState);
+        }
+
+        public void updateIfOnline ()
+        {
+            if (connectionStatus == "Online")
+            {
+                updateAppointments();
+            }
         }
 
         public void getAppointments()

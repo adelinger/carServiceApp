@@ -18,6 +18,7 @@ using Firebase;
 using Firebase.Xamarin.Database.Query;
 using carServiceApp.My_Classes.Database;
 using Android.Net;
+using Android.Graphics.Drawables;
 
 namespace carServiceApp
 {
@@ -28,6 +29,7 @@ namespace carServiceApp
         private Button dogovoriSastanak;
         private Button mojAuto;
         private Button mojiSastanci;
+        private Button notifications;
         public string userName;
 
         private static FirebaseApp app;
@@ -49,7 +51,13 @@ namespace carServiceApp
 
             dogovoriSastanak = FindViewById<Button>(Resource.Id.dogovoriTermin);
             mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
-            mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
+            mojiSastanci     = FindViewById<Button>(Resource.Id.myAppointments);
+            notifications    = FindViewById<Button>(Resource.Id.notificationsButton);
+
+
+            Drawable img = GetDrawable(Resource.Drawable.Envelope);
+            img.SetBounds(0, 0, 0, 60);
+            notifications.SetCompoundDrawables(null, null, img, null);
 
             if (!IsOnline())
             {
@@ -162,6 +170,18 @@ namespace carServiceApp
                 auth.SignOut();
                 Intent intent = new Intent(this, typeof(loginActivity));
                 StartActivity(intent);               
+            }
+            if (id == Resource.Id.support)
+            {
+                FragmentTransaction transaction = FragmentManager.BeginTransaction();
+                aboutUs aboutUs = new aboutUs();
+                aboutUs.Show(transaction, "aboutUs");
+            }
+            if (id == Resource.Id.personalInfo)
+            {
+                FragmentTransaction transaction = FragmentManager.BeginTransaction();
+                personalInfo personalInfo = new personalInfo();
+                personalInfo.Show(transaction, "personalInfo");
             }
             return base.OnOptionsItemSelected(item);
         }

@@ -127,6 +127,12 @@ namespace carServiceApp.Activities
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             addCar addCar = new addCar();
             addCar.Show(transaction, "addCar");
+            addCar.onClosedEvent += AddCar_onClosedEvent;
+        }
+
+        private void AddCar_onClosedEvent(object sender, onDialogClosedArgs e)
+        {
+            if (e.closed) loadSpinner();
         }
 
         private void loadSpinner()

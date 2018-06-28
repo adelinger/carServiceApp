@@ -16,6 +16,15 @@ using Firebase.Xamarin.Database.Query;
 
 namespace carServiceApp.My_Classes.Database
 {
+    public class onDialogClosedArgs
+    {
+        public bool closed { get; set; }
+
+        public onDialogClosedArgs(bool IsClosed)
+        {
+            closed = IsClosed;
+        }
+    }
     class addCar :DialogFragment
     {
         private string id;
@@ -34,7 +43,7 @@ namespace carServiceApp.My_Classes.Database
         private EditText carName;
         private Button saveCar;
 
-        public event EventHandler<onDialogClosed> onDialogClosedEvent;
+        public event EventHandler<onDialogClosedArgs> onClosedEvent;
 
         public View view;
         private bool allGood = true;
@@ -69,6 +78,13 @@ namespace carServiceApp.My_Classes.Database
             return view;
         }
 
+        public override void OnDismiss(IDialogInterface dialog)
+        {
+            bool IsClosed = true;
+            onClosedEvent.Invoke(this.Dialog, new onDialogClosedArgs(IsClosed));
+            base.OnDismiss(dialog);
+        }
+
         private void CarName_FocusChange(object sender, View.FocusChangeEventArgs e)
         {
             carName.SetTextColor(Android.Graphics.Color.Black);
@@ -80,7 +96,7 @@ namespace carServiceApp.My_Classes.Database
             addCarInfo();
             if (allGood)
             {              
-                this.Dismiss();
+                Dismiss();
             }
         }
 
@@ -146,22 +162,9 @@ namespace carServiceApp.My_Classes.Database
             base.OnActivityCreated(savedInstanceState);
         }
 
-        public override void OnDismiss(IDialogInterface dialog)
-        {
-            onDialogClosedEvent.Invoke(this, new onDialogClosed(true));
-            base.OnDismiss(dialog);
-        }
 
     }
 
 
-    public class onDialogClosed
-    {
-        public bool closed { get; set; }
-
-        public onDialogClosed(bool IsClosed)
-        {
-            closed = IsClosed;
-        }
-    }
+   
 }

@@ -183,6 +183,7 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\mojAuto.cs" />
     <Compile Include="Activities\myAppointments.cs" />
+    <Compile Include="My Classes\aboutUs.cs" />
     <Compile Include="My Classes\calendar.cs" />
     <Compile Include="My Classes\chooseAppointment.cs" />
     <Compile Include="My Classes\chooseCar.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="My Classes\forgotPassword.cs" />
     <Compile Include="My Classes\Database\services.cs" />
     <Compile Include="My Classes\listViewAdapter.cs" />
+    <Compile Include="My Classes\personalInfo.cs" />
     <Compile Include="My Classes\signInDialog.cs" />
     <Compile Include="My Classes\signUpDialog.cs" />
     <Compile Include="My Classes\Database\Account.cs" />
@@ -320,6 +322,31 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\myAppointments.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Envelope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ificonrefresh211882.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\efresh211882.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\refresh2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\conrefresh188.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\personalInfo.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\aboutUs.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

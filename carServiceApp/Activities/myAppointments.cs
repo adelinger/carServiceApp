@@ -19,7 +19,7 @@ using System.Threading;
 
 namespace carServiceApp.Activities
 {
-    [Activity(Label = "myAppointments")]
+    [Activity(Label = "Moji sastanci")]
     public class myAppointments : Activity, IDialogInterfaceOnDismissListener
     {
         TextView napomenaServisa;

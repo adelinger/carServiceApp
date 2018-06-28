@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/PIinputIme"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Ime" />
+    <EditText
+        android:id="@+id/PIinputPrezime"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Prezime" />
+    <EditText
+        android:id="@+id/PIinputBrojTelefona"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Broj telefona" />
+    <EditText
+        android:id="@+id/PIinputEmail"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Email" />
+    <EditText
+        android:id="@+id/PIinputUlicaIBroj"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Ulica i broj" />
+    <EditText
+        android:id="@+id/PIinputMjesto"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Mjesto"
+        android:layout_marginBottom="15dip" />
+    <Button
+        android:text="Spremi"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/savePersonalInfo"
+        android:layout_gravity="center"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="5dip" />
+</LinearLayout>

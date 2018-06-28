@@ -67,6 +67,7 @@ namespace carServiceApp.Activities
             
             InitFirebaseAuth();
             
+            con.db.DropTable<orders>();
             con.db.CreateTable<User>();
             con.db.CreateTable<carDetailsSQL>();
             con.db.CreateTable<orders>();
@@ -106,7 +107,6 @@ namespace carServiceApp.Activities
                 app = FirebaseApp.InitializeApp(this, options);
             auth = FirebaseAuth.GetInstance(app);
 
-           
         }
 
         private void ButtonSignIn_Click(object sender, EventArgs e)

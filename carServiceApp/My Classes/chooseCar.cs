@@ -29,7 +29,6 @@ namespace carServiceApp.My_Classes
 
         private static string id;
         private string connectionStatus;
-        private bool isColosed;
 
         connection con = new connection();
 
@@ -107,14 +106,12 @@ namespace carServiceApp.My_Classes
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             addCar addCar = new addCar();
             addCar.Show(transaction, "addCar");
-            addCar.onDialogClosedEvent += AddCar_onDialogClosedEvent;
+            addCar.onClosedEvent += AddCar_onClosedEvent;
         }
 
-        private void AddCar_onDialogClosedEvent(object sender, onDialogClosed e)
-        {
-            isColosed = e.closed;
-
-            if(isColosed == true)
+        private void AddCar_onClosedEvent(object sender, onDialogClosedArgs e)
+        {         
+            if (e.closed == true)
             {
                 getCars();
             }

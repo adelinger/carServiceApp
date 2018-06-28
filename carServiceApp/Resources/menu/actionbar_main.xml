@@ -5,4 +5,12 @@
     android:showAsAction="never"
     android:title="Odjavi se"
     />
+  <item
+    android:id ="@+id/support"
+    android:title="O nama"
+    />
+  <item
+    android:id="@+id/personalInfo"
+    android:title="Osobni podaci"
+/>
 </menu>
