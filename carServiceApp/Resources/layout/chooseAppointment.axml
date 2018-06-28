@@ -23,7 +23,7 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
+        android:layout_height="150dip"
         android:layout_below="@id/orderNumTV"
         android:id="@+id/appointmentList" />
     <TextView
@@ -47,4 +47,16 @@
         android:foregroundGravity="center"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-10px" />
+    <MediaController
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appointmentList"
+        android:id="@+id/mediaController1">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/CAprogressBar" />
+    </MediaController>
 </RelativeLayout>

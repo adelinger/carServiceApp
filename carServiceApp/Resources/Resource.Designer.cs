@@ -2484,26 +2484,26 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a00a6
 			public const int ACTOnext = 2131361958;
 			
-			// aapt resource value: 0x7f0a011e
-			public const int ACTVemail = 2131362078;
-			
-			// aapt resource value: 0x7f0a00db
-			public const int ACTVforgotPWemail = 2131362011;
-			
-			// aapt resource value: 0x7f0a011b
-			public const int ACTVime = 2131362075;
-			
 			// aapt resource value: 0x7f0a011f
-			public const int ACTVpassword = 2131362079;
+			public const int ACTVemail = 2131362079;
 			
-			// aapt resource value: 0x7f0a0120
-			public const int ACTVpassword2 = 2131362080;
-			
-			// aapt resource value: 0x7f0a011d
-			public const int ACTVphoneNumber = 2131362077;
+			// aapt resource value: 0x7f0a00dd
+			public const int ACTVforgotPWemail = 2131362013;
 			
 			// aapt resource value: 0x7f0a011c
-			public const int ACTVprezime = 2131362076;
+			public const int ACTVime = 2131362076;
+			
+			// aapt resource value: 0x7f0a0120
+			public const int ACTVpassword = 2131362080;
+			
+			// aapt resource value: 0x7f0a0121
+			public const int ACTVpassword2 = 2131362081;
+			
+			// aapt resource value: 0x7f0a011e
+			public const int ACTVphoneNumber = 2131362078;
+			
+			// aapt resource value: 0x7f0a011d
+			public const int ACTVprezime = 2131362077;
 			
 			// aapt resource value: 0x7f0a003a
 			public const int ALT = 2131361850;
@@ -2526,26 +2526,29 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0095
 			public const int AUphone = 2131361941;
 			
-			// aapt resource value: 0x7f0a00cc
-			public const int CANextButton = 2131361996;
-			
-			// aapt resource value: 0x7f0a00c8
-			public const int CAinputBrojTelefona = 2131361992;
-			
-			// aapt resource value: 0x7f0a00c9
-			public const int CAinputEmail = 2131361993;
-			
-			// aapt resource value: 0x7f0a00c6
-			public const int CAinputIme = 2131361990;
-			
-			// aapt resource value: 0x7f0a00cb
-			public const int CAinputMjesto = 2131361995;
-			
-			// aapt resource value: 0x7f0a00c7
-			public const int CAinputPrezime = 2131361991;
+			// aapt resource value: 0x7f0a00ce
+			public const int CANextButton = 2131361998;
 			
 			// aapt resource value: 0x7f0a00ca
-			public const int CAinputUlicaIBroj = 2131361994;
+			public const int CAinputBrojTelefona = 2131361994;
+			
+			// aapt resource value: 0x7f0a00cb
+			public const int CAinputEmail = 2131361995;
+			
+			// aapt resource value: 0x7f0a00c8
+			public const int CAinputIme = 2131361992;
+			
+			// aapt resource value: 0x7f0a00cd
+			public const int CAinputMjesto = 2131361997;
+			
+			// aapt resource value: 0x7f0a00c9
+			public const int CAinputPrezime = 2131361993;
+			
+			// aapt resource value: 0x7f0a00cc
+			public const int CAinputUlicaIBroj = 2131361996;
+			
+			// aapt resource value: 0x7f0a00b9
+			public const int CAprogressBar = 2131361977;
 			
 			// aapt resource value: 0x7f0a00ac
 			public const int CDTipVozila = 2131361964;
@@ -2571,23 +2574,23 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a00b0
 			public const int CDzapremninaMotora = 2131361968;
 			
-			// aapt resource value: 0x7f0a00bd
-			public const int COchosenCar = 2131361981;
-			
-			// aapt resource value: 0x7f0a00bb
-			public const int COchosenServices = 2131361979;
-			
-			// aapt resource value: 0x7f0a00c3
-			public const int COconfirmOrderButton = 2131361987;
-			
 			// aapt resource value: 0x7f0a00bf
-			public const int COopisKvara = 2131361983;
+			public const int COchosenCar = 2131361983;
+			
+			// aapt resource value: 0x7f0a00bd
+			public const int COchosenServices = 2131361981;
+			
+			// aapt resource value: 0x7f0a00c5
+			public const int COconfirmOrderButton = 2131361989;
 			
 			// aapt resource value: 0x7f0a00c1
-			public const int COpickaDate = 2131361985;
+			public const int COopisKvara = 2131361985;
 			
-			// aapt resource value: 0x7f0a00ba
-			public const int COuserInfo = 2131361978;
+			// aapt resource value: 0x7f0a00c3
+			public const int COpickaDate = 2131361987;
+			
+			// aapt resource value: 0x7f0a00bc
+			public const int COuserInfo = 2131361980;
 			
 			// aapt resource value: 0x7f0a003b
 			public const int CTRL = 2131361851;
@@ -2595,29 +2598,29 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a003c
 			public const int FUNCTION = 2131361852;
 			
-			// aapt resource value: 0x7f0a00e1
-			public const int Loginbutton = 2131362017;
+			// aapt resource value: 0x7f0a00e3
+			public const int Loginbutton = 2131362019;
 			
 			// aapt resource value: 0x7f0a003d
 			public const int META = 2131361853;
 			
-			// aapt resource value: 0x7f0a0111
-			public const int PIinputBrojTelefona = 2131362065;
-			
 			// aapt resource value: 0x7f0a0112
-			public const int PIinputEmail = 2131362066;
-			
-			// aapt resource value: 0x7f0a010f
-			public const int PIinputIme = 2131362063;
-			
-			// aapt resource value: 0x7f0a0114
-			public const int PIinputMjesto = 2131362068;
-			
-			// aapt resource value: 0x7f0a0110
-			public const int PIinputPrezime = 2131362064;
+			public const int PIinputBrojTelefona = 2131362066;
 			
 			// aapt resource value: 0x7f0a0113
-			public const int PIinputUlicaIBroj = 2131362067;
+			public const int PIinputEmail = 2131362067;
+			
+			// aapt resource value: 0x7f0a0110
+			public const int PIinputIme = 2131362064;
+			
+			// aapt resource value: 0x7f0a0115
+			public const int PIinputMjesto = 2131362069;
+			
+			// aapt resource value: 0x7f0a0111
+			public const int PIinputPrezime = 2131362065;
+			
+			// aapt resource value: 0x7f0a0114
+			public const int PIinputUlicaIBroj = 2131362068;
 			
 			// aapt resource value: 0x7f0a003e
 			public const int SHIFT = 2131361854;
@@ -2625,11 +2628,11 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a003f
 			public const int SYM = 2131361855;
 			
-			// aapt resource value: 0x7f0a00ee
-			public const int VrstauslugeTV = 2131362030;
+			// aapt resource value: 0x7f0a00ef
+			public const int VrstauslugeTV = 2131362031;
 			
-			// aapt resource value: 0x7f0a00ff
-			public const int action0 = 2131362047;
+			// aapt resource value: 0x7f0a0100
+			public const int action0 = 2131362048;
 			
 			// aapt resource value: 0x7f0a0083
 			public const int action_bar = 2131361923;
@@ -2652,17 +2655,17 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0061
 			public const int action_bar_title = 2131361889;
 			
-			// aapt resource value: 0x7f0a00fc
-			public const int action_container = 2131362044;
+			// aapt resource value: 0x7f0a00fd
+			public const int action_container = 2131362045;
 			
 			// aapt resource value: 0x7f0a0084
 			public const int action_context_bar = 2131361924;
 			
-			// aapt resource value: 0x7f0a0103
-			public const int action_divider = 2131362051;
+			// aapt resource value: 0x7f0a0104
+			public const int action_divider = 2131362052;
 			
-			// aapt resource value: 0x7f0a00fd
-			public const int action_image = 2131362045;
+			// aapt resource value: 0x7f0a00fe
+			public const int action_image = 2131362046;
 			
 			// aapt resource value: 0x7f0a0003
 			public const int action_menu_divider = 2131361795;
@@ -2679,11 +2682,11 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0063
 			public const int action_mode_close_button = 2131361891;
 			
-			// aapt resource value: 0x7f0a00fe
-			public const int action_text = 2131362046;
+			// aapt resource value: 0x7f0a00ff
+			public const int action_text = 2131362047;
 			
-			// aapt resource value: 0x7f0a010c
-			public const int actions = 2131362060;
+			// aapt resource value: 0x7f0a010d
+			public const int actions = 2131362061;
 			
 			// aapt resource value: 0x7f0a0064
 			public const int activity_chooser_view_content = 2131361892;
@@ -2691,8 +2694,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a002f
 			public const int add = 2131361839;
 			
-			// aapt resource value: 0x7f0a00b9
-			public const int addNewCar = 2131361977;
+			// aapt resource value: 0x7f0a00bb
+			public const int addNewCar = 2131361979;
 			
 			// aapt resource value: 0x7f0a001d
 			public const int adjust_height = 2131361821;
@@ -2721,8 +2724,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0037
 			public const int beginning = 2131361847;
 			
-			// aapt resource value: 0x7f0a00c2
-			public const int bestPossibleDate = 2131361986;
+			// aapt resource value: 0x7f0a00c4
+			public const int bestPossibleDate = 2131361988;
 			
 			// aapt resource value: 0x7f0a005e
 			public const int blocking = 2131361886;
@@ -2730,20 +2733,20 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0045
 			public const int bottom = 2131361861;
 			
-			// aapt resource value: 0x7f0a00dd
-			public const int brojNarudzbe = 2131362013;
+			// aapt resource value: 0x7f0a00df
+			public const int brojNarudzbe = 2131362015;
+			
+			// aapt resource value: 0x7f0a00f3
+			public const int brojNarudzbeTV = 2131362035;
 			
 			// aapt resource value: 0x7f0a00f2
-			public const int brojNarudzbeTV = 2131362034;
-			
-			// aapt resource value: 0x7f0a00f1
-			public const int brojNarudzbeTextView = 2131362033;
+			public const int brojNarudzbeTextView = 2131362034;
 			
 			// aapt resource value: 0x7f0a006a
 			public const int buttonPanel = 2131361898;
 			
-			// aapt resource value: 0x7f0a0121
-			public const int buttonSignUp = 2131362081;
+			// aapt resource value: 0x7f0a0122
+			public const int buttonSignUp = 2131362082;
 			
 			// aapt resource value: 0x7f0a00a8
 			public const int calendarConfirm = 2131361960;
@@ -2751,20 +2754,20 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a00a7
 			public const int calendarView1 = 2131361959;
 			
-			// aapt resource value: 0x7f0a0100
-			public const int cancel_action = 2131362048;
+			// aapt resource value: 0x7f0a0101
+			public const int cancel_action = 2131362049;
 			
-			// aapt resource value: 0x7f0a00b8
-			public const int carList = 2131361976;
+			// aapt resource value: 0x7f0a00ba
+			public const int carList = 2131361978;
 			
 			// aapt resource value: 0x7f0a00b4
 			public const int carNameTV = 2131361972;
 			
-			// aapt resource value: 0x7f0a00ec
-			public const int carTV = 2131362028;
+			// aapt resource value: 0x7f0a00ed
+			public const int carTV = 2131362029;
 			
-			// aapt resource value: 0x7f0a00eb
-			public const int carTextView = 2131362027;
+			// aapt resource value: 0x7f0a00ec
+			public const int carTextView = 2131362028;
 			
 			// aapt resource value: 0x7f0a004c
 			public const int center = 2131361868;
@@ -2775,20 +2778,20 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a004e
 			public const int center_vertical = 2131361870;
 			
-			// aapt resource value: 0x7f0a0118
-			public const int checkBoxZapamtiMe = 2131362072;
+			// aapt resource value: 0x7f0a0119
+			public const int checkBoxZapamtiMe = 2131362073;
 			
 			// aapt resource value: 0x7f0a007a
 			public const int checkbox = 2131361914;
 			
-			// aapt resource value: 0x7f0a0108
-			public const int chronometer = 2131362056;
+			// aapt resource value: 0x7f0a0109
+			public const int chronometer = 2131362057;
+			
+			// aapt resource value: 0x7f0a00f9
+			public const int cijenaTV = 2131362041;
 			
 			// aapt resource value: 0x7f0a00f8
-			public const int cijenaTV = 2131362040;
-			
-			// aapt resource value: 0x7f0a00f7
-			public const int cijenaTextView = 2131362039;
+			public const int cijenaTextView = 2131362040;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int clip_horizontal = 2131361877;
@@ -2799,17 +2802,17 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0041
 			public const int collapseActionView = 2131361857;
 			
-			// aapt resource value: 0x7f0a0124
-			public const int confirmTerms = 2131362084;
+			// aapt resource value: 0x7f0a0125
+			public const int confirmTerms = 2131362085;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int container = 2131361999;
+			// aapt resource value: 0x7f0a00d1
+			public const int container = 2131362001;
 			
 			// aapt resource value: 0x7f0a006d
 			public const int contentPanel = 2131361901;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int coordinator = 2131362000;
+			// aapt resource value: 0x7f0a00d2
+			public const int coordinator = 2131362002;
 			
 			// aapt resource value: 0x7f0a0074
 			public const int custom = 2131361908;
@@ -2823,14 +2826,14 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a00b6
 			public const int dateTV = 2131361974;
 			
-			// aapt resource value: 0x7f0a00df
-			public const int datumNarudzbe = 2131362015;
+			// aapt resource value: 0x7f0a00e1
+			public const int datumNarudzbe = 2131362017;
+			
+			// aapt resource value: 0x7f0a00f5
+			public const int datumServisaTV = 2131362037;
 			
 			// aapt resource value: 0x7f0a00f4
-			public const int datumServisaTV = 2131362036;
-			
-			// aapt resource value: 0x7f0a00f3
-			public const int datumServisaTextView = 2131362035;
+			public const int datumServisaTextView = 2131362036;
 			
 			// aapt resource value: 0x7f0a0081
 			public const int decor_content_parent = 2131361921;
@@ -2838,26 +2841,26 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0067
 			public const int default_activity_button = 2131361895;
 			
-			// aapt resource value: 0x7f0a00d2
-			public const int design_bottom_sheet = 2131362002;
+			// aapt resource value: 0x7f0a00d4
+			public const int design_bottom_sheet = 2131362004;
+			
+			// aapt resource value: 0x7f0a00db
+			public const int design_menu_item_action_area = 2131362011;
+			
+			// aapt resource value: 0x7f0a00da
+			public const int design_menu_item_action_area_stub = 2131362010;
 			
 			// aapt resource value: 0x7f0a00d9
-			public const int design_menu_item_action_area = 2131362009;
+			public const int design_menu_item_text = 2131362009;
 			
 			// aapt resource value: 0x7f0a00d8
-			public const int design_menu_item_action_area_stub = 2131362008;
-			
-			// aapt resource value: 0x7f0a00d7
-			public const int design_menu_item_text = 2131362007;
-			
-			// aapt resource value: 0x7f0a00d6
-			public const int design_navigation_view = 2131362006;
+			public const int design_navigation_view = 2131362008;
 			
 			// aapt resource value: 0x7f0a0029
 			public const int disableHome = 2131361833;
 			
-			// aapt resource value: 0x7f0a00e5
-			public const int dogovoriTermin = 2131362021;
+			// aapt resource value: 0x7f0a00e6
+			public const int dogovoriTermin = 2131362022;
 			
 			// aapt resource value: 0x7f0a0085
 			public const int edit_query = 2131361925;
@@ -2865,8 +2868,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0038
 			public const int end = 2131361848;
 			
-			// aapt resource value: 0x7f0a010e
-			public const int end_padder = 2131362062;
+			// aapt resource value: 0x7f0a010f
+			public const int end_padder = 2131362063;
 			
 			// aapt resource value: 0x7f0a0047
 			public const int enterAlways = 2131361863;
@@ -2898,8 +2901,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a005f
 			public const int forever = 2131361887;
 			
-			// aapt resource value: 0x7f0a011a
-			public const int forgotPassword = 2131362074;
+			// aapt resource value: 0x7f0a011b
+			public const int forgotPassword = 2131362075;
 			
 			// aapt resource value: 0x7f0a000a
 			public const int ghost_view = 2131361802;
@@ -2913,8 +2916,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0069
 			public const int icon = 2131361897;
 			
-			// aapt resource value: 0x7f0a010d
-			public const int icon_group = 2131362061;
+			// aapt resource value: 0x7f0a010e
+			public const int icon_group = 2131362062;
 			
 			// aapt resource value: 0x7f0a0020
 			public const int icon_only = 2131361824;
@@ -2925,14 +2928,14 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0066
 			public const int image = 2131361894;
 			
-			// aapt resource value: 0x7f0a00e4
-			public const int imageView1 = 2131362020;
+			// aapt resource value: 0x7f0a00e5
+			public const int imageView1 = 2131362021;
 			
 			// aapt resource value: 0x7f0a00a4
 			public const int imamDijeloveButton = 2131361956;
 			
-			// aapt resource value: 0x7f0a0109
-			public const int info = 2131362057;
+			// aapt resource value: 0x7f0a010a
+			public const int info = 2131362058;
 			
 			// aapt resource value: 0x7f0a0060
 			public const int italic = 2131361888;
@@ -2940,8 +2943,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0000
 			public const int item_touch_helper_previous_elevation = 2131361792;
 			
-			// aapt resource value: 0x7f0a00ce
-			public const int largeLabel = 2131361998;
+			// aapt resource value: 0x7f0a00d0
+			public const int largeLabel = 2131362000;
 			
 			// aapt resource value: 0x7f0a0050
 			public const int left = 2131361872;
@@ -2961,23 +2964,23 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0068
 			public const int list_item = 2131361896;
 			
-			// aapt resource value: 0x7f0a0128
-			public const int logOut = 2131362088;
+			// aapt resource value: 0x7f0a0129
+			public const int logOut = 2131362089;
 			
 			// aapt resource value: 0x7f0a0099
 			public const int mail = 2131361945;
 			
-			// aapt resource value: 0x7f0a0127
-			public const int masked = 2131362087;
+			// aapt resource value: 0x7f0a0128
+			public const int masked = 2131362088;
 			
-			// aapt resource value: 0x7f0a00e2
-			public const int mediaController1 = 2131362018;
+			// aapt resource value: 0x7f0a00b8
+			public const int mediaController1 = 2131361976;
 			
-			// aapt resource value: 0x7f0a0102
-			public const int media_actions = 2131362050;
+			// aapt resource value: 0x7f0a0103
+			public const int media_actions = 2131362051;
 			
-			// aapt resource value: 0x7f0a0125
-			public const int message = 2131362085;
+			// aapt resource value: 0x7f0a0126
+			public const int message = 2131362086;
 			
 			// aapt resource value: 0x7f0a0039
 			public const int middle = 2131361849;
@@ -2988,23 +2991,23 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0030
 			public const int multiply = 2131361840;
 			
-			// aapt resource value: 0x7f0a00e6
-			public const int myAppointments = 2131362022;
-			
 			// aapt resource value: 0x7f0a00e7
-			public const int myCarButton = 2131362023;
+			public const int myAppointments = 2131362023;
+			
+			// aapt resource value: 0x7f0a00e8
+			public const int myCarButton = 2131362024;
+			
+			// aapt resource value: 0x7f0a00fb
+			public const int napomenaServiseraTV = 2131362043;
 			
 			// aapt resource value: 0x7f0a00fa
-			public const int napomenaServiseraTV = 2131362042;
+			public const int napomenaServiseraTextView = 2131362042;
 			
-			// aapt resource value: 0x7f0a00f9
-			public const int napomenaServiseraTextView = 2131362041;
+			// aapt resource value: 0x7f0a00d7
+			public const int navigation_header_container = 2131362007;
 			
-			// aapt resource value: 0x7f0a00d5
-			public const int navigation_header_container = 2131362005;
-			
-			// aapt resource value: 0x7f0a00de
-			public const int nazivAuta = 2131362014;
+			// aapt resource value: 0x7f0a00e0
+			public const int nazivAuta = 2131362016;
 			
 			// aapt resource value: 0x7f0a0043
 			public const int never = 2131361859;
@@ -3018,17 +3021,17 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0027
 			public const int normal = 2131361831;
 			
-			// aapt resource value: 0x7f0a010b
-			public const int notification_background = 2131362059;
+			// aapt resource value: 0x7f0a010c
+			public const int notification_background = 2131362060;
+			
+			// aapt resource value: 0x7f0a0106
+			public const int notification_main_column = 2131362054;
 			
 			// aapt resource value: 0x7f0a0105
-			public const int notification_main_column = 2131362053;
+			public const int notification_main_column_container = 2131362053;
 			
-			// aapt resource value: 0x7f0a0104
-			public const int notification_main_column_container = 2131362052;
-			
-			// aapt resource value: 0x7f0a00e8
-			public const int notificationsButton = 2131362024;
+			// aapt resource value: 0x7f0a00e9
+			public const int notificationsButton = 2131362025;
 			
 			// aapt resource value: 0x7f0a009d
 			public const int opisiteKvarEditText = 2131361949;
@@ -3045,26 +3048,26 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a000b
 			public const int parent_matrix = 2131361803;
 			
-			// aapt resource value: 0x7f0a012a
-			public const int personalInfo = 2131362090;
+			// aapt resource value: 0x7f0a012b
+			public const int personalInfo = 2131362091;
 			
 			// aapt resource value: 0x7f0a0054
 			public const int pin = 2131361876;
 			
-			// aapt resource value: 0x7f0a0116
-			public const int prijavaEmail = 2131362070;
-			
 			// aapt resource value: 0x7f0a0117
-			public const int prijavaPassword = 2131362071;
+			public const int prijavaEmail = 2131362071;
 			
-			// aapt resource value: 0x7f0a0119
-			public const int prijavaPrijaviSe = 2131362073;
+			// aapt resource value: 0x7f0a0118
+			public const int prijavaPassword = 2131362072;
 			
-			// aapt resource value: 0x7f0a00e3
-			public const int progressBar1 = 2131362019;
+			// aapt resource value: 0x7f0a011a
+			public const int prijavaPrijaviSe = 2131362074;
 			
-			// aapt resource value: 0x7f0a00fb
-			public const int progressBarMA = 2131362043;
+			// aapt resource value: 0x7f0a00e4
+			public const int progressBar1 = 2131362020;
+			
+			// aapt resource value: 0x7f0a00fc
+			public const int progressBarMA = 2131362044;
 			
 			// aapt resource value: 0x7f0a0006
 			public const int progress_circular = 2131361798;
@@ -3084,23 +3087,23 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a00b7
 			public const int refreshAppointments = 2131361975;
 			
-			// aapt resource value: 0x7f0a00e0
-			public const int registerButton = 2131362016;
+			// aapt resource value: 0x7f0a00e2
+			public const int registerButton = 2131362018;
 			
 			// aapt resource value: 0x7f0a0051
 			public const int right = 2131361873;
 			
-			// aapt resource value: 0x7f0a010a
-			public const int right_icon = 2131362058;
+			// aapt resource value: 0x7f0a010b
+			public const int right_icon = 2131362059;
 			
-			// aapt resource value: 0x7f0a0106
-			public const int right_side = 2131362054;
+			// aapt resource value: 0x7f0a0107
+			public const int right_side = 2131362055;
 			
 			// aapt resource value: 0x7f0a00b2
 			public const int saveCar = 2131361970;
 			
-			// aapt resource value: 0x7f0a0115
-			public const int savePersonalInfo = 2131362069;
+			// aapt resource value: 0x7f0a0116
+			public const int savePersonalInfo = 2131362070;
 			
 			// aapt resource value: 0x7f0a000c
 			public const int save_image_matrix = 2131361804;
@@ -3162,8 +3165,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0091
 			public const int select_dialog_listview = 2131361937;
 			
-			// aapt resource value: 0x7f0a00dc
-			public const int sendRequestButton = 2131362012;
+			// aapt resource value: 0x7f0a00de
+			public const int sendRequestButton = 2131362014;
 			
 			// aapt resource value: 0x7f0a007b
 			public const int shortcut = 2131361915;
@@ -3177,14 +3180,14 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a002d
 			public const int showTitle = 2131361837;
 			
-			// aapt resource value: 0x7f0a00cd
-			public const int smallLabel = 2131361997;
+			// aapt resource value: 0x7f0a00cf
+			public const int smallLabel = 2131361999;
 			
-			// aapt resource value: 0x7f0a00d4
-			public const int snackbar_action = 2131362004;
+			// aapt resource value: 0x7f0a00d6
+			public const int snackbar_action = 2131362006;
 			
-			// aapt resource value: 0x7f0a00d3
-			public const int snackbar_text = 2131362003;
+			// aapt resource value: 0x7f0a00d5
+			public const int snackbar_text = 2131362005;
 			
 			// aapt resource value: 0x7f0a004b
 			public const int snap = 2131361867;
@@ -3216,14 +3219,14 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0052
 			public const int start = 2131361874;
 			
+			// aapt resource value: 0x7f0a00eb
+			public const int statusTV = 2131362027;
+			
 			// aapt resource value: 0x7f0a00ea
-			public const int statusTV = 2131362026;
+			public const int statusTextView = 2131362026;
 			
-			// aapt resource value: 0x7f0a00e9
-			public const int statusTextView = 2131362025;
-			
-			// aapt resource value: 0x7f0a0101
-			public const int status_bar_latest_event_content = 2131362049;
+			// aapt resource value: 0x7f0a0102
+			public const int status_bar_latest_event_content = 2131362050;
 			
 			// aapt resource value: 0x7f0a007d
 			public const int submenuarrow = 2131361917;
@@ -3231,8 +3234,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a008e
 			public const int submit_area = 2131361934;
 			
-			// aapt resource value: 0x7f0a0129
-			public const int support = 2131362089;
+			// aapt resource value: 0x7f0a012a
+			public const int support = 2131362090;
 			
 			// aapt resource value: 0x7f0a0028
 			public const int tabMode = 2131361832;
@@ -3240,11 +3243,11 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0019
 			public const int tag_transition_group = 2131361817;
 			
-			// aapt resource value: 0x7f0a0123
-			public const int termsCheckBox = 2131362083;
+			// aapt resource value: 0x7f0a0124
+			public const int termsCheckBox = 2131362084;
 			
-			// aapt resource value: 0x7f0a0122
-			public const int termsText = 2131362082;
+			// aapt resource value: 0x7f0a0123
+			public const int termsText = 2131362083;
 			
 			// aapt resource value: 0x7f0a001a
 			public const int text = 2131361818;
@@ -3267,17 +3270,17 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a009e
 			public const int textView2 = 2131361950;
 			
-			// aapt resource value: 0x7f0a00c0
-			public const int textView21 = 2131361984;
-			
-			// aapt resource value: 0x7f0a00bc
-			public const int textView3 = 2131361980;
+			// aapt resource value: 0x7f0a00c2
+			public const int textView21 = 2131361986;
 			
 			// aapt resource value: 0x7f0a00be
-			public const int textView4 = 2131361982;
+			public const int textView3 = 2131361982;
 			
-			// aapt resource value: 0x7f0a00da
-			public const int text_input_password_toggle = 2131362010;
+			// aapt resource value: 0x7f0a00c0
+			public const int textView4 = 2131361984;
+			
+			// aapt resource value: 0x7f0a00dc
+			public const int text_input_password_toggle = 2131362012;
 			
 			// aapt resource value: 0x7f0a0014
 			public const int textinput_counter = 2131361812;
@@ -3285,8 +3288,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0015
 			public const int textinput_error = 2131361813;
 			
-			// aapt resource value: 0x7f0a0107
-			public const int time = 2131362055;
+			// aapt resource value: 0x7f0a0108
+			public const int time = 2131362056;
 			
 			// aapt resource value: 0x7f0a001c
 			public const int title = 2131361820;
@@ -3303,8 +3306,8 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0075
 			public const int topPanel = 2131361909;
 			
-			// aapt resource value: 0x7f0a00d1
-			public const int touch_outside = 2131362001;
+			// aapt resource value: 0x7f0a00d3
+			public const int touch_outside = 2131362003;
 			
 			// aapt resource value: 0x7f0a000f
 			public const int transition_current_scene = 2131361807;
@@ -3333,29 +3336,29 @@ namespace carServiceApp
 			// aapt resource value: 0x7f0a0016
 			public const int view_offset_helper = 2131361814;
 			
-			// aapt resource value: 0x7f0a0126
-			public const int visible = 2131362086;
+			// aapt resource value: 0x7f0a0127
+			public const int visible = 2131362087;
+			
+			// aapt resource value: 0x7f0a00f7
+			public const int vrijemeServisaTV = 2131362039;
 			
 			// aapt resource value: 0x7f0a00f6
-			public const int vrijemeServisaTV = 2131362038;
+			public const int vrijemeServisaTextView = 2131362038;
 			
-			// aapt resource value: 0x7f0a00f5
-			public const int vrijemeServisaTextView = 2131362037;
+			// aapt resource value: 0x7f0a00c7
+			public const int vrstaPosla = 2131361991;
 			
-			// aapt resource value: 0x7f0a00c5
-			public const int vrstaPosla = 2131361989;
+			// aapt resource value: 0x7f0a00f1
+			public const int vrstaPoslaTV = 2131362033;
 			
 			// aapt resource value: 0x7f0a00f0
-			public const int vrstaPoslaTV = 2131362032;
+			public const int vrstaPoslaTextView = 2131362032;
 			
-			// aapt resource value: 0x7f0a00ef
-			public const int vrstaPoslaTextView = 2131362031;
+			// aapt resource value: 0x7f0a00c6
+			public const int vrstaUsluge = 2131361990;
 			
-			// aapt resource value: 0x7f0a00c4
-			public const int vrstaUsluge = 2131361988;
-			
-			// aapt resource value: 0x7f0a00ed
-			public const int vrstaUslugeTextView = 2131362029;
+			// aapt resource value: 0x7f0a00ee
+			public const int vrstaUslugeTextView = 2131362030;
 			
 			// aapt resource value: 0x7f0a0098
 			public const int web = 2131361944;

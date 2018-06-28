@@ -40,6 +40,7 @@ namespace carServiceApp.My_Classes
             ordersLV      = view.FindViewById<ListView>(Resource.Id.appointmentList);
             ordersList    = new List<orders>();
             refreshButton = view.FindViewById<ImageButton>(Resource.Id.refreshAppointments);
+            progressBar   = view.FindViewById<ProgressBar>(Resource.Id.CAprogressBar);
 
             ordersList.Clear();
             getAppointments();
@@ -54,6 +55,8 @@ namespace carServiceApp.My_Classes
         private void RefreshButton_Click(object sender, EventArgs e)
         {
             getAppointments();
+            progressBar.Visibility = ViewStates.Visible;
+            refreshButton.Enabled = false;
         }
 
         private void OrdersLV_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -105,6 +108,8 @@ namespace carServiceApp.My_Classes
 
             listViewAdapter adapter = new listViewAdapter(view.Context, ordersList);
             ordersLV.Adapter = adapter;
+            progressBar.Visibility = ViewStates.Invisible;
+            refreshButton.Enabled = true;
         }
 
        
