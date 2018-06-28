@@ -135,10 +135,10 @@ namespace carServiceApp.Activities
             orders.vucnaSluzba       = potrebnaVucnaSluzba;
             orders.dijelovi          = potrebnoNarucivanje;
             orders.pozeljniDatum     = addedDate.Text;
-            orders.vrijemeServisa    = "";
-            orders.cijena            = "";
-            orders.napomenaServisera = "";
-            orders.status            = "";
+            orders.vrijemeServisa    = "Nepoznato";
+            orders.cijena            = "Nepoznato";
+            orders.napomenaServisera = "Serviser još uvijek nije dodao nikakvu napomenu";
+            orders.status            = "Poslano na obradu";
 
             int numOfOrders = 1;
             orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
@@ -151,6 +151,7 @@ namespace carServiceApp.Activities
                 numOfOrders = allOrders.Count +1;               
                 orderID = numOfOrders.ToString();
                 orderID = JsonConvert.SerializeObject(orderID);
+                
             }
 
             orders.id = numOfOrders.ToString();
@@ -248,5 +249,10 @@ namespace carServiceApp.Activities
                 StartActivity(intent);
             }
         }
+    }
+
+    public class OnOrderCreatedArgs
+    {
+       
     }
 }

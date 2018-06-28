@@ -99,20 +99,36 @@ namespace carServiceApp.My_Classes
         }
 
         public static async void updateAppointments ()
-        {       
+        {
+            string orderID;
             var user = FirebaseAuth.Instance.CurrentUser;
             string id = user.Uid;
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
             connection con = new connection();
+            orders order = new orders();
 
-            var data = await firebase.Child("order").Child(id).OnceAsync<orders>();
-            foreach (var item in data)
+            int numOfOrders = 1;
+            orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
+
+            List<orders> allOrders = new List<orders>();
+            var getONumberOfOrders = await firebase.Child("order").Child(id).OnceAsync<orders>();
+            foreach (var item in getONumberOfOrders)
             {
-                con.db.Execute("INSERT OR IGNORE INTO orders (carName, datum, dijelovi, id, opisKvara, pozeljniDatum, uid, vrstaPosla, vrstaUsluge, vucnaSluzba) VALUES ('" + item.Object.carName + "'," +
-                    " '" + item.Object.datum + "', '" + item.Object.dijelovi + "', '" + item.Object.id + "', '" + item.Object.opisKvara + "','"+item.Object.pozeljniDatum+"' , '" + item.Object.uid + "', " +
-                    "'" + item.Object.vrstaPosla +"' ,'"+item.Object.vrstaUsluge+"' ,'"+ item.Object.vucnaSluzba + "') ");
+                allOrders.Add(new orders { carName = item.Object.carName });
+                numOfOrders = allOrders.Count + 1;
+                orderID = numOfOrders.ToString();
+                orderID = JsonConvert.SerializeObject(orderID);
+
+                var getOtherData = await firebase.Child("order").Child(id).Child(item.Key).OnceAsync<orders>();
+                foreach (var Otheritem in getOtherData)
+                {
+                    con.db.Execute("INSERT OR IGNORE INTO orders (carName, datum, dijelovi, id, opisKvara, pozeljniDatum, uid, vrstaPosla, vrstaUsluge, vucnaSluzba) VALUES ('" + Otheritem.Object.carName + "'," +
+                    " '" + Otheritem.Object.datum + "', '" + Otheritem.Object.dijelovi + "', '" + Otheritem.Object.id + "', '" + Otheritem.Object.opisKvara + "','" + Otheritem.Object.pozeljniDatum + "' , '" + Otheritem.Object.uid + "', " +
+                    "'" + Otheritem.Object.vrstaPosla + "' ,'" + Otheritem.Object.vrstaUsluge + "' ,'" + Otheritem.Object.vucnaSluzba + "') ");
+                }
             }
+
         }
     }
 }

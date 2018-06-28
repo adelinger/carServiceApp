@@ -40,6 +40,7 @@ namespace carServiceApp.Activities
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.myAppointments);
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             napomenaServisa = FindViewById<TextView>(Resource.Id.napomenaServiseraTV);
             status          = FindViewById<TextView>(Resource.Id.statusTV);
@@ -87,7 +88,6 @@ namespace carServiceApp.Activities
                 cijena.Text          = item.Object.cijena;
                 if (item.Object.napomenaServisera != "") napomenaServisa.Text = item.Object.napomenaServisera;
 
-                System.Threading.Thread.Sleep(2000); 
                 progressBar.Activated = false;
                 progressBar.Visibility = ViewStates.Invisible;
             }
