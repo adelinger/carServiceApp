@@ -159,7 +159,7 @@ namespace carServiceApp.Activities
             try
             {
                 var addOrder = firebase.Child("order").Child(id).Child(orderID.ToString()).PostAsync<orders>(orders);
-                con.db.Insert(orders);
+                
             }
             catch (Exception)
             {
