@@ -42,10 +42,11 @@ namespace carServiceApp.My_Classes
             refreshButton = view.FindViewById<ImageButton>(Resource.Id.refreshAppointments);
             progressBar   = view.FindViewById<ProgressBar>(Resource.Id.CAprogressBar);
 
+            connectionStatus = Tag;
+ 
             ordersList.Clear();
             getAppointments();
 
-            connectionStatus = Tag;
 
             ordersLV.ItemClick += OrdersLV_ItemClick;
             refreshButton.Click += RefreshButton_Click;

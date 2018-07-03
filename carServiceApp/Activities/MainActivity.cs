@@ -19,6 +19,7 @@ using Firebase.Xamarin.Database.Query;
 using carServiceApp.My_Classes.Database;
 using Android.Net;
 using Android.Graphics.Drawables;
+using Firebase.Iid;
 
 namespace carServiceApp
 {
@@ -45,19 +46,34 @@ namespace carServiceApp
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-           
+
             SetContentView(Resource.Layout.Main);
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             dogovoriSastanak = FindViewById<Button>(Resource.Id.dogovoriTermin);
-            mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
-            mojiSastanci     = FindViewById<Button>(Resource.Id.myAppointments);
-            notifications    = FindViewById<Button>(Resource.Id.notificationsButton);
+            mojAuto = FindViewById<Button>(Resource.Id.myCarButton);
+            mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
+            notifications = FindViewById<Button>(Resource.Id.notificationsButton);
 
+            FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);
 
             Drawable img = GetDrawable(Resource.Drawable.Envelope);
             img.SetBounds(0, 0, 0, 60);
             notifications.SetCompoundDrawables(null, null, img, null);
+
+
+            string authorizedEntity = "carserviceapp-5132f";
+            string scope = "GCM";
+   
+             Task.Run(() => {
+              var instanceId = FirebaseInstanceId.Instance;
+              instanceId.DeleteInstanceId();
+              string token = instanceId.GetToken(authorizedEntity, scope);
+              
+              Android.Util.Log.Debug("TAG", "{0} {1}", instanceId.Token, token, Firebase.Messaging.FirebaseMessaging.InstanceIdScope);
+
+            });
+
 
             if (!IsOnline())
             {
@@ -88,6 +104,11 @@ namespace carServiceApp
 
         private void MojiSastanci_Click(object sender, EventArgs e)
         {
+            if (!IsOnline())
+            {
+                Toast.MakeText(this, "Nije moguće provjeriti sastanke ako niste povezani na internet", ToastLength.Long).Show();
+                return;
+            }
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             chooseAppointment showAppointment = new chooseAppointment();
             string tag = "Online";

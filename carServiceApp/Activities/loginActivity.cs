@@ -105,7 +105,7 @@ namespace carServiceApp.Activities
             if (app == null)
                 app = FirebaseApp.InitializeApp(this, options);
             auth = FirebaseAuth.GetInstance(app);
-
+            FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);
         }
 
         private void ButtonSignIn_Click(object sender, EventArgs e)
@@ -286,9 +286,7 @@ namespace carServiceApp.Activities
                 "email = '"+user.email+"', city = '"+user.city+"', adress = '"+user.adress+"' WHERE uid = '"+id+"' ");
 
             
-        }
-
-       
+        }      
 
         private void checkIfRememberMeIsChecked ()
         {
@@ -303,12 +301,21 @@ namespace carServiceApp.Activities
 
         public void OnSuccess(Java.Lang.Object result)
         {
-            updateServices();
-            chooseCar.updateCars();
-            createAppointment.updateUser();
-            updateUser(login_rememberMe);
-            Intent intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
+            try
+            {
+                updateServices();
+                chooseCar.updateCars();
+                createAppointment.updateUser();
+                updateUser(login_rememberMe);
+                Intent intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            }
+            catch (Exception)
+            {
+
+              
+            }
+           
         }
 
         public void OnFailure(Java.Lang.Exception e)
