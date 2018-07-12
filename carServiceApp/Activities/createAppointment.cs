@@ -8,6 +8,7 @@ using Android.Content;
 using Android.Net;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using carServiceApp.My_Classes;
@@ -70,7 +71,6 @@ namespace carServiceApp.Activities
             vrstaUslugeList.Add("Odaberite stavku");
             vrstaPoslaList.Add ("Odaberite stavku");
             LoadData();
- 
 
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaUslugeList);
             vrstaUsluge.Adapter = adapter;
@@ -120,9 +120,13 @@ namespace carServiceApp.Activities
         }
 
         protected override void OnResume()
-        {
+        {         
             updateRequested = true;
             base.OnResume();
+        }
+        protected override void OnStop()
+        {          
+            base.OnStop();
         }
 
         private async void Next_Click(object sender, EventArgs e)

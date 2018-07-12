@@ -115,7 +115,7 @@
         android:id="@+id/space1"
         android:layout_weight="0.1" />
     <Button
-        android:text="Potvrdi narudžbu"
+        android:text="Potvrdi sastanak"
         android:layout_width="250dip"
         android:layout_height="wrap_content"
         android:id="@+id/COconfirmOrderButton"

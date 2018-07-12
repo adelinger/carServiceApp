@@ -20,6 +20,9 @@ using carServiceApp.My_Classes.Database;
 using Android.Net;
 using Android.Graphics.Drawables;
 using Firebase.Iid;
+using Firebase.Messaging;
+using carServiceApp.My_Classes.myFirebaseMessaging;
+using Android.Support.V4.Content;
 
 namespace carServiceApp
 {
@@ -38,6 +41,9 @@ namespace carServiceApp
         private string id;
         private string userLastName;
 
+        private bool messageReceived = false;
+        MyMessageReceiver myReceiver;
+
         connection con = new connection();
         createAppointment createAppointment = new createAppointment();
 
@@ -46,26 +52,25 @@ namespace carServiceApp
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            myReceiver = new MyMessageReceiver();
 
             SetContentView(Resource.Layout.Main);
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             dogovoriSastanak = FindViewById<Button>(Resource.Id.dogovoriTermin);
-            mojAuto = FindViewById<Button>(Resource.Id.myCarButton);
-            mojiSastanci = FindViewById<Button>(Resource.Id.myAppointments);
-            notifications = FindViewById<Button>(Resource.Id.notificationsButton);
+            mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
+            mojiSastanci     = FindViewById<Button>(Resource.Id.myAppointments);
+            notifications    = FindViewById<Button>(Resource.Id.notificationsButton);
 
-            FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);
 
-            Drawable img = GetDrawable(Resource.Drawable.Envelope);
-            img.SetBounds(0, 0, 0, 60);
-            notifications.SetCompoundDrawables(null, null, img, null);
-
+            FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);  
 
             string authorizedEntity = "carserviceapp-5132f";
             string scope = "GCM";
-   
-             Task.Run(() => {
+
+ 
+             #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            Task.Run(() => {
               var instanceId = FirebaseInstanceId.Instance;
               instanceId.DeleteInstanceId();
               string token = instanceId.GetToken(authorizedEntity, scope);
@@ -73,13 +78,20 @@ namespace carServiceApp
               Android.Util.Log.Debug("TAG", "{0} {1}", instanceId.Token, token, Firebase.Messaging.FirebaseMessaging.InstanceIdScope);
 
             });
+            #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+            messageReceived = Intent.GetBooleanExtra("messageReceived", false);
+            if (messageReceived)
+            {
+                Toast.MakeText(this, "Imate novu poruku heheheheh", ToastLength.Long).Show();
+            }
 
 
             if (!IsOnline())
             {
                 checkIfOnline(this, this, this);
                 return;
-            }
+            }      
             
             auth = FirebaseAuth.GetInstance(loginActivity.app);
             chooseCar.updateCars();
@@ -95,12 +107,20 @@ namespace carServiceApp
                 this.Title = userName;
             }
 
+
             dogovoriSastanak.Click += DogovoriSastanak_Click;
             mojAuto.Click += MojAuto_Click;
             mojiSastanci.Click += MojiSastanci_Click;
-           
+            notifications.Click += Notifications_Click;
+ 
         }
 
+        private void Notifications_Click(object sender, EventArgs e)
+        {
+
+        }
+
+      
 
         private void MojiSastanci_Click(object sender, EventArgs e)
         {
@@ -211,11 +231,28 @@ namespace carServiceApp
         {
             this.FinishAffinity();
         }
-
+  
         protected override void OnResume()
         {
+            MyFirebaseMessagingService myMessaging = new MyFirebaseMessagingService();
+            myMessaging.OnMessageReceivedEvent += MyMessaging_OnMessageReceivedEvent;
+
             if (IsOnline()) chooseCar.updateCars();
             base.OnResume();
+    
+            LocalBroadcastManager.GetInstance(this).RegisterReceiver(myReceiver, new IntentFilter("message"));
+            RegisterReceiver(myReceiver, new IntentFilter("message"));
+        }
+
+        private void MyMessaging_OnMessageReceivedEvent(object sender, OnMessageReceivedArgs e)
+        {
+            
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+            LocalBroadcastManager.GetInstance(this).UnregisterReceiver(myReceiver);
         }
 
         public void OnDismiss(IDialogInterface dialog)
@@ -224,6 +261,16 @@ namespace carServiceApp
             this.Finish();
             Intent intent = new Intent(this, typeof(loginActivity));
             StartActivity(intent);
+        }
+    }
+
+
+    [BroadcastReceiver(Enabled = true, Exported = false)]
+    public class MyMessageReceiver : BroadcastReceiver
+    {
+        public override void OnReceive(Context context, Intent intent)
+        {
+            bool messageReceived = intent.GetBooleanExtra("messageReceived", false);
         }
     }
 

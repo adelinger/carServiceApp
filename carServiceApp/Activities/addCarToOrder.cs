@@ -77,6 +77,7 @@ namespace carServiceApp.Activities
 
         private void Next_Click(object sender, EventArgs e)
         {
+
             if (spinner.SelectedItem.ToString() == "Odaberite stavku")
             {
                 Toast.MakeText(this, "Morate odabrati vozilo da biste mogli nastaviti", ToastLength.Long).Show();
@@ -115,10 +116,15 @@ namespace carServiceApp.Activities
 
         }
 
+        protected override void OnStop()
+        {
+            updateRequested = true;
+            base.OnStop();
+        }
+
         protected override void OnResume()
         {
             loadSpinner();
-            updateRequested = true;
             base.OnResume();
         }
 

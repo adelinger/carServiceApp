@@ -189,6 +189,7 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\mojAuto.cs" />
     <Compile Include="Activities\myAppointments.cs" />
+    <Compile Include="Activities\myNotifications.cs" />
     <Compile Include="My Classes\aboutUs.cs" />
     <Compile Include="My Classes\calendar.cs" />
     <Compile Include="My Classes\chooseAppointment.cs" />
@@ -355,6 +356,20 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\aboutUs.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\notifIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\notif.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\newNotif.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\myNotifications.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

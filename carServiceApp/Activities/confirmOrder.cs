@@ -78,6 +78,7 @@ namespace carServiceApp.Activities
 
             getUserInfo();
 
+
             userInfo.Text       = userData;
             chosenServices.Text = vrstaUsluge + ", " + vrstaPosla + ", " + "Zahtjev za vučnom službom: " + "" + zahtjevZaVucnomSluzbom + ", " + "Zahtjev za naručivanjem dijelova: " + zahtjevZaNarucivanjem;
             chosenCar.Text      = carChosen;
@@ -90,6 +91,34 @@ namespace carServiceApp.Activities
 
             confirmOrderButton.Click += ConfirmOrderButton_Click;
             addDate.Click += AddDate_Click;
+        }
+
+        protected override void OnResume()
+        {
+            vrstaPosla = Intent.GetStringExtra("vrstaPosla");
+            vrstaUsluge = Intent.GetStringExtra("vrstaUsluge");
+            carChosen = Intent.GetStringExtra("carChosen");
+            getOpisKvara = Intent.GetStringExtra("opisKvara");
+            potrebnaVucnaSluzba = Intent.GetBooleanExtra("potrebnaVucnaSluzba", false);
+            potrebnoNarucivanje = Intent.GetBooleanExtra("potrebnoNarucivanje", false);
+
+            userInfo.Text = userData;
+            chosenServices.Text = vrstaUsluge + ", " + vrstaPosla + ", " + "Zahtjev za vučnom službom: " + "" + zahtjevZaVucnomSluzbom + ", " + "Zahtjev za naručivanjem dijelova: " + zahtjevZaNarucivanjem;
+            chosenCar.Text = carChosen;
+            opisKvara.Text = getOpisKvara;
+
+            base.OnResume();
+        }
+
+        protected override void OnPause()
+        {
+
+
+            userInfo.Text = "";
+            chosenServices.Text = ""; 
+            chosenCar.Text = "";
+            opisKvara.Text = "";
+            base.OnPause();
         }
 
         private void AddDate_Click(object sender, EventArgs e)
