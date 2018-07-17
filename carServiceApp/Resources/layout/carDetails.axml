@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px">
+    android:minHeight="25px"
+    android:weightSum="100">
     <TextView
         android:text="Informacije o vozilu"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -14,61 +15,82 @@
         android:enabled="false"
         android:gravity="center"
         android:textColor="#000000"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDimeVozila"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Skraćeni naziv vozila (pr. Golf V)"
-        android:layout_marginTop="5dip" />
+        android:layout_marginTop="5dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDmarkaVozila"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Marka vozila"
-        android:layout_marginTop="15dip" />
+        android:layout_marginTop="15dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDTipVozila"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Tip vozila"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDmodelVozila"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Model vozila"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDgodiste"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Godina"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDvrstaGoriva"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Motor dizel/benzin"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="0.05" />
     <EditText
         android:id="@+id/CDzapremninaMotora"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Zapremnina motora (cm3)"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
     <EditText
         android:id="@+id/CDsnagaMotora"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Snaga motora (kW)"
-        android:layout_marginTop="10dip" />
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
     <Button
-        android:text="Spremi"
+        android:text="Spremi izmjene"
         android:layout_width="300dip"
         android:layout_height="wrap_content"
         android:id="@+id/saveCar"
         android:layout_gravity="center"
         android:background="#c0392b"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:layout_weight="20" />
+    <Button
+        android:text="Servisi vozila (0)"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:layout_marginBottom="10px"
+        android:id="@+id/carServices"
+        android:layout_gravity="center"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:layout_weight="45" />
 </LinearLayout>

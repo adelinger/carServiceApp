@@ -17,6 +17,7 @@ using Firebase.Database;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
 using Java.Lang;
+using Newtonsoft.Json;
 
 namespace carServiceApp.Activities
 {
@@ -37,8 +38,12 @@ namespace carServiceApp.Activities
         private EditText zapremninaMotora;
         private EditText carName;
         private Button saveCar;
+        private Button carServices;
 
         private bool allGood = true;
+        private List<orders> ordersList = new List<orders>();
+        private string stringOrderID;
+        private int orderCount;
 
         createAppointment createAppointment = new createAppointment();
         connection con = new connection();
@@ -46,6 +51,7 @@ namespace carServiceApp.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.carDetails);
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             markaVozila       = FindViewById<EditText>(Resource.Id.CDmarkaVozila);
             tipVozila         = FindViewById<EditText>(Resource.Id.CDTipVozila);
@@ -56,6 +62,14 @@ namespace carServiceApp.Activities
             zapremninaMotora  = FindViewById<EditText>(Resource.Id.CDzapremninaMotora);
             carName           = FindViewById<EditText>(Resource.Id.CDimeVozila);
             saveCar           = FindViewById<Button>(Resource.Id.saveCar);
+            carServices       = FindViewById<Button>(Resource.Id.carServices);
+
+            saveCar.Enabled = false;
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Gray);
+
+            carName.Enabled = false;
+
+            getCarServicesCount();
 
             FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
             id = users.Uid;
@@ -65,8 +79,65 @@ namespace carServiceApp.Activities
            
             if (IsOnline()) createAppointment.updateUser();
 
-            saveCar.Click += SaveCar_Click;
-            carName.FocusChange += CarName_FocusChange;
+            saveCar.Click                      += SaveCar_Click;
+            carServices.Click                  += CarServices_Click;
+            carName.FocusChange                += CarName_FocusChange;
+            markaVozila.AfterTextChanged       += MarkaVozila_AfterTextChanged;
+            tipVozila.AfterTextChanged         += TipVozila_AfterTextChanged;
+            godinaProizvodnje.AfterTextChanged += GodinaProizvodnje_AfterTextChanged;
+            modelVozila.AfterTextChanged       += ModelVozila_AfterTextChanged;
+            tipMotora.AfterTextChanged         += TipMotora_AfterTextChanged;
+            snagaMotora.AfterTextChanged       += SnagaMotora_AfterTextChanged;
+            zapremninaMotora.AfterTextChanged  += ZapremninaMotora_AfterTextChanged;
+        }
+
+        private void CarServices_Click(object sender, EventArgs e)
+        {
+            //FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            //chooseAppointment seeAppointments = new chooseAppointment();
+            //seeAppointments.Show(transaction, carName.Text);
+        }
+
+        private void ZapremninaMotora_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
+        }
+
+        private void SnagaMotora_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
+        }
+
+        private void TipMotora_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
+        }
+
+        private void ModelVozila_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
+        }
+
+        private void GodinaProizvodnje_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
+        }
+
+        private void TipVozila_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
+        }
+
+        private void MarkaVozila_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
+        {
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43));
+            saveCar.Enabled = true;
         }
 
         private void CarName_FocusChange(object sender, View.FocusChangeEventArgs e)
@@ -78,7 +149,49 @@ namespace carServiceApp.Activities
         {
             if(checkIfAllInserted() == false) { return; }
             addCarInfo();
+            saveCar.Enabled = false;
+            saveCar.SetBackgroundColor(Android.Graphics.Color.Gray);
             if (allGood) { OnBackPressed(); }
+        }
+
+        public async void getCarServicesCount()
+        {
+            var user = FirebaseAuth.Instance.CurrentUser;
+
+            string orderID;
+            string id = user.Uid;
+            orderCount = 0;
+
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            connection con = new connection();
+
+            int numOfOrders = 1;
+            orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
+
+            List<orders> allOrders = new List<orders>();
+            var getONumberOfOrders = await firebase.Child("order").Child(id).OnceAsync<orders>();
+            foreach (var item in getONumberOfOrders)
+            {
+                allOrders.Add(new orders { carName = item.Object.carName });
+                numOfOrders = allOrders.Count + 1;
+                orderID = numOfOrders.ToString();
+                orderID = JsonConvert.SerializeObject(orderID);
+
+                var getOtherData = await firebase.Child("order").Child(id).Child(item.Key).OnceAsync<orders>();
+                foreach (var Otheritem in getOtherData)
+                {
+                    stringOrderID = Otheritem.Object.id;
+                    ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                }
+            }
+            foreach (var item in ordersList)
+            {
+                if (item.carName == carName.Text)
+                {
+                    orderCount++;
+                }
+            }
+            carServices.Text = "Servisi vozila" + " " + "(" + orderCount.ToString() + ")";
         }
 
         public bool IsOnline()

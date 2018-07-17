@@ -37,6 +37,7 @@ namespace carServiceApp.Activities
         private string carChosen;
         private string zahtjevZaVucnomSluzbom;
         private string zahtjevZaNarucivanjem;
+        private int spinnerPosition;
         private bool   potrebnaVucnaSluzba;
         private bool   potrebnoNarucivanje;
 
@@ -65,6 +66,7 @@ namespace carServiceApp.Activities
             vrstaUsluge         = Intent.GetStringExtra("vrstaUsluge");
             carChosen           = Intent.GetStringExtra("carChosen");
             getOpisKvara        = Intent.GetStringExtra("opisKvara");
+
             potrebnaVucnaSluzba = Intent.GetBooleanExtra("potrebnaVucnaSluzba", false);
             potrebnoNarucivanje = Intent.GetBooleanExtra("potrebnoNarucivanje", false);
 
@@ -91,34 +93,6 @@ namespace carServiceApp.Activities
 
             confirmOrderButton.Click += ConfirmOrderButton_Click;
             addDate.Click += AddDate_Click;
-        }
-
-        protected override void OnResume()
-        {
-            vrstaPosla = Intent.GetStringExtra("vrstaPosla");
-            vrstaUsluge = Intent.GetStringExtra("vrstaUsluge");
-            carChosen = Intent.GetStringExtra("carChosen");
-            getOpisKvara = Intent.GetStringExtra("opisKvara");
-            potrebnaVucnaSluzba = Intent.GetBooleanExtra("potrebnaVucnaSluzba", false);
-            potrebnoNarucivanje = Intent.GetBooleanExtra("potrebnoNarucivanje", false);
-
-            userInfo.Text = userData;
-            chosenServices.Text = vrstaUsluge + ", " + vrstaPosla + ", " + "Zahtjev za vučnom službom: " + "" + zahtjevZaVucnomSluzbom + ", " + "Zahtjev za naručivanjem dijelova: " + zahtjevZaNarucivanjem;
-            chosenCar.Text = carChosen;
-            opisKvara.Text = getOpisKvara;
-
-            base.OnResume();
-        }
-
-        protected override void OnPause()
-        {
-
-
-            userInfo.Text = "";
-            chosenServices.Text = ""; 
-            chosenCar.Text = "";
-            opisKvara.Text = "";
-            base.OnPause();
         }
 
         private void AddDate_Click(object sender, EventArgs e)
@@ -198,7 +172,7 @@ namespace carServiceApp.Activities
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.SetOnDismissListener(this);
-            dialog.SetMessage("Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji sastanci' u glavnom izborniku");
+            dialog.SetMessage("Uspješno ste poslali zahtjev za popravkom. Status zahtjeva možete pratiti pod 'Moji termini' u glavnom izborniku");
             dialog.SetPositiveButton("U redu", (senderAlert, args) => {
                 dialog.Dispose();
                 this.Finish();
@@ -214,24 +188,28 @@ namespace carServiceApp.Activities
         private void ChosenServices_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(createAppointment)).SetFlags(ActivityFlags.ReorderToFront);
+            intent.PutExtra("updateRequested", true);
             buildDialog(intent);
         }
 
         private void OpisKvara_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+            intent.PutExtra("updateRequested", true);
             buildDialog(intent);
         }
 
         private void ChosenCar_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+            intent.PutExtra("updateRequested", true);
             buildDialog(intent);
         }
 
         private void UserInfo_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(createAppointment)).SetFlags(ActivityFlags.ReorderToFront);
+            intent.PutExtra("updateRequested", true);
             buildDialog(intent);
         }
 

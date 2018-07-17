@@ -27,7 +27,7 @@ namespace carServiceApp.My_Classes
         private ListView ordersLV;
         private ImageButton refreshButton;
         private ProgressBar progressBar;
-        private string connectionStatus;
+        private string tag;
 
         private List<orders> ordersList;
         private List<string> list = new List<string>();
@@ -42,20 +42,20 @@ namespace carServiceApp.My_Classes
             refreshButton = view.FindViewById<ImageButton>(Resource.Id.refreshAppointments);
             progressBar   = view.FindViewById<ProgressBar>(Resource.Id.CAprogressBar);
 
-            connectionStatus = Tag;
- 
+            tag = Tag;
+
             ordersList.Clear();
-            getAppointments();
-
-
-            ordersLV.ItemClick += OrdersLV_ItemClick;
-            refreshButton.Click += RefreshButton_Click;
+            getAppointments(tag);
+        
+          ordersLV.ItemClick += OrdersLV_ItemClick;
+          refreshButton.Click += RefreshButton_Click;
+            
             return view;
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
-            getAppointments();
+            getAppointments(tag);
             progressBar.Visibility = ViewStates.Visible;
             refreshButton.Enabled = false;
         }
@@ -63,7 +63,7 @@ namespace carServiceApp.My_Classes
         private void OrdersLV_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             Intent intent = new Intent(view.Context, typeof(myAppointments));
-            intent.PutExtra("orderID", stringOrderID);
+            intent.PutExtra("orderID", ordersList[e.Position].uid);
             StartActivity(intent);
         }
 
@@ -73,9 +73,8 @@ namespace carServiceApp.My_Classes
             base.OnActivityCreated(savedInstanceState);
         }
 
-       
 
-        public async void getAppointments()
+        public async void getAppointments(string tag)
         {
             var user = FirebaseAuth.Instance.CurrentUser;
             ordersList.Clear();
@@ -85,7 +84,6 @@ namespace carServiceApp.My_Classes
 
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
             connection con = new connection();
-            orders order = new orders();
 
             int numOfOrders = 1;
             orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
@@ -99,11 +97,28 @@ namespace carServiceApp.My_Classes
                 orderID = numOfOrders.ToString();
                 orderID = JsonConvert.SerializeObject(orderID);
 
-                var getOtherData = await firebase.Child("order").Child(id).Child(item.Key).OnceAsync<orders>();
-                foreach (var Otheritem in getOtherData)
+                if (tag == "fromMainActivity")
                 {
-                    stringOrderID = Otheritem.Object.id;
-                    ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                    var getOtherData = await firebase.Child("order").Child(id).Child(item.Key).OnceAsync<orders>();
+                    foreach (var Otheritem in getOtherData)
+                    {
+                        stringOrderID = Otheritem.Object.id;
+                        ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                    }
+                }
+
+                if (tag != "fromMainActivity")
+                {
+                    var getOtherData = await firebase.Child("order").Child(id).Child(item.Key).OnceAsync<orders>();
+                    foreach (var Otheritem in getOtherData)
+                    {
+                        stringOrderID = Otheritem.Object.id;
+                        if (tag == Otheritem.Object.carName)
+                        {
+                            ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                        }
+                        
+                    }
                 }
             }
 

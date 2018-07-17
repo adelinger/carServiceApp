@@ -40,6 +40,7 @@ namespace carServiceApp
         private FirebaseAuth auth;
         private string id;
         private string userLastName;
+        private string newMessage;
 
         private bool messageReceived = false;
         MyMessageReceiver myReceiver;
@@ -62,7 +63,6 @@ namespace carServiceApp
             mojiSastanci     = FindViewById<Button>(Resource.Id.myAppointments);
             notifications    = FindViewById<Button>(Resource.Id.notificationsButton);
 
-
             FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);  
 
             string authorizedEntity = "carserviceapp-5132f";
@@ -78,14 +78,11 @@ namespace carServiceApp
               Android.Util.Log.Debug("TAG", "{0} {1}", instanceId.Token, token, Firebase.Messaging.FirebaseMessaging.InstanceIdScope);
 
             });
-            #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-            messageReceived = Intent.GetBooleanExtra("messageReceived", false);
-            if (messageReceived)
-            {
-                Toast.MakeText(this, "Imate novu poruku heheheheh", ToastLength.Long).Show();
-            }
+           
 
+            if (newMessage == "newMessage") Toast.MakeText(this, "bla bla bla bla bla", ToastLength.Long).Show();
 
             if (!IsOnline())
             {
@@ -131,10 +128,7 @@ namespace carServiceApp
             }
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             chooseAppointment showAppointment = new chooseAppointment();
-            string tag = "Online";
-            if (IsOnline()) tag =  "Online";
-            if (!IsOnline()) tag = "Offline";
-            showAppointment.Show(transaction, tag);
+            showAppointment.Show(transaction, "fromMainActivity");
 
         }
 
@@ -234,19 +228,16 @@ namespace carServiceApp
   
         protected override void OnResume()
         {
-            MyFirebaseMessagingService myMessaging = new MyFirebaseMessagingService();
-            myMessaging.OnMessageReceivedEvent += MyMessaging_OnMessageReceivedEvent;
-
             if (IsOnline()) chooseCar.updateCars();
             base.OnResume();
     
             LocalBroadcastManager.GetInstance(this).RegisterReceiver(myReceiver, new IntentFilter("message"));
             RegisterReceiver(myReceiver, new IntentFilter("message"));
-        }
 
-        private void MyMessaging_OnMessageReceivedEvent(object sender, OnMessageReceivedArgs e)
-        {
-            
+            Context myContext = Android.App.Application.Context;
+            appPreferences app = new appPreferences(myContext);
+
+            newMessage = app.getAccesKey();
         }
 
         protected override void OnPause()

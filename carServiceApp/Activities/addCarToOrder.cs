@@ -116,15 +116,10 @@ namespace carServiceApp.Activities
 
         }
 
-        protected override void OnStop()
-        {
-            updateRequested = true;
-            base.OnStop();
-        }
-
         protected override void OnResume()
         {
-            loadSpinner();
+            updateRequested = Intent.GetBooleanExtra("updateRequested", false);
+            loadSpinner();           
             base.OnResume();
         }
 

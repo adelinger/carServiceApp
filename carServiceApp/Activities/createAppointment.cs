@@ -70,6 +70,7 @@ namespace carServiceApp.Activities
 
             vrstaUslugeList.Add("Odaberite stavku");
             vrstaPoslaList.Add ("Odaberite stavku");
+
             LoadData();
 
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaUslugeList);
@@ -79,12 +80,7 @@ namespace carServiceApp.Activities
             vrstaUsluge.ItemSelected += VrstaUsluge_ItemSelected;
            
         }
-
-        private void checkIfUpdateIsRequested()
-        {
-            updateRequested = Intent.GetBooleanExtra("updateRequested", false);
-        }
-
+      
         public bool IsOnline()
         {
             var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
@@ -120,15 +116,11 @@ namespace carServiceApp.Activities
         }
 
         protected override void OnResume()
-        {         
-            updateRequested = true;
+        {
+            updateRequested = Intent.GetBooleanExtra("updateRequested", false);
             base.OnResume();
         }
-        protected override void OnStop()
-        {          
-            base.OnStop();
-        }
-
+        
         private async void Next_Click(object sender, EventArgs e)
         {
             if (userInput_ime.Text == "" || userInput_prezime.Text == "" || userInput_broj.Text == "" || userInput_email.Text == "" || userInput_mjesto.Text == "" || userInpu_ulicaibr.Text == "")
@@ -177,7 +169,7 @@ namespace carServiceApp.Activities
 
             if (updateRequested)
             {
-                Intent intent = new Intent(this, typeof(addCarToOrder)).SetFlags(ActivityFlags.ReorderToFront);
+                Intent intent = new Intent(this, typeof(confirmOrder)).SetFlags(ActivityFlags.ReorderToFront);
                 intent.PutExtra("vrstaUsluge", vrstaUsluge.SelectedItem.ToString());
                 intent.PutExtra("vrstaPosla", vrstaPosla.SelectedItem.ToString());
                 StartActivity(intent);

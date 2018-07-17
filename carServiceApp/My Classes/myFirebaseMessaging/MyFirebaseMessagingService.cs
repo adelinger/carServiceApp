@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.Media;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
@@ -22,8 +23,6 @@ namespace carServiceApp.My_Classes.myFirebaseMessaging
     class MyFirebaseMessagingService : FirebaseMessagingService
     {
 
-        public event EventHandler<OnMessageReceivedArgs> OnMessageReceivedEvent;
-
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
@@ -35,7 +34,11 @@ namespace carServiceApp.My_Classes.myFirebaseMessaging
             intent.PutExtra("messageReceived", true);
             broadcaster.SendBroadcast(intent);
 
-            OnMessageReceivedEvent.Invoke(this, new OnMessageReceivedArgs(true));
+            Context myContext = Android.App.Application.Context;
+            appPreferences app = new appPreferences(myContext);
+
+            string newMessage = "newMessage";
+            app.saveAccesKey(newMessage);
         }
 
         private void SendNotification(string body)
@@ -57,14 +60,31 @@ namespace carServiceApp.My_Classes.myFirebaseMessaging
             notificationManager.Notify(0, notificationBuilder.Build());
         }
     }
-    
-    class OnMessageReceivedArgs
-    {
-        public bool messageReceived { get; set; }
 
-        public OnMessageReceivedArgs(bool received)
+    public class appPreferences
+    {
+        private ISharedPreferences mySharedPreferences;
+        private ISharedPreferencesEditor mySharedPreferencesEditor;
+        private Context mContext;
+
+        private static string PREFERENCE_ACCESS_KEY = "PREFERENCE_ACCESS_KEY";
+
+        public appPreferences(Context context)
         {
-            messageReceived = received;
+            this.mContext = context;
+            mySharedPreferences = PreferenceManager.GetDefaultSharedPreferences(mContext);
+            mySharedPreferencesEditor = mySharedPreferences.Edit();
+        }
+
+        public void saveAccesKey(string key)
+        {
+            mySharedPreferencesEditor.PutString(PREFERENCE_ACCESS_KEY, key);
+            mySharedPreferencesEditor.Commit();
+        }
+
+        public string getAccesKey()
+        {
+            return mySharedPreferences.GetString(PREFERENCE_ACCESS_KEY, "");
         }
     }
    
