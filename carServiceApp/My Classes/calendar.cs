@@ -48,11 +48,16 @@ namespace carServiceApp.My_Classes
 
         private void MCalendar_DateChange(object sender, CalendarView.DateChangeEventArgs e)
         {
-            datePicked = e.DayOfMonth + "." + e.Month + "." + e.Year;
+            int mjesec = e.Month + 1;
+            datePicked = e.DayOfMonth + "/" + mjesec + "/" + e.Year;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(datePicked))
+            {
+                datePicked = DateTime.UtcNow.ToString("dd/M/yyyy");
+            }
             onDatePickedEvent.Invoke(this, new onDatePickedEventArgs(datePicked));
             this.Dismiss();
         }

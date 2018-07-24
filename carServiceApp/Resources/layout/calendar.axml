@@ -6,9 +6,9 @@
     <CalendarView
         android:layout_width="750px"
         android:layout_height="600px"
-        android:id="@+id/calendarView1"
         android:alwaysDrawnWithCache="false"
-        android:focusedByDefault="true" />
+        android:focusedByDefault="true"
+        android:id="@+id/calendarView1" />
     <Button
         android:text="Odaberi"
         android:layout_width="180dip"
