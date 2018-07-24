@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Icu.Text;
 using Android.Net;
 using Android.OS;
 using Android.Runtime;
@@ -127,6 +129,7 @@ namespace carServiceApp.Activities
             id = auth.CurrentUser.Uid;
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
+            string datum = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm");
 
             orders orders = new orders();
             orders.uid               = id;
@@ -134,10 +137,11 @@ namespace carServiceApp.Activities
             orders.vrstaUsluge       = vrstaUsluge;
             orders.vrstaPosla        = vrstaPosla;
             orders.opisKvara         = opisKvara.Text;
-            orders.datum             = DateTime.Now.ToLocalTime().ToString();
+            orders.datumKreiranja    = datum;
             orders.vucnaSluzba       = potrebnaVucnaSluzba;
             orders.dijelovi          = potrebnoNarucivanje;
             orders.pozeljniDatum     = addedDate.Text;
+            orders.datumServisa      = "Nepoznato";
             orders.vrijemeServisa    = "Nepoznato";
             orders.cijena            = "Nepoznato";
             orders.napomenaServisera = "Serviser još uvijek nije dodao nikakvu napomenu";

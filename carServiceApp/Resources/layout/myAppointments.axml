@@ -98,6 +98,8 @@
         android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/datumServisaTextView"
         android:layout_below="@id/brojNarudzbeTextView"
+        android:textColor="#c0392b"
+        android:text="Nepoznato"
         android:id="@+id/datumServisaTV" />
     <TextView
         android:text="Vrijeme servisa: "
@@ -114,6 +116,8 @@
         android:layout_marginTop="15dip"
         android:layout_toRightOf="@id/vrijemeServisaTextView"
         android:layout_below="@id/datumServisaTextView"
+        android:textColor="#c0392b"
+        android:text="Nepoznato"
         android:id="@+id/vrijemeServisaTV" />
     <TextView
         android:text="Cijena: "

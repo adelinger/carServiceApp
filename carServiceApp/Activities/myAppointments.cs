@@ -83,7 +83,7 @@ namespace carServiceApp.Activities
                 vrstaUsluge.Text     = item.Object.vrstaUsluge;
                 vrstaPosla.Text      = item.Object.vrstaPosla;
                 brojNarudzbe.Text    = item.Object.id;
-                datumServisa.Text    = item.Object.datum.Substring(0, 10);
+                datumServisa.Text    = item.Object.datumServisa;
                 vrijemeServisa.Text  = item.Object.vrijemeServisa;
                 cijena.Text          = item.Object.cijena;
                 if (item.Object.napomenaServisera != "") napomenaServisa.Text = item.Object.napomenaServisera;

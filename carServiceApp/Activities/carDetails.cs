@@ -21,7 +21,7 @@ using Newtonsoft.Json;
 
 namespace carServiceApp.Activities
 {
-    [Activity(Label = "carDetails")]
+    [Activity(Label = "Informacije o vozilu")]
     public class carDetails : Activity
     {
         private string id;
@@ -93,9 +93,9 @@ namespace carServiceApp.Activities
 
         private void CarServices_Click(object sender, EventArgs e)
         {
-            //FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            //chooseAppointment seeAppointments = new chooseAppointment();
-            //seeAppointments.Show(transaction, carName.Text);
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            chooseAppointment seeAppointments = new chooseAppointment();
+            seeAppointments.Show(transaction, carName.Text);
         }
 
         private void ZapremninaMotora_AfterTextChanged(object sender, Android.Text.AfterTextChangedEventArgs e)
@@ -181,7 +181,7 @@ namespace carServiceApp.Activities
                 foreach (var Otheritem in getOtherData)
                 {
                     stringOrderID = Otheritem.Object.id;
-                    ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                    ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datumKreiranja = Otheritem.Object.datumKreiranja.Substring(0, 10) });
                 }
             }
             foreach (var item in ordersList)

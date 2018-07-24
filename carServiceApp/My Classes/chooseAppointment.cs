@@ -103,7 +103,7 @@ namespace carServiceApp.My_Classes
                     foreach (var Otheritem in getOtherData)
                     {
                         stringOrderID = Otheritem.Object.id;
-                        ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                        ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datumKreiranja = Otheritem.Object.datumKreiranja.Substring(0, 10) });
                     }
                 }
 
@@ -115,7 +115,7 @@ namespace carServiceApp.My_Classes
                         stringOrderID = Otheritem.Object.id;
                         if (tag == Otheritem.Object.carName)
                         {
-                            ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datum = Otheritem.Object.datum.Substring(0, 10) });
+                            ordersList.Add(new orders { uid = Otheritem.Object.id, carName = Otheritem.Object.carName, datumKreiranja = Otheritem.Object.datumKreiranja.Substring(0, 10) });
                         }
                         
                     }

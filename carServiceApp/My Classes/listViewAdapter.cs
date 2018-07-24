@@ -47,7 +47,7 @@ namespace carServiceApp.My_Classes
                 TextView nazivAuta     = row.FindViewById<TextView>(Resource.Id.nazivAuta);
                 nazivAuta.Text         = mOrders[position].carName;
                 TextView datumNarudzbe = row.FindViewById<TextView>(Resource.Id.datumNarudzbe);
-                datumNarudzbe.Text     = mOrders[position].datum;
+                datumNarudzbe.Text     = mOrders[position].datumKreiranja;
 
             return row;
         }
