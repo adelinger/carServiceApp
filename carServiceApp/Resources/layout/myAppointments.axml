@@ -91,7 +91,7 @@
         android:layout_below="@id/brojNarudzbeTextView"
         android:layout_marginTop="15dip"
         android:id="@+id/datumServisaTextView" />
-    <TextView
+    <EditText
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         android:layout_below="@id/datumServisaTextView"
         android:layout_marginTop="15dip"
         android:id="@+id/vrijemeServisaTextView" />
-    <TextView
+    <EditText
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
@@ -149,17 +149,38 @@
         android:text="Medium Text"
         android:textSize="40px"
         android:layout_width="300dip"
-        android:layout_height="300px"
+        android:layout_height="150px"
         android:id="@+id/napomenaServiseraTV"
         android:gravity="center"
         android:layout_below="@id/napomenaServiseraTextView"
-        android:layout_marginTop="15dip"
+        android:layout_marginTop="5dip"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:text="Potvrdi ili izmijeni termin"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/napomenaServiseraTV"
+        android:id="@+id/changeOrApplyButton"
+        android:layout_gravity="center"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
         android:layout_centerHorizontal="true" />
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/napomenaServiseraTV"
+        android:layout_below="@id/changeOrApplyButton"
         android:id="@+id/progressBarMA"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dip" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+        android:layout_below="@id/changeOrApplyButton"
+        android:layout_toRightOf="@id/progressBarMA"
+        android:layout_marginLeft="-130px"
+        android:id="@+id/refreshMyAppointments"
+        android:src="@drawable/refresh2"
+        android:background="@android:color/transparent"
+        android:foregroundGravity="center"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

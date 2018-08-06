@@ -213,6 +213,7 @@
     <Compile Include="My Classes\threeRowLVAdapter.cs" />
     <Compile Include="My Classes\Database\User.cs" />
     <Compile Include="My Classes\Database\usluge.cs" />
+    <Compile Include="My Classes\timePicker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
   </ItemGroup>
@@ -370,6 +371,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\myNotifications.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\timePicker.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

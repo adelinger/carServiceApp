@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TimePicker
+        android:layout_width="750px"
+        android:layout_height="600px"
+        android:id="@+id/timePicker1" />
+    <Button
+        android:text="Odaberi"
+        android:layout_width="180dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePickerConfirm"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dip"
+        android:background="#c0392b"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:drawableRight="@drawable/ificonios7plusoutline211802"
+        android:layout_marginBottom="10dip" />
+</LinearLayout>

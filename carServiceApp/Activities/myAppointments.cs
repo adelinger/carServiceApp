@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using carServiceApp.My_Classes;
 using Android.App;
 using Android.Content;
 using Android.Net;
@@ -16,6 +16,7 @@ using Firebase.Xamarin.Database;
 using Newtonsoft.Json;
 using Firebase.Xamarin.Database.Query;
 using System.Threading;
+using Firebase.Database;
 
 namespace carServiceApp.Activities
 {
@@ -28,10 +29,12 @@ namespace carServiceApp.Activities
         TextView vrstaUsluge;
         TextView vrstaPosla;
         TextView brojNarudzbe;
-        TextView datumServisa;
-        TextView vrijemeServisa;
+        EditText datumServisa;
+        EditText vrijemeServisa;
         TextView cijena;
         ProgressBar progressBar;
+        Button applyOrChange;
+        ImageButton refreshButton;
 
         private string orderID;
 
@@ -48,14 +51,19 @@ namespace carServiceApp.Activities
             vrstaUsluge     = FindViewById<TextView>(Resource.Id.VrstauslugeTV);
             vrstaPosla      = FindViewById<TextView>(Resource.Id.vrstaPoslaTV);
             brojNarudzbe    = FindViewById<TextView>(Resource.Id.brojNarudzbeTV);
-            datumServisa    = FindViewById<TextView>(Resource.Id.datumServisaTV);
-            vrijemeServisa  = FindViewById<TextView>(Resource.Id.vrijemeServisaTV);
+            datumServisa    = FindViewById<EditText>(Resource.Id.datumServisaTV);
+            vrijemeServisa  = FindViewById<EditText>(Resource.Id.vrijemeServisaTV);
             cijena          = FindViewById<TextView>(Resource.Id.cijenaTV);
             progressBar     = FindViewById<ProgressBar>(Resource.Id.progressBarMA);
+            applyOrChange   = FindViewById<Button>(Resource.Id.changeOrApplyButton);
+            refreshButton   = FindViewById<ImageButton>(Resource.Id.refreshMyAppointments);
 
             orderID = "\"" + Intent.GetStringExtra("orderID") + "\"";
             napomenaServisa.Text = "Serviser još uvijek nije dodao nikakvu napomenu";
             progressBar.Activated = true;
+            datumServisa.Enabled = false;
+            vrijemeServisa.Enabled = false;
+    
 
             if (IsOnline())
             {
@@ -65,12 +73,78 @@ namespace carServiceApp.Activities
             {
                 MainActivity.checkIfOnline(this, this, this);
             }
-          
+
+            applyOrChange.Click += ApplyOrChange_Click;
+            refreshButton.Click += RefreshButton_Click;
+            datumServisa.Touch += DatumServisa_Touch;
+            vrijemeServisa.Touch += VrijemeServisa_Touch;
+        }
+
+        private void VrijemeServisa_Touch(object sender, View.TouchEventArgs e)
+        {
+            timePicker timePicker = new timePicker();
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            timePicker.Show(transaction, "tag");
+            timePicker.OnTimePickedEvent += TimePicker_OnTimePickedEvent;
+        }
+
+        private void DatumServisa_Touch(object sender, View.TouchEventArgs e)
+        {
+            calendarView calendar = new calendarView();
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            calendar.Show(transaction, "tag");
+
+            calendar.onDatePickedEvent += Calendar_onDatePickedEvent;
+        }
+
+        private void TimePicker_OnTimePickedEvent(object sender, OnTimeSelectedArgs e)
+        {
+            vrijemeServisa.Text = e.hourSelected + ":" + " " + e.minutesSelected;
         }
 
 
+        private void Calendar_onDatePickedEvent(object sender, onDatePickedEventArgs e)
+        {
+            datumServisa.Text = e.datePicked;
+        }
+
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            progressBar.Enabled = true;
+            progressBar.Visibility = ViewStates.Visible;
+            getOnlineDadata();
+        }
+
+        private void ApplyOrChange_Click(object sender, EventArgs e)
+        {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.SetMessage("Želite li Potvrditi ili predložiti promijene");
+            dialogBuilder.SetPositiveButton("Potvrdi", (senderAlert, args) => {
+
+            });
+            dialogBuilder.SetNegativeButton("Odustani", (senderAlert, args) => {
+                dialogBuilder.Dispose();
+            });
+            dialogBuilder.SetNeutralButton("Predloži promijenu", (senderAlert, args) => {
+                datumServisa.Text = "";
+                datumServisa.Enabled = true;
+                datumServisa.Activated = true;
+                vrijemeServisa.Activated = true;
+                vrijemeServisa.Text = "";
+                vrijemeServisa.Enabled = true;
+                dialogBuilder.Dispose();
+            });
+
+            AlertDialog alertDialog = dialogBuilder.Create();
+            alertDialog.Show();
+        }
+
         private async void getOnlineDadata()
         {
+            refreshButton.Enabled = false;
+            refreshButton.Activated = false;
+            refreshButton.Visibility = ViewStates.Gone;
+
             var id = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser.Uid;
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
@@ -90,6 +164,8 @@ namespace carServiceApp.Activities
 
                 progressBar.Activated = false;
                 progressBar.Visibility = ViewStates.Invisible;
+                refreshButton.Enabled = true;
+                refreshButton.Visibility = ViewStates.Visible;
             }
         }
 
@@ -104,5 +180,7 @@ namespace carServiceApp.Activities
             Intent intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
         }
+
+      
     }
 }
