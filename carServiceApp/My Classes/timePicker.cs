@@ -18,13 +18,15 @@ namespace carServiceApp.My_Classes
         View view;
         TimePicker time;
         Button addTime;
+
+        private string hour;
+        private string minute;
+
         public event EventHandler<OnTimeSelectedArgs> OnTimePickedEvent;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            
-            
+            base.OnCreate(savedInstanceState);            
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -39,6 +41,9 @@ namespace carServiceApp.My_Classes
             time = view.FindViewById<TimePicker>(Resource.Id.timePicker1);
             addTime = view.FindViewById<Button>(Resource.Id.timePickerConfirm);
 
+            time.SetIs24HourView(Java.Lang.Boolean.True);
+            time.Hour = DateTime.UtcNow.Hour;
+
             time.TimeChanged += Time_TimeChanged;
             addTime.Click += AddTime_Click;
 
@@ -47,12 +52,14 @@ namespace carServiceApp.My_Classes
 
         private void AddTime_Click(object sender, EventArgs e)
         {
+            OnTimePickedEvent.Invoke(this, new OnTimeSelectedArgs(hour, minute));
             this.Dismiss();
         }
 
         private void Time_TimeChanged(object sender, TimePicker.TimeChangedEventArgs e)
         {
-            OnTimePickedEvent.Invoke(this, new OnTimeSelectedArgs(e.HourOfDay.ToString(), e.Minute.ToString()));
+            hour   = e.HourOfDay.ToString();
+            minute = e.Minute.ToString();         
         }
 
     }

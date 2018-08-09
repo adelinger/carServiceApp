@@ -32,6 +32,7 @@
         android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dip"
+        android:text="Car"
         android:layout_toRightOf="@id/carTextView"
         android:layout_below="@id/statusTV"
         android:id="@+id/carTV" />
@@ -127,7 +128,7 @@
         android:layout_below="@id/vrijemeServisaTextView"
         android:layout_marginTop="15dip"
         android:id="@+id/cijenaTextView" />
-    <TextView
+    <EditText
         android:text="Nepoznato"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="150dip"

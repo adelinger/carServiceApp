@@ -8,7 +8,8 @@
     <TimePicker
         android:layout_width="750px"
         android:layout_height="600px"
-        android:id="@+id/timePicker1" />
+        android:id="@+id/timePicker1"
+        android:timePickerMode="spinner" />
     <Button
         android:text="Odaberi"
         android:layout_width="180dip"

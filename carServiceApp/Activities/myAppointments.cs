@@ -31,10 +31,13 @@ namespace carServiceApp.Activities
         TextView brojNarudzbe;
         EditText datumServisa;
         EditText vrijemeServisa;
-        TextView cijena;
+        EditText cijena;
         ProgressBar progressBar;
         Button applyOrChange;
         ImageButton refreshButton;
+
+        orders order = new orders();
+        string objectID;
 
         private string orderID;
 
@@ -53,7 +56,7 @@ namespace carServiceApp.Activities
             brojNarudzbe    = FindViewById<TextView>(Resource.Id.brojNarudzbeTV);
             datumServisa    = FindViewById<EditText>(Resource.Id.datumServisaTV);
             vrijemeServisa  = FindViewById<EditText>(Resource.Id.vrijemeServisaTV);
-            cijena          = FindViewById<TextView>(Resource.Id.cijenaTV);
+            cijena          = FindViewById<EditText>(Resource.Id.cijenaTV);
             progressBar     = FindViewById<ProgressBar>(Resource.Id.progressBarMA);
             applyOrChange   = FindViewById<Button>(Resource.Id.changeOrApplyButton);
             refreshButton   = FindViewById<ImageButton>(Resource.Id.refreshMyAppointments);
@@ -64,7 +67,7 @@ namespace carServiceApp.Activities
             datumServisa.Enabled = false;
             vrijemeServisa.Enabled = false;
     
-
+            if (status.Text == "Dogovoreno") status.SetTextColor(Android.Graphics.Color.DarkOliveGreen);
             if (IsOnline())
             {
                 getOnlineDadata();
@@ -106,7 +109,20 @@ namespace carServiceApp.Activities
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.SetMessage("Odabrani datum i vrijeme su: " + datumServisa.Text + ", " + vrijemeServisa.Text);
             dialogBuilder.SetPositiveButton("Potvrdi", (senderAlert, args) => {
+                var id = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser.Uid;
+                var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
+                order.status         = "Prijedlog poslan";
+                order.datumServisa   = datumServisa.Text;
+                order.vrijemeServisa = vrijemeServisa.Text;
+
+                var data = firebase.Child("order").Child(id).Child(orderID).Child(objectID).PutAsync<orders>(order);
+
+                getOnlineDadata();
+                datumServisa.Enabled   = false;
+                vrijemeServisa.Enabled = false;
+                dialogBuilder.Dispose();
+               
             });
             dialogBuilder.SetNegativeButton("Odustani", (senderAlert, args) => {
                 dialogBuilder.Dispose();
@@ -137,6 +153,18 @@ namespace carServiceApp.Activities
             dialogBuilder.SetMessage("Želite li Potvrditi ili predložiti promijene");
             dialogBuilder.SetPositiveButton("Potvrdi", (senderAlert, args) => {
 
+                var id = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser.Uid;
+                var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+
+                order.status = "Dogovoreno";
+                order.datumServisa = datumServisa.Text;
+                order.vrijemeServisa = vrijemeServisa.Text;
+
+                status.SetTextColor(Android.Graphics.Color.DarkOliveGreen);
+
+                var data = firebase.Child("order").Child(id).Child(orderID).Child(objectID).PutAsync<orders>(order);
+                getOnlineDadata();
+                dialogBuilder.Dispose();
             });
             dialogBuilder.SetNegativeButton("Odustani", (senderAlert, args) => {
                 dialogBuilder.Dispose();
@@ -165,8 +193,24 @@ namespace carServiceApp.Activities
             var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
             var data = await firebase.Child("order").Child(id).Child(orderID).OnceAsync<orders>();
+        
             foreach (var item in data)
             {
+                objectID = item.Key;
+
+                order.cijena            = item.Object.cijena;
+                order.carName           = item.Object.carName;
+                order.vrstaUsluge       = item.Object.vrstaUsluge;
+                order.vrstaPosla        = item.Object.vrstaPosla;
+                order.id                = item.Object.id;
+                order.cijena            = item.Object.cijena;
+                order.datumKreiranja    = item.Object.datumKreiranja;
+                order.dijelovi          = item.Object.dijelovi;
+                order.opisKvara         = item.Object.opisKvara;
+                order.vucnaSluzba       = item.Object.vucnaSluzba;
+                order.uid               = item.Object.uid;
+                order.napomenaServisera = item.Object.napomenaServisera;
+
                 status.Text          = item.Object.status;
                 cijena.Text          = item.Object.cijena;
                 automobil.Text       = item.Object.carName;
