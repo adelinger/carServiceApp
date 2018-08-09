@@ -243,9 +243,6 @@
     <AndroidResource Include="Resources\layout\carDetails.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\mojAuto.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\chooseCar.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

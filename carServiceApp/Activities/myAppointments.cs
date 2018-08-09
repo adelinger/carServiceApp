@@ -76,11 +76,12 @@ namespace carServiceApp.Activities
 
             applyOrChange.Click += ApplyOrChange_Click;
             refreshButton.Click += RefreshButton_Click;
-            datumServisa.Touch += DatumServisa_Touch;
-            vrijemeServisa.Touch += VrijemeServisa_Touch;
+            datumServisa.Click += DatumServisa_Click;
+            vrijemeServisa.Click += VrijemeServisa_Click;
         }
 
-        private void VrijemeServisa_Touch(object sender, View.TouchEventArgs e)
+
+        private void VrijemeServisa_Click(object sender, EventArgs e)
         {
             timePicker timePicker = new timePicker();
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
@@ -88,24 +89,39 @@ namespace carServiceApp.Activities
             timePicker.OnTimePickedEvent += TimePicker_OnTimePickedEvent;
         }
 
-        private void DatumServisa_Touch(object sender, View.TouchEventArgs e)
+        private void DatumServisa_Click(object sender, EventArgs e)
         {
             calendarView calendar = new calendarView();
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             calendar.Show(transaction, "tag");
-
-            calendar.onDatePickedEvent += Calendar_onDatePickedEvent;
+            calendar.onDatePickedEvent += Calendar_onDatePickedEvent;          
         }
+
 
         private void TimePicker_OnTimePickedEvent(object sender, OnTimeSelectedArgs e)
         {
             vrijemeServisa.Text = e.hourSelected + ":" + " " + e.minutesSelected;
+            System.Threading.Thread.Sleep(2000);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.SetMessage("Odabrani datum i vrijeme su: " + datumServisa.Text + ", " + vrijemeServisa.Text);
+            dialogBuilder.SetPositiveButton("Potvrdi", (senderAlert, args) => {
+
+            });
+            dialogBuilder.SetNegativeButton("Odustani", (senderAlert, args) => {
+                dialogBuilder.Dispose();
+                getOnlineDadata();               
+            });
+
+            AlertDialog alertDialog = dialogBuilder.Create();
+            alertDialog.Show();
         }
 
 
         private void Calendar_onDatePickedEvent(object sender, onDatePickedEventArgs e)
         {
             datumServisa.Text = e.datePicked;
+            vrijemeServisa.PerformClick();
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -125,11 +141,11 @@ namespace carServiceApp.Activities
             dialogBuilder.SetNegativeButton("Odustani", (senderAlert, args) => {
                 dialogBuilder.Dispose();
             });
-            dialogBuilder.SetNeutralButton("Predloži promijenu", (senderAlert, args) => {
+            dialogBuilder.SetNeutralButton("Predloži izmjenu", (senderAlert, args) => {
                 datumServisa.Text = "";
                 datumServisa.Enabled = true;
-                datumServisa.Activated = true;
-                vrijemeServisa.Activated = true;
+                datumServisa.PerformClick();
+
                 vrijemeServisa.Text = "";
                 vrijemeServisa.Enabled = true;
                 dialogBuilder.Dispose();

@@ -81,7 +81,7 @@
         android:layout_gravity="center"
         android:background="#c0392b"
         android:textColor="#FFFFFF"
-        android:layout_weight="20" />
+        android:layout_weight="15" />
     <Button
         android:text="Servisi vozila (0)"
         android:layout_width="300dip"
@@ -92,5 +92,5 @@
         android:layout_gravity="center"
         android:background="#c0392b"
         android:textColor="#FFFFFF"
-        android:layout_weight="45" />
+        android:layout_weight="15" />
 </LinearLayout>
