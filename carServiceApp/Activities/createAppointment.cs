@@ -73,7 +73,7 @@ namespace carServiceApp.Activities
 
             LoadData();
 
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaUslugeList);
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, vrstaUslugeList);
             vrstaUsluge.Adapter = adapter;
 
             next.Click += Next_Click;
@@ -101,7 +101,7 @@ namespace carServiceApp.Activities
                     vrstaPoslaList.Add(item.name);
                 }
 
-                ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaPoslaList);
+                ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, vrstaPoslaList);
                 vrstaPosla.Adapter = adapter2;
             }
             if (selected == "Odaberite stavku")
@@ -109,7 +109,7 @@ namespace carServiceApp.Activities
                 vrstaPoslaList.RemoveRange(0, vrstaPoslaList.Count);
                 vrstaPoslaList.Add("Odaberite stavku");
 
-                ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, vrstaPoslaList);
+                ArrayAdapter<string> adapter2 = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, vrstaPoslaList);
                 vrstaPosla.Adapter = adapter2;
             }
             

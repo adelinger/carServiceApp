@@ -62,12 +62,11 @@ namespace carServiceApp.Activities
             refreshButton   = FindViewById<ImageButton>(Resource.Id.refreshMyAppointments);
 
             orderID = "\"" + Intent.GetStringExtra("orderID") + "\"";
-            napomenaServisa.Text = "Serviser još uvijek nije dodao nikakvu napomenu";
             progressBar.Activated = true;
             datumServisa.Enabled = false;
             vrijemeServisa.Enabled = false;
-    
-            if (status.Text == "Dogovoreno") status.SetTextColor(Android.Graphics.Color.DarkOliveGreen);
+            applyOrChange.Enabled = false;
+        
             if (IsOnline())
             {
                 getOnlineDadata();
@@ -104,7 +103,6 @@ namespace carServiceApp.Activities
         private void TimePicker_OnTimePickedEvent(object sender, OnTimeSelectedArgs e)
         {
             vrijemeServisa.Text = e.hourSelected + ":" + " " + e.minutesSelected;
-            System.Threading.Thread.Sleep(2000);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.SetMessage("Odabrani datum i vrijeme su: " + datumServisa.Text + ", " + vrijemeServisa.Text);
@@ -112,11 +110,21 @@ namespace carServiceApp.Activities
                 var id = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser.Uid;
                 var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
-                order.status         = "Prijedlog poslan";
+                order.status         = "Prijedlog korisnika";
                 order.datumServisa   = datumServisa.Text;
                 order.vrijemeServisa = vrijemeServisa.Text;
 
-                var data = firebase.Child("order").Child(id).Child(orderID).Child(objectID).PutAsync<orders>(order);
+                try
+                {
+                    var data = firebase.Child("order").Child(id).Child(orderID).Child(objectID).PutAsync<orders>(order);
+                    status.Text = "Prijedlog korisnika";
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+               
 
                 getOnlineDadata();
                 datumServisa.Enabled   = false;
@@ -149,21 +157,23 @@ namespace carServiceApp.Activities
 
         private void ApplyOrChange_Click(object sender, EventArgs e)
         {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.SetMessage("Želite li Potvrditi ili predložiti promijene");
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this).SetOnDismissListener(this);
+            dialogBuilder.SetMessage("Želite li Potvrditi ili predložiti promjene");
             dialogBuilder.SetPositiveButton("Potvrdi", (senderAlert, args) => {
 
                 var id = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser.Uid;
                 var firebase = new FirebaseClient(loginActivity.FirebaseURL);
 
+                status.Text  = "Dogovoreno";
                 order.status = "Dogovoreno";
                 order.datumServisa = datumServisa.Text;
                 order.vrijemeServisa = vrijemeServisa.Text;
 
                 status.SetTextColor(Android.Graphics.Color.DarkOliveGreen);
-
+                applyOrChange.Enabled = false;
+              
                 var data = firebase.Child("order").Child(id).Child(orderID).Child(objectID).PutAsync<orders>(order);
-                getOnlineDadata();
+                getOnlineDadata();              
                 dialogBuilder.Dispose();
             });
             dialogBuilder.SetNegativeButton("Odustani", (senderAlert, args) => {
@@ -226,6 +236,13 @@ namespace carServiceApp.Activities
                 progressBar.Visibility = ViewStates.Invisible;
                 refreshButton.Enabled = true;
                 refreshButton.Visibility = ViewStates.Visible;
+
+                if (status.Text != "Dogovoreno") { applyOrChange.Enabled = true; applyOrChange.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43)); }
+                if (status.Text == "Dogovoreno"){ status.SetTextColor(Android.Graphics.Color.DarkOliveGreen); applyOrChange.Enabled = false; applyOrChange.SetBackgroundColor(Android.Graphics.Color.LightSlateGray);}          
+                if (status.Text == "Prijedlog korisnika")  { applyOrChange.SetBackgroundColor(Android.Graphics.Color.LightSlateGray); applyOrChange.Enabled = false; }
+                if (status.Text == "Prijedlog servisa") { applyOrChange.Enabled = true; applyOrChange.SetBackgroundColor(Android.Graphics.Color.Rgb(192, 57, 43)); }
+                if (status.Text == "Završeno") { applyOrChange.Enabled = false; applyOrChange.SetBackgroundColor(Android.Graphics.Color.LightSlateGray);}
+                if (status.Text == "Kreirano") { applyOrChange.Enabled = false; applyOrChange.SetBackgroundColor(Android.Graphics.Color.LightSlateGray); }
             }
         }
 
@@ -237,8 +254,7 @@ namespace carServiceApp.Activities
 
         public void OnDismiss(IDialogInterface dialog)
         {
-            Intent intent = new Intent(this, typeof(MainActivity));
-            StartActivity(intent);
+            refreshButton.PerformClick();
         }
 
       

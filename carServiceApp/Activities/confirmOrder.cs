@@ -145,7 +145,7 @@ namespace carServiceApp.Activities
             orders.vrijemeServisa    = "Nepoznato";
             orders.cijena            = "Nepoznato";
             orders.napomenaServisera = "Serviser još uvijek nije dodao nikakvu napomenu";
-            orders.status            = "Poslano na obradu";
+            orders.status            = "Kreirano";
 
             int numOfOrders = 1;
             orderID = JsonConvert.SerializeObject(numOfOrders.ToString());

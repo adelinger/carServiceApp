@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/dogovoriTermin"
         android:layout_gravity="center"
-        android:layout_marginTop="70dip"
+        android:layout_marginTop="100dip"
         android:background="#c0392b"
         android:textColor="#FFFFFF" />
     <Button
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/myAppointments"
         android:layout_gravity="center"
-        android:layout_marginTop="20dip"
+        android:layout_marginTop="40dip"
         android:background="#c0392b"
         android:textColor="#FFFFFF" />
     <Button
@@ -41,16 +41,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/myCarButton"
         android:layout_gravity="center"
-        android:layout_marginTop="20dip"
-        android:background="#c0392b"
-        android:textColor="#FFFFFF" />
-    <Button
-        android:text="Obavijesti"
-        android:layout_width="250dip"
-        android:layout_height="wrap_content"
-        android:id="@+id/notificationsButton"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dip"
+        android:layout_marginTop="40dip"
         android:background="#c0392b"
         android:textColor="#FFFFFF" />
 </LinearLayout>

@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/CANextButton"
         android:layout_gravity="center"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="5dip"
         android:background="#c0392b"
         android:textColor="#FFFFFF" />
 </LinearLayout>

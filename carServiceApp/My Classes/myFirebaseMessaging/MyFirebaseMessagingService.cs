@@ -37,8 +37,10 @@ namespace carServiceApp.My_Classes.myFirebaseMessaging
             Context myContext = Android.App.Application.Context;
             appPreferences app = new appPreferences(myContext);
 
-            string newMessage = "newMessage";
-            app.saveAccesKey(newMessage);
+            string newMessage = message.GetNotification().Body;
+            string data = message.GetNotification().Title;
+            
+            app.saveAccesKey(data);
         }
 
         private void SendNotification(string body)

@@ -32,17 +32,17 @@
         android:layout_marginTop="15dip"
         android:layout_weight="5" />
     <EditText
-        android:id="@+id/CDTipVozila"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:hint="Tip vozila"
-        android:layout_marginTop="10dip"
-        android:layout_weight="5" />
-    <EditText
         android:id="@+id/CDmodelVozila"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="Model vozila"
+        android:layout_marginTop="10dip"
+        android:layout_weight="5" />
+    <EditText
+        android:id="@+id/CDTipVozila"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="Tip vozila"
         android:layout_marginTop="10dip"
         android:layout_weight="5" />
     <EditText

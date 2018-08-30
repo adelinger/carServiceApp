@@ -16,7 +16,9 @@ using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Query;
+using Firebase.Messaging;
 using Newtonsoft.Json;
+using Firebase.Iid;
 
 namespace carServiceApp.Activities
 {
@@ -43,6 +45,7 @@ namespace carServiceApp.Activities
 
         public static FirebaseApp app;
         private string id;
+        private string userToken;
         private string key;
         public const string FirebaseURL = "https://carserviceapp-5132f.firebaseio.com/";
         FirebaseAuth auth;
@@ -87,12 +90,11 @@ namespace carServiceApp.Activities
                     this.FinishAffinity();
                 }
             }
-            
+               
             mButtuonSignUp.Click += MButtuonSignUp_Click;
-            buttonSignIn.Click += ButtonSignIn_Click;
-
+            buttonSignIn.Click   += ButtonSignIn_Click;         
         }
-
+     
         public bool IsOnline()
         {
             var cm = (ConnectivityManager)GetSystemService(ConnectivityService);
@@ -106,6 +108,7 @@ namespace carServiceApp.Activities
                 app = FirebaseApp.InitializeApp(this, options);
             auth = FirebaseAuth.GetInstance(app);
             FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);
+          
         }
 
         private void ButtonSignIn_Click(object sender, EventArgs e)
@@ -156,7 +159,7 @@ namespace carServiceApp.Activities
                 Toast.MakeText(this, "Uspješno ste se registrirali. Možete se prijaviti.", ToastLength.Long).Show();
 
                 FirebaseUser user = FirebaseAuth.GetInstance(app).CurrentUser;
-                id = user.Uid;
+                id = user.Uid; 
                  
                 CreateUser();
 
@@ -313,7 +316,6 @@ namespace carServiceApp.Activities
             catch (Exception)
             {
 
-              
             }
            
         }
@@ -329,5 +331,7 @@ namespace carServiceApp.Activities
         {
             this.FinishAffinity();
         }
+
+     
     }
 }

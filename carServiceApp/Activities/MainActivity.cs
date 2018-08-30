@@ -33,7 +33,6 @@ namespace carServiceApp
         private Button dogovoriSastanak;
         private Button mojAuto;
         private Button mojiSastanci;
-        private Button notifications;
         public string userName;
 
         private static FirebaseApp app;
@@ -42,7 +41,6 @@ namespace carServiceApp
         private string userLastName;
         private string newMessage;
 
-        private bool messageReceived = false;
         MyMessageReceiver myReceiver;
 
         connection con = new connection();
@@ -61,29 +59,18 @@ namespace carServiceApp
             dogovoriSastanak = FindViewById<Button>(Resource.Id.dogovoriTermin);
             mojAuto          = FindViewById<Button>(Resource.Id.myCarButton);
             mojiSastanci     = FindViewById<Button>(Resource.Id.myAppointments);
-            notifications    = FindViewById<Button>(Resource.Id.notificationsButton);
 
-            FirebaseDatabase.GetInstance(loginActivity.FirebaseURL).SetPersistenceEnabled(true);  
-
-            string authorizedEntity = "carserviceapp-5132f";
+            string authorizedEntity = "909560725502";
             string scope = "GCM";
-
- 
-             #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            Task.Run(() => {
-              var instanceId = FirebaseInstanceId.Instance;
-              instanceId.DeleteInstanceId();
-              string token = instanceId.GetToken(authorizedEntity, scope);
-              
-              Android.Util.Log.Debug("TAG", "{0} {1}", instanceId.Token, token, Firebase.Messaging.FirebaseMessaging.InstanceIdScope);
-
+            string token = "";
+            
+            await Task.Run(() => {
+              var instanceId = FirebaseInstanceId.Instance;            
+               token = instanceId.GetToken(authorizedEntity, scope);            
+               Android.Util.Log.Debug("TAG", "{0} {1}", instanceId.Token, token, Firebase.Messaging.FirebaseMessaging.InstanceIdScope);
+               makeDatabaseRecord(token);
             });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
-           
-
-            if (newMessage == "newMessage") Toast.MakeText(this, "bla bla bla bla bla", ToastLength.Long).Show();
-
+                             
             if (!IsOnline())
             {
                 checkIfOnline(this, this, this);
@@ -104,20 +91,19 @@ namespace carServiceApp
                 this.Title = userName;
             }
 
-
             dogovoriSastanak.Click += DogovoriSastanak_Click;
             mojAuto.Click += MojAuto_Click;
             mojiSastanci.Click += MojiSastanci_Click;
-            notifications.Click += Notifications_Click;
  
         }
 
-        private void Notifications_Click(object sender, EventArgs e)
+        private void makeDatabaseRecord(string token)
         {
-
+            FirebaseUser users = FirebaseAuth.GetInstance(loginActivity.app).CurrentUser;
+            id = users.Uid;
+            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            var item = firebase.Child("tokens").Child(id).PutAsync<string>(token);
         }
-
-      
 
         private void MojiSastanci_Click(object sender, EventArgs e)
         {
@@ -238,6 +224,15 @@ namespace carServiceApp
             appPreferences app = new appPreferences(myContext);
 
             newMessage = app.getAccesKey();
+
+           if (!string.IsNullOrEmpty(newMessage))
+            {
+                //Intent intent = new Intent(this, typeof(myAppointments));
+                //intent.PutExtra("orderID", newMessage);
+                //StartActivity(intent);
+                //app.saveAccesKey("");
+            }
+            
         }
 
         protected override void OnPause()
@@ -245,6 +240,7 @@ namespace carServiceApp
             base.OnPause();
             LocalBroadcastManager.GetInstance(this).UnregisterReceiver(myReceiver);
         }
+
 
         public void OnDismiss(IDialogInterface dialog)
         {
