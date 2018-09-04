@@ -124,8 +124,7 @@ namespace carServiceApp.Activities
 
                     throw;
                 }
-               
-
+                refreshButton.PerformClick();
                 getOnlineDadata();
                 datumServisa.Enabled   = false;
                 vrijemeServisa.Enabled = false;
@@ -220,6 +219,7 @@ namespace carServiceApp.Activities
                 order.vucnaSluzba       = item.Object.vucnaSluzba;
                 order.uid               = item.Object.uid;
                 order.napomenaServisera = item.Object.napomenaServisera;
+                order.pozeljniDatum     = item.Object.pozeljniDatum;
 
                 status.Text          = item.Object.status;
                 cijena.Text          = item.Object.cijena;
