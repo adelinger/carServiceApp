@@ -30,9 +30,11 @@ namespace carServiceApp.My_Classes
 
         private string id;
         private string key;
+        connection con = new connection();
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            
             view = inflater.Inflate(Resource.Layout.personalInfo, container, false);
 
             userInput_ime     = view.FindViewById<EditText>(Resource.Id.PIinputIme);
@@ -63,6 +65,10 @@ namespace carServiceApp.My_Classes
             user.phone    = userInput_broj.Text;
             user.adress   = userInpu_ulicaibr.Text;
             user.city     = userInput_mjesto.Text;
+            user.uid      = id;
+
+            con.db.Execute("UPDATE User SET name = '" + user.name + "', lastName = '" + user.lastName + "', phone = '" + user.phone + "', " +
+               "email = '" + user.email + "', city = '" + user.city + "', adress = '" + user.adress + "' WHERE uid = '" + id + "' ");
 
             var getKey = await firebase.Child("users").Child(id).OnceAsync<Account>();
             foreach (var item in getKey)
@@ -89,20 +95,26 @@ namespace carServiceApp.My_Classes
             base.OnActivityCreated(savedInstanceState);
         }
 
-        public async System.Threading.Tasks.Task getUserData ()
+        public void getUserData ()
         {
-            var firebase = new FirebaseClient(loginActivity.FirebaseURL);
-            var data = await firebase.Child("users").Child(id).OnceAsync<User>();
-
+            List<User> data = con.db.Query<User>("SELECT * FROM User WHERE uid = '" + id + "'");
             foreach (var item in data)
             {
-                userInput_ime.Text = item.Object.name;
-                userInput_prezime.Text = item.Object.lastName;
-                userInput_broj.Text = item.Object.phone;
-                userInput_email.Text = item.Object.email;
-                userInput_mjesto.Text = item.Object.city;
-                userInpu_ulicaibr.Text = item.Object.adress;
+                    userInput_ime.Text     = item.name;
+                    userInput_prezime.Text = item.lastName;
+                    userInput_broj.Text    = item.phone;
+                    userInput_email.Text   = item.email;
+                    userInput_mjesto.Text  = item.city;
+                    userInpu_ulicaibr.Text = item.adress;
             }
+
+            //    var firebase = new FirebaseClient(loginActivity.FirebaseURL);
+            //var data = await firebase.Child("users").Child(id).OnceAsync<User>();
+
+            //foreach (var item in data)
+            //{
+            //   
+            //}
         }
 
     }

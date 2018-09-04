@@ -166,6 +166,8 @@ namespace carServiceApp.Activities
 
             var items = firebase.Child("users").Child(id).Child(key).PutAsync<Account>(user);
 
+            con.db.Execute("UPDATE User SET name = '" + user.name + "', lastName = '" + user.lastName + "', phone = '" + user.phone + "', " +
+               "email = '" + user.email + "', city = '" + user.city + "', adress = '" + user.adress + "' WHERE uid = '" + id + "' ");
 
             if (updateRequested)
             {

@@ -85,6 +85,7 @@ namespace carServiceApp.Activities
                 }
                 if (login_rememberMe && user != null && IsOnline())
                 {
+                    updateServices();
                     Intent intent = new Intent(this, typeof(MainActivity));
                     StartActivity(intent);
                     this.FinishAffinity();
