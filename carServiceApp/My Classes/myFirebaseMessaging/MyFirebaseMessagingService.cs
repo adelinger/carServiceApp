@@ -26,21 +26,7 @@ namespace carServiceApp.My_Classes.myFirebaseMessaging
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
-            SendNotification(message.GetNotification().Body);
-
-            LocalBroadcastManager broadcaster = LocalBroadcastManager.GetInstance(this);
-
-            Intent intent = new Intent("message");
-            intent.PutExtra("messageReceived", true);
-            broadcaster.SendBroadcast(intent);
-
-            Context myContext = Android.App.Application.Context;
-            appPreferences app = new appPreferences(myContext);
-
-            string newMessage = message.GetNotification().Body;
-            string data = message.GetNotification().Title;
-            
-            app.saveAccesKey(data);
+            SendNotification(message.GetNotification().Body);      
         }
 
         private void SendNotification(string body)
