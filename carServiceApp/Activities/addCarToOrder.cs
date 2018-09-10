@@ -134,6 +134,7 @@ namespace carServiceApp.Activities
         private void AddCar_onClosedEvent(object sender, onDialogClosedArgs e)
         {
             if (e.closed) loadSpinner();
+            spinner.SetSelection(1);
         }
 
         private void loadSpinner()
@@ -149,7 +150,7 @@ namespace carServiceApp.Activities
             }
 
             ArrayAdapter adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleSpinnerDropDownItem, carList);
-            spinner.Adapter = adapter;
+            spinner.Adapter = adapter; 
         }
     }
 }

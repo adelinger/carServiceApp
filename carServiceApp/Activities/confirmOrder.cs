@@ -148,20 +148,21 @@ namespace carServiceApp.Activities
             orders.status            = "Kreirano";
 
             int numOfOrders = 1;
+            int orderIDInt = 0;
             orderID = JsonConvert.SerializeObject(numOfOrders.ToString());
             
             List<orders> allOrders = new List<orders>();                
             var getONumberOfOrders = await firebase.Child("order").Child(id).OnceAsync<orders>();
             foreach (var item in getONumberOfOrders)
             {
-                allOrders.Add(new orders { carName = item.Object.carName });
-                numOfOrders = allOrders.Count +1;               
-                orderID = numOfOrders.ToString();
-                orderID = JsonConvert.SerializeObject(orderID);
-                
+              string key = item.Key;
+              orderID = key.Substring(1, 1);
+              orderIDInt = Convert.ToInt32(orderID);               
             }
-
-            orders.id = numOfOrders.ToString();
+            orderIDInt++;
+            orderID = orderIDInt.ToString();
+            orderID = JsonConvert.SerializeObject(orderID);
+            orders.id = orderIDInt.ToString();
 
             try
             {
