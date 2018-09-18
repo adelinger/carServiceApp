@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="14"
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
@@ -13,11 +14,13 @@
         android:id="@+id/textView1"
         android:gravity="center"
         android:enabled="false"
+        android:layout_weight="1"
         android:textColor="#000000" />
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/dropdownType"
+        android:layout_weight="1.5"
         android:id="@+id/vrstaUsluge" />
     <TextView
         android:text="Vrsta posla"
@@ -27,11 +30,13 @@
         android:id="@+id/textView2"
         android:gravity="center"
         android:enabled="false"
+        android:layout_weight="1"
         android:textColor="#000000" />
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/dropdownType"
+        android:layout_weight="1.5"
         android:id="@+id/vrstaPosla" />
     <TextView
         android:text="Osobni podaci"
@@ -40,39 +45,45 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
         android:gravity="center"
+        android:layout_weight="1"
         android:enabled="false"
-        android:layout_marginTop="50dip"
         android:textColor="#000000" />
     <EditText
         android:id="@+id/CAinputIme"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:hint="Ime"
         android:layout_marginTop="10dip" />
     <EditText
         android:id="@+id/CAinputPrezime"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:hint="Prezime" />
     <EditText
         android:id="@+id/CAinputBrojTelefona"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:hint="Broj telefona" />
     <EditText
         android:id="@+id/CAinputEmail"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:hint="Email" />
     <EditText
         android:id="@+id/CAinputUlicaIBroj"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:hint="Ulica i broj" />
     <EditText
         android:id="@+id/CAinputMjesto"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:hint="Mjesto" />
     <Button
         android:text="Dalje"
@@ -80,7 +91,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/CANextButton"
         android:layout_gravity="center"
-        android:layout_marginTop="5dip"
         android:background="#c0392b"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:layout_weight="2"
+        android:layout_marginBottom="10dip" />
 </LinearLayout>

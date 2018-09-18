@@ -92,6 +92,13 @@ namespace carServiceApp.My_Classes.Database
 
         private void SaveCar_Click(object sender, EventArgs e)
         {
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(carName.Text, "^[a-zA-Z]+$"))
+            {
+                Toast.MakeText(view.Context, "Naziv vozila može sadržavati samo abecedne znakove", ToastLength.Long).Show();
+                return;
+            }
+
             if (checkIfAllInserted() == false) { return; }
             addCarInfo();
             if (allGood)
@@ -102,6 +109,7 @@ namespace carServiceApp.My_Classes.Database
 
         private bool checkIfAllInserted()
         {
+
             if (markaVozila.Text == "" || tipVozila.Text == "" || godinaProizvodnje.Text == "" || modelVozila.Text == ""
                                        || tipMotora.Text == "" || snagaMotora.Text == "" || zapremninaMotora.Text == "" || carName.Text == "")
             {
@@ -116,7 +124,7 @@ namespace carServiceApp.My_Classes.Database
 
         private void addCarInfo()
         {
-
+       
             carDetailsSQL CarDetails = new carDetailsSQL();
             CarDetails CarDetailsFB = new CarDetails();
 
